@@ -2,13 +2,13 @@ import  React,{Component} from 'react'
 import { createForm } from 'rc-form';
 
 class Form extends React.Component {
-  constructor(){
-      super() ;
-      this.state = {
-          normal:"",
-          required:""
-      } ;
-  }  
+
+  componentWillMount() {
+    this.requiredDecorator = this.props.form.getFieldDecorator('required', {
+        rules: [{required: true}],
+        initialValue:''
+    });
+  }
   submit = () => {
     this.props.form.validateFields((error, value) => {
       console.log(error, value);
@@ -17,13 +17,11 @@ class Form extends React.Component {
 
   render() {
     let errors;
-    const { getFieldProps, getFieldError } = this.props.form;
+    const { getFieldError } = this.props.form;
     return (<div>
-      <input {...getFieldProps('normal')}/>
-      <input {...getFieldProps('required', {
-        onChange(){}, // have to write original onChange here if you need
-        rules: [{required: true}],
-      })}/>
+      {this.requiredDecorator(
+      <input onChange={e=>console.info(e.target.value)}
+      />)}
       {(errors = getFieldError('required')) ? errors.join(',') : null}
       <button onClick={this.submit}>submit</button>
     </div>)
