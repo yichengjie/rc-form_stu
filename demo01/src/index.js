@@ -6,8 +6,9 @@ import ReactDOM from 'react-dom';
 //import HelloComp from './components/HelloComp.jsx' ;
 import HelloComp from './components/HelloComp2.jsx' ;
 import AsyncInit from './components/async-init.js' ;
+import DepartmentList from './components/DepartmentList.jsx' ;
 
 ReactDOM.render(
-  <AsyncInit />,
+  <DepartmentList />,
   document.getElementById('app')
 );
