@@ -3,18 +3,11 @@ import React, { Component, PropTypes } from 'react';
 class BaseModule extends Component{
     constructor(props){
         super(props) ;
+        console.info('BaseModule constructor ...') ;
         let baseState = {
             msg:'test msg',
             loading:false,
             success:true,
-            formData:{
-                name:'',
-                addr:'',
-            },
-            formError:{
-                name:'',
-                addr:'',
-            }
         } ;
         if(this.getInitialState && typeof this.getInitialState === 'function'){
             this.state = Object.assign(baseState,this.getInitialState()) ;
@@ -23,28 +16,13 @@ class BaseModule extends Component{
         }
     }
 
-    setFormData = (obj) => {
-        this.setState(function(preState){
-            let newFormData = Object.assign({},preState.formData,obj) ;
-            let newState = Object.assign({},preState,{formData:newFormData}) ;
-            return newState ;
-        }) ;
-    }
+    // setPlainState = (obj) =>{
+    //      this.setState(function(preState){
+    //         let newState = Object.assign({},preState,obj) ;
+    //          return newState ;
+    //      }) ;
+    // }
 
-    setFormError = (obj) => {
-        this.setState(function(preState){
-            let newFormError = Object.assign({},preState.formError,obj) ;
-            let newState = Object.assign({},preState,{formError:newFormError}) ;
-            return newState ;
-        }) ;
-    }
-
-    setFieldValue = (obj) =>{
-         this.setState(function(preState){
-            let newState = Object.assign({},preState,obj) ;
-             return newState ;
-         }) ;
-    }
     renderLoading(){
         return <div className="no-data">
             <img src="http://gtms04.alicdn.com/tps/i4/T1hPyYFD0kXXa679Pe-40-40.gif" width="20" />
