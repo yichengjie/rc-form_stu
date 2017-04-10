@@ -3,12 +3,12 @@
 import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
 //引入组件
-//import HelloComp from './components/HelloComp.jsx' ;
-import HelloComp from './components/HelloComp2.jsx' ;
-import AsyncInit from './components/async-init.js' ;
-import DepartmentList from './components/DepartmentList.jsx' ;
+import Helloworld from './components/Helloworld.jsx' ;
+//import HelloComp from './components/HelloComp2.jsx' ;
+//import AsyncInit from './components/async-init.js' ;
+//import DepartmentList from './components/DepartmentList.jsx' ;
 
 ReactDOM.render(
-  <DepartmentList />,
+  <Helloworld />,
   document.getElementById('app')
 );

@@ -19,26 +19,23 @@ class BaseModule extends Component{
         return (<div onClick={this.componentDidMount.bind(this)}
                         className="no-data">{this.state.msg || "请求失败"}</div>)
     }
-
     renderError(){
         return <div className="no-data" onClick={this.componentDidMount.bind(this)}>数据格式不正确</div>
     }
-
     render() {
-        console.info('1111111111111') ;
         if (this.state.loading) {
-            return this.renderLoading()
+            return this.renderLoading() ;
         }
         if (this.state && this.state.success == false) {
-            return this.renderIOError()
+            return this.renderIOError() ;
         } else {
             try {
-                return this.toRender();
+                return this.toRender() ;
             } catch (e) {
                 if (navigator.userAgent.indexOf("MSIE 8.0") == -1){
-                    console.log(e, this);
+                    console.log(e, this) ;
                 }
-                return this.renderError()
+                return this.renderError() ;
             }
         }
     }
