@@ -1,8 +1,9 @@
 import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
-import BaseForm from './BaseForm.jsx';
+import BaseModule from '../components/BaseModule.jsx';
+import CreateBaseForm from '../components/CreateBaseForm.jsx'; 
 
-export default class DepartmentList extends BaseForm {
+class DepartmentList extends BaseModule {
     constructor( props ){
         super( props ) ;
         console.info('DepartmentList constructor ... ') ;
@@ -54,7 +55,6 @@ export default class DepartmentList extends BaseForm {
         let corpId = this.corpId;
         let formData = this.getFormData () ;
         let formError = this.getFormError () ;
-        
         //console.info(corpId.test) ;
         return (<div onClick={this.handleClick}>
                 <p> hello world </p>
@@ -82,3 +82,6 @@ export default class DepartmentList extends BaseForm {
             </div>)
     }
 }
+
+export default CreateBaseForm(DepartmentList) ;
+
