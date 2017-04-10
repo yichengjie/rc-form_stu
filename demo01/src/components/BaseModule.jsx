@@ -3,11 +3,47 @@ import React, { Component, PropTypes } from 'react';
 class BaseModule extends Component{
     constructor(props){
         super(props) ;
-        this.state = {
-            msg:'',
+        let baseState = {
+            msg:'test msg',
             loading:false,
-            success:true
+            success:true,
+            formData:{
+                name:'',
+                addr:'',
+            },
+            formError:{
+                name:'',
+                addr:'',
+            }
         } ;
+        if(this.getInitialState && typeof this.getInitialState === 'function'){
+            this.state = Object.assign(baseState,this.getInitialState()) ;
+        }else{
+            this.state = baseState ;
+        }
+    }
+
+    setFormData = (obj) => {
+        this.setState(function(preState){
+            let newFormData = Object.assign({},preState.formData,obj) ;
+            let newState = Object.assign({},preState,{formData:newFormData}) ;
+            return newState ;
+        }) ;
+    }
+
+    setFormError = (obj) => {
+        this.setState(function(preState){
+            let newFormError = Object.assign({},preState.formError,obj) ;
+            let newState = Object.assign({},preState,{formError:newFormError}) ;
+            return newState ;
+        }) ;
+    }
+
+    setFieldValue = (obj) =>{
+         this.setState(function(preState){
+            let newState = Object.assign({},preState,obj) ;
+             return newState ;
+         }) ;
     }
     renderLoading(){
         return <div className="no-data">
@@ -23,6 +59,7 @@ class BaseModule extends Component{
         return <div className="no-data" onClick={this.componentDidMount.bind(this)}>数据格式不正确</div>
     }
     render() {
+        console.info('state : ' ,this.state) ;
         if (this.state.loading) {
             return this.renderLoading() ;
         }
