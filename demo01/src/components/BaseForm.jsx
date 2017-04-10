@@ -6,11 +6,11 @@ class BaseForm extends BaseModule{
         super(props) ;
         console.info('BaseForm constructor ...') ;
         let baseState = {
-            _inner_formData:{
+            _inner_weird_formData:{
                 name:'',
                 addr:'',
             },
-            _inner_formError:{
+            _inner_weird_formError:{
                 name:'',
                 addr:'',
             }
@@ -21,18 +21,18 @@ class BaseForm extends BaseModule{
 
 
     setFormData (obj) {
-        this._inner_setComplexState('_inner_formData',obj) ;
+        this._inner_setComplexState('_inner_weird_formData',obj) ;
     }
 
     setFormError (obj) {
-        this._inner_setComplexState('_inner_formError',obj) ;
+        this._inner_setComplexState('_inner_weird_formError',obj) ;
     }
 
     getFormData (){
-        return this.state._inner_formData ;
+        return this.state._inner_weird_formData ;
     } 
     getFormError (){
-        return this.state._inner_formError ;
+        return this.state._inner_weird_formError ;
     }
 
     _inner_setComplexState (fieldName,obj)  {
