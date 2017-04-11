@@ -9,11 +9,9 @@ class BaseModule extends Component{
             loading:false,
             success:true,
         } ;
-        if(this.getInitialState && typeof this.getInitialState === 'function'){
-            this.state = Object.assign(baseState,this.getInitialState()) ;
-        }else{
-            this.state = baseState ;
-        }
+       
+        this.state = baseState ;
+        
     }
 
     // setPlainState = (obj) =>{
@@ -37,7 +35,7 @@ class BaseModule extends Component{
         return <div className="no-data" onClick={this.componentDidMount.bind(this)}>数据格式不正确</div>
     }
     render() {
-        console.info('state : ' ,this.state) ;
+        //console.info('state : ' ,this.state) ;
         if (this.state.loading) {
             return this.renderLoading() ;
         }

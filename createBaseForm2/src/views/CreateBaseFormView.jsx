@@ -1,87 +1,71 @@
 import React,{Component} from 'react';
-import ReactDOM from 'react-dom';
 import BaseModule from '../components/BaseModule.jsx';
 import CreateBaseForm from '../components/CreateBaseForm.jsx'; 
+import FormGroup from '../components/FormGroup.jsx' ;
 
-class DepartmentList extends BaseModule {
+class UserInfoEditForm extends BaseModule {
     constructor( props ){
         super( props ) ;
-        console.info('DepartmentList constructor ... ') ;
-        this.handleClick = this.handleClick.bind(this) ;
-        //这个地方需要注意，不能直接使用`this.state = {...}`,否则BaseModel中的state将会被完全替换掉。
     }
     //初始化数据
-    getInitialState(){
+    getInitialFormData(){
         return {
-            count:2,
-            plain1:'1',
-            plain2:'2'
+            username:'yicj',
+            addr:'',
+            age1:'',
+            age2:''
         } ;
     }
     componentDidMount(){
         console.info('获取数据.....') ;
     }
-    handleClick (){
-        console.info(`handleClick method is exec ... `) ;
-        let nameFormObj = {name:'yicj'} ;
-        let nameErrorObj = {name:'name 错误'} ;
-        let addrFormObj = {addr:'henan'} ;
-        let addrErrorObj = {addr:'addr 错误'} ;
-        let plain1 = {plain1:'plain1 test'} ;
-        let plain2 = {plain2:'plain2 test'} ;
-        //设置formData的值
-        this.setFormData(nameFormObj) ;
-        this.setFormError(nameErrorObj) ;
-        //设置formError的值
-        this.setFormData(addrFormObj) ;
-        this.setFormError(addrErrorObj) ;
-        //
-        //同步setState方式
-        this.setState(function(prevState){
-            let newCountObj = {count:prevState.count+1}
-            return Object.assign({},prevState,newCountObj) ;
-        }) ;
-        this.setState(function(prevState){
-            let newCountObj = {count:prevState.count+1}
-            return Object.assign({},prevState,newCountObj) ;
-        }) ;
-        //设置简单扁平化对象的值
-        this.setState(plain1) ;
-        this.setState(plain2) ;
-       
+    handleChangeFactory (fieldName){
+        return (event)=>{
+            var value = event.target.value ;
+            this.setFormData({[fieldName]:value}) ;
+        }
+    }
+    handleSubmit = (event) => {
+        event.preventDefault();
+        let formData = this.getFormData () ;
+        let infoStr = JSON.stringify(formData,null,2) ;
+        console.info('formData : ' ,infoStr) ;
     }
     toRender(){
-        //请求完成渲染
-        let corpId = this.corpId;
-        let formData = this.getFormData () ;
-        let formError = this.getFormError () ;
-        //console.info(corpId.test) ;
-        return (<div onClick={this.handleClick}>
-                <p> hello world </p>
-                <p>
-                    formData name : {formData.name}
-                </p> 
-                <p>
-                    formError name : {formError.name}
-                </p>
-                <hr/>
-                <br/>
-                <p>
-                    formData addr : {formData.addr} 
-                </p> 
-                <p>
-                    formError addr : {formError.addr} 
-                </p>
-                <br/>
-                <hr/>
-                <p>plainState plain1 : {this.state.plain1}</p>
-                <p>plainState plain2 : {this.state.plain2}</p>
-                <br/>
-                <hr/>
-                <p>count : {this.state.count}</p> 
-            </div>)
+        return (
+            <div>
+                <form className="form-horizontal">
+
+                    <FormGroup name ="username" label="用户名" form = {this.form}>
+                        <input type="text" className="form-control"  {...this.getFieldProp('username')} />
+                    </FormGroup>
+
+                    <FormGroup name ="addr" label="地址" form = {this.form}>
+                        <input type="text" className="form-control" {...this.getFieldProp('addr')} />
+                    </FormGroup>
+
+                    <FormGroup name ="age" label="年龄范围" form = {this.form}>
+                        <div className="row">
+                            <div className="col-sm-6">
+                                 <input type="text" className="form-control" {...this.getFieldProp('age1')} />
+                            </div>
+                            <div className="col-sm-6">
+                                 <input type="text" className="form-control" {...this.getFieldProp('age2')} />
+                            </div>
+                        </div>
+                    </FormGroup>
+
+                    <div className="form-group">
+                        <div className="col-sm-offset-2 col-sm-10">
+                            <button type="button" onClick={this.handleSubmit} className="btn btn-default">Sign in</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        );
     }
 }
 
-export default CreateBaseForm(DepartmentList) ;
+export default CreateBaseForm(UserInfoEditForm) ;
 

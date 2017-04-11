@@ -6,17 +6,23 @@ import React, { Component, PropTypes } from 'react';
             super(props) ;
             console.info('BaseForm constructor ...') ;
             let baseState = {
-                _inner_weird_formData:{
-                    name:'',
-                    addr:'',
-                },
-                _inner_weird_formError:{
-                    name:'',
-                    addr:'',
-                }
+                _inner_weird_formData:{},
+                _inner_weird_formError:{}
             } ;
+            if(this.getInitialFormData && typeof this.getInitialFormData === 'function'){
+                let initialFormState = this.getInitialFormData()  ;
+                baseState._inner_weird_formData = initialFormState ;
+            }
             //将BaseForm的基本数据合并到state上
             Object.assign(this.state,baseState) ;
+            //
+            this.form = {
+                setFormData : this.setFormData.bind(this),
+                setFormError : this.setFormError.bind(this),
+                getFormData : this.getFormData.bind(this) ,
+                getFormError : this.getFormError.bind(this),
+                getFieldProp : this.getFieldProp.bind(this)
+            } ;
         }
         setFormData (obj) {
             this._inner_setComplexState('_inner_weird_formData',obj) ;
@@ -36,6 +42,16 @@ import React, { Component, PropTypes } from 'react';
                 let newState = Object.assign({},preState,{[fieldName]:newObjValue}) ;
                 return newState ;
             }) ;
+        }
+        getFieldProp(fieldName){
+            let formData = this.getFormData() ;
+            return {
+                value:formData[fieldName] || '' ,
+                onChange:(event)=>{
+                    var value = event.target.value ;
+                    this.setFormData({[fieldName]:value}) ;
+                } 
+            } ;
         }
     }
  }
