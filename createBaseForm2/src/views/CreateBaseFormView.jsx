@@ -2,10 +2,15 @@ import React,{Component} from 'react';
 import BaseModule from '../components/BaseModule.jsx';
 import CreateBaseForm from '../components/CreateBaseForm.jsx'; 
 import FormGroup from '../components/FormGroup.jsx' ;
+import {getUserEditFormSchemaApi} from '../api/Api.js' ;
+
+
 
 class UserInfoEditForm extends BaseModule {
     constructor( props ){
         super( props ) ;
+
+       
     }
     //初始化数据
     getInitialFormData(){
@@ -16,6 +21,7 @@ class UserInfoEditForm extends BaseModule {
             age2:''
         } ;
     }
+
     handleSubmit = (event) => {
         event.preventDefault();
         let formData = this.getFormData () ;
@@ -56,10 +62,11 @@ class UserInfoEditForm extends BaseModule {
                     </div>
 
                 </form>
+              
             </div>
         );
     }
 }
 
-export default CreateBaseForm(UserInfoEditForm) ;
+export default CreateBaseForm(UserInfoEditForm,getUserEditFormSchemaApi) ;
 
