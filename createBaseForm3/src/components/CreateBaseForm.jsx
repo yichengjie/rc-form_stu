@@ -21,10 +21,11 @@ import FormItem from './FormItem.jsx' ;
             //表格控件的schema
             this._inner_weird_formSchema = [] ;
             this.form = {
-                setFormData : this.setFormData.bind(this),
-                setFormError : this.setFormError.bind(this),
+                setFieldValue : this.setFieldValue.bind(this),
+                getFieldValue:this.getFieldValue.bind(this),
+                setFieldError : this.setFieldError.bind(this),
+                getFieldError : this.getFieldError.bind(this),
                 getFormData : this.getFormData.bind(this) ,
-                getFormError : this.getFormError.bind(this),
                 getFieldProp : this.getFieldProp.bind(this)
             } ;
              //加载页面schema
@@ -50,8 +51,16 @@ import FormItem from './FormItem.jsx' ;
         getFormSchema () {
             return this._inner_weird_formSchema
         }
+        setFieldValue (fieldName,fieldValue){
+            let obj = {[fieldName]:fieldValue} ;
+            this.setFieldValueObj(obj) ;
+        }
+        getFieldValue(fieldName){
+            let formData = this.getFormData() ;
+            return formData[fieldName] ;
+        }
 
-        setFormData (obj) {
+        setFieldValueObj (obj) {
             //1.存储数据
             this._inner_setComplexState('_inner_weird_formData',obj) ;
             //2.校验数据的合法性
@@ -60,14 +69,22 @@ import FormItem from './FormItem.jsx' ;
             for(let key of keys){
                 errorObj[key] = '数据不合法...' ;
             }
-            this.setFormError(errorObj) ;
+            this.setFieldErrorObj(errorObj) ;
         }
-        setFormError (obj) {
+        setFieldError(fieldName,errMsg){
+            let obj = {[fieldName]:errMsg} ;
+            this.setFieldErrorObj(obj) ;
+        }
+        setFieldErrorObj (obj) {
             this._inner_setComplexState('_inner_weird_formError',obj) ;
         }
         getFormData (){
             return this.state._inner_weird_formData ;
         } 
+        getFieldError(fieldName){
+            let formError = this.getFormError() ;
+            return formError[fieldName] ;
+        }
         getFormError (){
             return this.state._inner_weird_formError ;
         }
@@ -88,7 +105,6 @@ import FormItem from './FormItem.jsx' ;
                 } 
             } ;
         }
-
         /**公共方法api end */
         renderBaseForm () {
             let formSchema = this.getFormSchema() ;
@@ -97,7 +113,7 @@ import FormItem from './FormItem.jsx' ;
                 <form  className="form-horizontal" role="form">
                     {
                         formSchema.map(function(schema,index){
-                            return <FormItem form={form} schema={schema}/>
+                            return <FormItem form={form} schema={schema} key ={index}/>
                         }) 
                     }
                 </form>

@@ -6,30 +6,34 @@ import OCRadio from './oc-radio.jsx' ;
 import OCSelect from './oc-select.jsx' ;
 import OCCheckbox from './oc-checkbox.jsx' ;
 
-
 /**
  * 获取输入框$$_a$$_b
  */
 function InputCompFactory({form,schema}){
-    let {type,name,rule} = schema ;
+    let {type,name} = schema ;
     let inputComp = null ;
     if('complex' === type){
         inputComp = null ;
     }else{
-        let errorStr = getFieldErrorStr(form,schema) ;
-        inputComp = getSimpleInputComp(form,schema,errorStr ==null || errorStr.length === 0 ) ;
+        inputComp = getSimpleInputComp(form,schema) ;
     }
     return inputComp ;
 }
+
+function handleChange4InputFactory(form,fieldName){
+    return function(fieldValue){
+        console.info(`fieldName:${fieldName},fieldValue : ${fieldValue}`) ;
+        form.setFieldValue(fieldName,fieldValue) ;
+    }
+}
+
 /**
  * 简单类型
  * @param form
  * @param schema
- * @param index  (复杂表单才有意义)    一组控件的的第几个
- * @param count （复杂表单才会有意义）  一组控件总数
  */
-function getSimpleInputComp(form,schema,isValid,index){
-    let {type,name,rule} = schema ;
+function getSimpleInputComp(form,schema){
+    let {type,name} = schema ;
     let inputComp = null ;
     //name ={} value = {} onChange={}
     if(['text','email'].includes(type)){
@@ -49,26 +53,29 @@ function getSimpleInputComp(form,schema,isValid,index){
         value:form.getFieldValue(name),
         width:schema.width,
         handleChange:handleChange4InputFactory(form,name),
-        key:index,
-        isValid:isValid/**是否合法 */
     }) ;
 }
 
 
 function FormItem ({form,schema}){
     //如果需要显示form group
-    let {label} = schema ;
+    let {label,name} = schema ;
+    let inputComp = InputCompFactory({form,schema}) ;
+    if(inputComp == null){
+        return null ;
+    }
     return (
         <div className="form-group">
             <label  className="col-sm-2 control-label">{label}</label>
             <div className="col-sm-5">
-                {InputCompFactory({form,schema})}
+                {inputComp}
             </div>
-            <span className="error-tip col-sm-3">错误提示</span>
+            <span className="error-tip col-sm-3">
+            {form.getFieldError(name)}
+            </span>
         </div>
     ) ;
 }
-
 
 export default FormItem ;
 

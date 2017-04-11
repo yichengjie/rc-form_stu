@@ -27,13 +27,6 @@ export function getUserEditFormSchemaApi(){
             defaultValue:'',
             rule:{required:true,email:true} 
         },
-        {
-            type:'date',
-            label:'生日',
-            name:'birthday',
-            defaultValue:'',
-            rule:{required:true,date:true} 
-        },
          {
             type:'text',
             label:'年龄',
@@ -128,21 +121,9 @@ export function getUserEditFormSchemaApi(){
         ] ;
 
       return new Promise(function(resolve,reject){
-        //   for(let i= 0 ; i< 20 ; i++){
-        //       let tmp = (i+1) ;
-        //       let obj = {
-        //         type:'text',
-        //         label:'用户名'+tmp,
-        //         name:'username'+tmp,
-        //         defaultValue:'yicj'+tmp,
-        //         rule:{required:true,validator:'validateUsername'},
-        //     }
-        //     formSchema.splice(0,0,obj) ;
-        //   }
           setTimeout(function(){
               resolve(formSchema) ;
           },200) ;
-
       }) ;
 }
 
