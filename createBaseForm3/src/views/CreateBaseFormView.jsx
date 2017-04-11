@@ -7,22 +7,17 @@ import {getUserEditFormSchemaApi} from '../api/Api.js' ;
 class UserInfoEditForm extends BaseModule {
     constructor( props ){
         super( props ) ;
-
-       
     }
     //初始化数据
-    getInitialFormData(){
-        return {
-            username:'yicj',
-            addr:'',
-            age1:'',
-            age2:''
-        } ;
-    }
-
+    //如果不使用异步加载的formSchema，而是自己定制页面的form的话，需要实现这个方法
+    // getInitialFormData(){
+    //     return {
+    //         username:'yicj'
+    //     } ;
+    // }
     handleSubmit = (event) => {
         event.preventDefault();
-        let formData = this.getFormData () ;
+        let formData = this.form.getFormData () ;
         let infoStr = JSON.stringify(formData,null,2) ;
         console.info('formData : ' ,infoStr) ;
     }
@@ -31,6 +26,11 @@ class UserInfoEditForm extends BaseModule {
         return (
             <div>
                 {this.renderBaseForm()}
+                <div className="row">
+                    <div className="col-sm-offset-2">
+                        <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>保存</button>
+                    </div>
+                </div>
             </div>
         );
     }

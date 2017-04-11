@@ -118,7 +118,7 @@ export function getUserEditFormSchemaApi(){
             defaultValue:'',
             rule:{minLength:2}
         },
-        ] ;
+      ] ;
 
       return new Promise(function(resolve,reject){
           setTimeout(function(){

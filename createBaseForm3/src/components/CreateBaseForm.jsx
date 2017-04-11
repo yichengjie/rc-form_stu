@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import FormItem from './FormItem.jsx' ;
-//
 
  function creatBaseForm(WrapperComponent,getFormSchemaApi){
      return  class BaseForm extends WrapperComponent{
@@ -20,25 +19,30 @@ import FormItem from './FormItem.jsx' ;
             Object.assign(this.state,baseState) ;
             //表格控件的schema
             this._inner_weird_formSchema = [] ;
+            this._inner_weird_formInitialValue = {} ;
             this.form = {
                 setFieldValue : this.setFieldValue.bind(this),
                 getFieldValue:this.getFieldValue.bind(this),
                 setFieldError : this.setFieldError.bind(this),
                 getFieldError : this.getFieldError.bind(this),
                 getFormData : this.getFormData.bind(this) ,
-                getFieldProp : this.getFieldProp.bind(this)
+                getFieldProp : this.getFieldProp.bind(this),
+                setFormSchema : this.setFormSchema.bind(this),
+                collectFieldInitialState : this.collectFieldInitialState.bind(this)
             } ;
              //加载页面schema
             this.loadFormSchema() ;
         }
 
         loadFormSchema(){
-            let promise = getFormSchemaApi() ;
-            promise.then(retData=>{
-                 this._inner_weird_formSchema = retData ;
-                 //组织数据
-                 this.refreshFormView() ;
-            }) ;
+            if(getFormSchemaApi && typeof getFormSchemaApi === 'function'){
+                let promise = getFormSchemaApi() ;
+                promise.then(retData=>{
+                    this._inner_weird_formSchema = retData ;
+                    //组织数据
+                    this.refreshFormView() ;
+                }) ;
+            }
         }
 
         refreshFormView(){/**刷新表单视图 */
@@ -46,6 +50,10 @@ import FormItem from './FormItem.jsx' ;
                 let newObj = {_inner_weird_refreshFormViewFlag:!prevState._inner_weird_refreshFormViewFlag} ;
                 return Object.assign({},prevState,newObj) ;
             }) ;
+        }
+
+        collectFieldInitialState (fieldName,initialValue){
+            this._inner_weird_formInitialValue[fieldName] = initialValue ;
         }
         //获取表单的schema
         getFormSchema () {
@@ -105,6 +113,7 @@ import FormItem from './FormItem.jsx' ;
                 } 
             } ;
         }
+
         /**公共方法api end */
         renderBaseForm () {
             let formSchema = this.getFormSchema() ;
@@ -113,7 +122,7 @@ import FormItem from './FormItem.jsx' ;
                 <form  className="form-horizontal" role="form">
                     {
                         formSchema.map(function(schema,index){
-                            return <FormItem form={form} schema={schema} key ={index}/>
+                            return <FormItem form={form} schema={schema} key ={index}  />
                         }) 
                     }
                 </form>

@@ -13,7 +13,7 @@ function InputCompFactory({form,schema}){
     let {type,name} = schema ;
     let inputComp = null ;
     if('complex' === type){
-        inputComp = null ;
+        inputComp = getComplexInputComp(form,schema) ;
     }else{
         inputComp = getSimpleInputComp(form,schema) ;
     }
@@ -32,8 +32,8 @@ function handleChange4InputFactory(form,fieldName){
  * @param form
  * @param schema
  */
-function getSimpleInputComp(form,schema){
-    let {type,name} = schema ;
+function getSimpleInputComp(form,schema,keyIndex){
+    let {type,name,defaultValue} = schema ;
     let inputComp = null ;
     //name ={} value = {} onChange={}
     if(['text','email'].includes(type)){
@@ -49,11 +49,40 @@ function getSimpleInputComp(form,schema){
     }else if('checkbox' === type){
         inputComp = <OCCheckbox options ={schema.options}/>
     }
+    //收集表单默认值
+    form.collectFieldInitialState(name,defaultValue) ;
+
     return inputComp ==null ? null : React.cloneElement(inputComp,{
         value:form.getFieldValue(name),
         width:schema.width,
         handleChange:handleChange4InputFactory(form,name),
+        key:keyIndex
     }) ;
+}
+
+function getComplexInputComp(form,schema){
+    let {fields,divline} = schema ;
+    let arr = [] ;
+    let len = fields.length ;
+    for(let i =0 ;i < len ; i ++){
+        let tmpFieldName = fields[i]['name'] ;
+        //console.info(`fieldName: ${tmpFieldName},  hideFlag : ${hideFlag}`) ;
+        if(arr.length > 0){
+            if(divline){
+                arr.push(<span key={'sp'+i} className="split-line"></span>) ;
+            }else{
+                arr.push(<span key={'sp'+i} className="split-line-none"></span>) ;
+            }
+        }
+        let tmpInput = getSimpleInputComp(form,fields[i],i) ;
+        arr.push(tmpInput) ;
+        //如果中间有分割线则将分割线显示出来
+    }
+    return (
+        <span className="input-complex">
+            {arr}
+        </span>
+    )
 }
 
 
@@ -67,15 +96,39 @@ function FormItem ({form,schema}){
     return (
         <div className="form-group">
             <label  className="col-sm-2 control-label">{label}</label>
-            <div className="col-sm-5">
+            <div className="col-sm-7">
                 {inputComp}
             </div>
             <span className="error-tip col-sm-3">
-            {form.getFieldError(name)}
+                {getFieldErrorStr(form,schema)}
             </span>
         </div>
     ) ;
 }
+
+
+function getFieldErrorStr(form,schema){
+    let names = getNameFromFieldSchema(schema) ;
+    let err = null ;
+    for(let name of names){
+        err = form.getFieldError(name) ;
+        if(err) break ;
+    }
+    return err || '' ;
+}
+
+
+
+function getNameFromFieldSchema(schema){
+    let {type,name,fields} = schema ;
+    if(type==='complex'){
+        return fields.map(function(item){
+            return item.name ;
+        }) ;
+    }
+    return [name] ;
+}
+
 
 export default FormItem ;
 

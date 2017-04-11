@@ -3,7 +3,31 @@ body{
     margin: 50px auto ;
 }
 .error-tip{
-    margin-top: 7px;
+    color: #AE4343; 
+    padding-top: 7px;
     font-size: 10px;
-    color: red;
+}
+.input-two .form-control{
+    display: inline-block ;
+    width: 48% ;
+}
+.split-line{
+    display: inline-block ;
+    width: 4%;
+    height: 100%;
+    box-sizing: border-box ;
+    padding-left: 5px;
+}
+.split-line::after{
+    content: '-'
+}
+.split-line-none{
+    display: inline-block ;
+    width: 2%;
+    height: 100%;
+    box-sizing: border-box ;
+    padding-left: 3px;
+}
+.input-complex .form-control{
+    display: inline-block ;
 }
