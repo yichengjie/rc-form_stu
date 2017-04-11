@@ -1,0 +1,53 @@
+html, body, div, h5, h6, p, ul, li {
+    margin: 0px;
+    padding: 0px;
+}
+
+#app {
+    //background: #09a;
+    padding: 0px;
+    .title {
+        font-size: 25px;
+        text-align: center;
+        transform: scale(0.8);
+    }
+    .error-tip{
+        color: #AE4343; 
+        padding-top: 7px;
+        font-size: 10px;
+    }
+    .input-two .form-control{
+        display: inline-block ;
+        width: 48% ;
+    }
+    .split-line{
+        display: inline-block ;
+        width: 4%;
+        height: 100%;
+        box-sizing: border-box ;
+        padding-left: 5px;
+    }
+    .split-line::after{
+        content: '-'
+    }
+    .split-line-none{
+        display: inline-block ;
+        width: 2%;
+        height: 100%;
+        box-sizing: border-box ;
+        padding-left: 3px;
+    }
+    .input-complex .form-control{
+        display: inline-block ;
+    }
+    .oper-column i{
+        margin-right: 7px ;
+        cursor: pointer ;
+    }
+    .error-input-border{
+        border-color: #a94442;
+    }
+    .navbar{
+        border-radius: 0;
+    }
+}

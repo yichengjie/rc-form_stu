@@ -1,0 +1,12 @@
+{
+  "name": "ttt",
+  "version": "1.0.0",
+  "description": "webpack app description",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage",
+    "build": "webpack --config build/webpack.prod.conf.js  --progress --profile --colors",
+    "dev": "node build/dev-server.js"
+  },
+  "devDependencies": {}
+}

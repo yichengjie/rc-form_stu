@@ -1,0 +1,139 @@
+@charset "utf-8";
+/* CSS Document */
+.dialog_panel{ position:absolute;padding:0px;z-index:10000;}
+.dialog_panel .dialog_head_left{ height:34px; background:url(../images/tui_dialog_head.png) no-repeat 0px -41px;}
+.dialog_panel .dialog_head_right{ height:34px; background:url(../images/tui_dialog_head.png) no-repeat right 0; padding:0 6px;}
+.dialog_panel .dialog_head_content{ height:34px; background:url(../images/tui_dialog_head.png) repeat-x 0 -80px;}
+.dialog_panel .dialog_head_content .dialog_head_title{ font-weight:bold; font-size:14px; line-height:34px; margin:0 0 0 8px; color:#314254;}
+.dialog_panel .dialog_head_content .dialog_head_close{ width:10px; height:10px; background:url(../images/tui_dialog_head.png) no-repeat -3px -125px; margin:12px 6px; cursor:pointer; position:absolute; right:6px; top:0px;}
+.dialog_panel .dialog_head_content .dialog_head_close:hover{background:url(../images/tui_dialog_head.png) no-repeat -21px -125px;}
+.dialog_panel .dialog_body_left{ background:url(../images/tui_dialog_body_left.png) repeat-y left 0;}
+.dialog_panel .dialog_body_right{ background:url(../images/tui_dialog_body_right.png) repeat-y right 0; padding:0 6px;}
+.dialog_panel .dialog_body_content{ background-color:#fff;text-align:center;}
+.dialog_iframe{border:none; width:100%; height:100%; outline:none;}
+.dialog_panel .dialog_foot_left{ height:9px; background:url(../images/tui_dialog_foot.png) no-repeat 0 -10px;}
+.dialog_panel .dialog_foot_right{ height:9px; background:url(../images/tui_dialog_foot.png) no-repeat right 0; padding:0 6px;}
+.dialog_panel .dialog_foot_content{ height:9px; background:url(../images/tui_dialog_foot.png) repeat-x 0 -22px;}
+
+.dialog_panel .dialog_head_no_title_left{ height:6px; background:url(../images/tui_dialog_head_no_title.png) no-repeat -1px -11px;}
+.dialog_panel .dialog_head_no_title_right{ height:6px; background:url(../images/tui_dialog_head_no_title.png) no-repeat right 0; padding:0 6px;}
+.dialog_panel .dialog_head_no_title_content{ height:6px; background:url(../images/tui_dialog_head_no_title.png) repeat-x 0 -22px;}
+
+.dialog_panel{ position:absolute;padding:0px;}
+.dialog_panel .dialog_head_narrow_left{ height:4px; background:url(../images/tui_dialog_head_narrow.png) no-repeat 0px -5px;}
+.dialog_panel .dialog_head_narrow_right{ height:4px; background:url(../images/tui_dialog_head_narrow.png) no-repeat right 0; padding:0 4px;}
+.dialog_panel .dialog_head_narrow_content{ height:4px; background:url(../images/tui_dialog_head_narrow.png) repeat-x 0 -11px;}
+.dialog_panel .dialog_body_narrow_left{ background:url(../images/tui_dialog_body_left_narrow.png) repeat-y left 0;}
+.dialog_panel .dialog_body_narrow_right{ background:url(../images/tui_dialog_body_right_narrow.png) repeat-y right 0; padding:0 4px;}
+.dialog_panel .dialog_body_narrow_content{ background-color:#fff;text-align:center;}
+.dialog_panel .dialog_foot_narrow_left{ height:9px; background:url(../images/tui_dialog_foot_narrow.png) no-repeat 0 -10px;}
+.dialog_panel .dialog_foot_narrow_right{ height:9px; background:url(../images/tui_dialog_foot_narrow.png) no-repeat right 0; padding:0 4px;}
+.dialog_panel .dialog_foot_narrow_content{ height:9px; background:url(../images/tui_dialog_foot_narrow.png) repeat-x 0 -20px;}
+
+.dialog_panel .dialog_waiting{ background:url(../images/tui_dialog_waiting.png) no-repeat center top; width:150px; height:72px;}
+.dialog_panel .dialog_waiting .dialog_waiting_msg{ text-align:center; line-height:68px;}
+.dialog_panel .dialog_waiting .dialog_waiting_msg .icon{ background:url(../images/loading_dialog.gif); width:35px; height:35px; display:inline-block;*display:inline;*zoom:1;vertical-align:middle;margin:0 8px 0 0;}
+.dialog_panel .dialog_waiting .dialog_waiting_msg .content{ font-size:16px; color:#6684b2;}
+
+.dialog_panel .dialog_alert{ background:#000; opacity:0.7;filter:alpha(opacity=75); border-radius:2px; padding:10px 50px;}
+.dialog_panel .dialog_alert .dialog_alert_msg{ color:#fff; padding-top:10px;}
+.dialog_panel .dialog_close_icon{ position:absolute; right:10px; top:10px; background:url(../images/tui_dialog_head.png) no-repeat -3px -142px; width:10px; height:10px;z-index:11000; cursor:pointer;}
+.dialog_panel .dialog_close_icon:hover{background:url(../images/tui_dialog_head.png) no-repeat -21px -125px;}
+
+.dialog_mask{z-index:9999; top:0px; left:0px;position:absolute;border:none;}
+
+.dialog_info{ height:80px; position:relative; padding:14px 2px 2px 90px; }
+.dialog_info_content{ height:100%;overflow:auto;text-align:left;}
+.dialog_btn_panel{ height:30px; vertical-align:middle; text-align:center;opacity:1;}
+.dialog_btn_panel .dialog_btn{ margin:0 10px;}
+.dialog_icon_alert{ background:url(../images/dialog_icon.png) no-repeat 0 0; width:68px; height:68px; position:absolute; left:0px; top:0px; margin:10px;}
+.dialog_icon_info{ background:url(../images/dialog_icon.png) no-repeat -86px 0; width:68px; height:68px; position:absolute; left:0px; top:0px; margin:10px;}
+.dialog_icon_error{background:url(../images/dialog_icon.png) no-repeat -180px 0; width:68px; height:68px; position:absolute; left:0px; top:0px; margin:10px;}
+.dialog_icon_confirm{background:url(../images/dialog_icon.png) no-repeat -86px -82px; width:68px; height:68px; position:absolute; left:0px; top:0px; margin:10px;}
+.dialog_icon_success{background:url(../images/dialog_icon.png) no-repeat 0px -160px; width:68px; height:68px; position:absolute; left:0px; top:0px; margin:10px;}
+.dialog_icon_waiting{background:url(../images/loading_dialog.gif); width:35px; height:35px; position:absolute; left:0px; top:0px; margin:10px;}
+
+/****页面按钮类****/
+.btn_page{ height:28px; position:relative; display:inline-block; cursor:pointer; *display:inline; *zoom:1}
+.btn_page .btn_left{ width:4px; height:28px; position:absolute; top:0px; left:0px; background-image:url(../images/tui_content.png); background-repeat:no-repeat;}
+.btn_page .btn_right{ width:4px; height:28px;  position:absolute;top:0px; right:0px;background-image:url(../images/tui_content.png); background-repeat:no-repeat;}
+.btn_page .btn_content{ height:28px; margin:0 4px; line-height:28px; font-size:14px; padding:0 10px; color:#FFF; text-align:center;background-image:url(../images/tui_vertical.png); background-repeat:repeat-x;}
+
+
+
+/****保存按钮，绿色按钮****/
+.btn_save{}
+.btn_save .btn_left{ background-position:-4px -54px;}
+.btn_save .btn_right{ background-position:-16px -54px;}
+.btn_save .btn_content{ background-position:0 -49px;}
+.icon_save{background-position:-114px -307px;}
+.btn_save:hover .btn_left{ background-position:-31px -54px;}
+.btn_save:hover .btn_right{ background-position:-43px -54px;}
+.btn_save:hover .btn_content{ background-position:0px -82px;}
+.btn_save:active .btn_left{ background-position:-58px -54px;}
+.btn_save:active .btn_right{ background-position:-70px -54px;}
+.btn_save:active .btn_content{background-position:0 -116px;}
+
+.btn_save.disable,.btn_save_disable{ cursor:default;}
+.btn_save.disable .btn_left,.btn_save_disable .btn_left{ background-position:-86px -54px;}
+.btn_save.disable .btn_right,.btn_save_disable .btn_right{ background-position:-99px -54px;}
+.btn_save.disable .btn_content,.btn_save_disable .btn_content{ background-position:0px -149px; color:#808080;}
+
+.icon_save_2{ background:url(../images/tui_content.png) no-repeat -11px -947px; width:13px; height:13px;}
+.icon_save_2:hover{ background-position:-36px -947px;}
+.icon_save_2:active{ background-position:-64px -947px;}
+.icon_save_2.disable{ background-position:-95px -947px; cursor:default;}
+
+/****取消按钮，灰色按钮****/
+.btn_cancel{}
+.btn_cancel .btn_left{ background-position:-117px -54px;}
+.btn_cancel .btn_right{ background-position:-129px -54px;}
+.btn_cancel .btn_content{ background-position:0 -186px; color:#4c4c4c;}
+.icon_cancel{background-position:-13px -338px;}
+.btn_cancel:hover .btn_left{background-position:-147px -54px;}
+.btn_cancel:hover .btn_right{ background-position:-160px -54px;}
+.btn_cancel:hover .btn_content{ background-position:0 -220px;}
+.btn_cancel:active .btn_left{ background-position:-178px -54px;}
+.btn_cancel:active .btn_right{ background-position:-193px -54px;}
+.btn_cancel:active .btn_content{ background-position:0 -255px;}
+
+.btn_cancel.disable,.btn_cancel_disable{ cursor:default;}
+.btn_cancel.disable .btn_left,.btn_cancel_disable .btn_left{ background-position:-212px -54px;}
+.btn_cancel.disable .btn_right,.btn_cancel_disable .btn_right{ background-position:-228px -54px;}
+.btn_cancel.disable .btn_content,.btn_cancel_disable .btn_content{ background-position:0px -290px; color:#808080;}
+
+/****删除按钮，红色按钮****/
+.btn_delete{}
+.btn_delete .btn_left{ background-position:-250px -54px;}
+.btn_delete .btn_right{ background-position:-265px -54px;}
+.btn_delete .btn_content{background-position:0 -325px; color:#FFF;}
+.icon_delete{ background-position:-377px -50px;}
+.btn_delete:hover .btn_left{ background-position:-282px -54px;}
+.btn_delete:hover .btn_right{ background-position:-298px -54px;}
+.btn_delete:hover .btn_content{background-position:0px -359px;}
+.btn_delete:active .btn_left{ background-position:-317px -54px;}
+.btn_delete:active .btn_right{ background-position:-332px -54px;}
+.btn_delete:active .btn_content{ background-position:0px -393px;}
+
+.btn_delete.disable,.btn_delete_disable{ cursor:default;}
+.btn_delete.disable .btn_left,.btn_delete_disable .btn_left{ background-position:-350px -54px;}
+.btn_delete.disable .btn_right,.btn_delete_disable .btn_right{ background-position:-363px -54px;}
+.btn_delete.disable .btn_content,.btn_delete_disable .btn_content{ background-position:0 -427px; color:#808080;}
+.btn_delete.disable .btn_content .icon_delete,.btn_delete_disable .btn_content .icon_delete{ background-position:-377px -68px;}
+.btn_cancel .btn_content .icon_delete{ background-position:-377px -68px;}
+/****查询按钮，蓝色按钮****/
+.btn_search{}
+.btn_search .btn_left{ background-position:-4px -86px; height:26px;}
+.btn_search .btn_right{ background-position:-16px -86px; height:26px;}
+.btn_search .btn_content{ background-position:0px -460px; color:#FFF; height:26px; line-height:26px;}
+.btn_search:hover .btn_left{ background-position:-31px -86px;}
+.btn_search:hover .btn_right{background-position:-43px -86px;}
+.btn_search:hover .btn_content{ background-position:0px -490px;}
+.btn_search:active .btn_left{ background-position:-58px -86px;}
+.btn_search:active .btn_right{ background-position:-70px -86px;}
+.btn_search:active .btn_content{ background-position:0px -520px;}
+
+.btn_search.disable,.btn_search_disable{ cursor:default;}
+.btn_search.disable .btn_left,.btn_search_disable .btn_left{ background-position:-86px -86px; height:26px;}
+.btn_search.disable .btn_right,.btn_search_disable .btn_right{ background-position:-99px -86px; height:26px;}
+.btn_search.disable .btn_content,.btn_search_disable .btn_content{ background-position:0 -550px; color:#808080; height:26px; line-height:26px;}
