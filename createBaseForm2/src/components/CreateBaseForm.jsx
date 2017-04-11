@@ -16,16 +16,24 @@ import React, { Component, PropTypes } from 'react';
             //将BaseForm的基本数据合并到state上
             Object.assign(this.state,baseState) ;
             //
-            this.form = {
-                setFormData : this.setFormData.bind(this),
-                setFormError : this.setFormError.bind(this),
-                getFormData : this.getFormData.bind(this) ,
-                getFormError : this.getFormError.bind(this),
-                getFieldProp : this.getFieldProp.bind(this)
-            } ;
+            // this.form = {
+            //     setFormData : this.setFormData.bind(this),
+            //     setFormError : this.setFormError.bind(this),
+            //     getFormData : this.getFormData.bind(this) ,
+            //     getFormError : this.getFormError.bind(this),
+            //     getFieldProp : this.getFieldProp.bind(this)
+            // } ;
         }
         setFormData (obj) {
+            //1.存储数据
             this._inner_setComplexState('_inner_weird_formData',obj) ;
+            //2.校验数据的合法性
+            let keys = Object.keys(obj) ;
+            let errorObj = {} ;
+            for(let key of keys){
+                errorObj[key] = '数据不合法...' ;
+            }
+            this.setFormError(errorObj) ;
         }
         setFormError (obj) {
             this._inner_setComplexState('_inner_weird_formError',obj) ;

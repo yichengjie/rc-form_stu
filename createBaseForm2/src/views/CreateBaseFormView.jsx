@@ -16,15 +16,6 @@ class UserInfoEditForm extends BaseModule {
             age2:''
         } ;
     }
-    componentDidMount(){
-        console.info('获取数据.....') ;
-    }
-    handleChangeFactory (fieldName){
-        return (event)=>{
-            var value = event.target.value ;
-            this.setFormData({[fieldName]:value}) ;
-        }
-    }
     handleSubmit = (event) => {
         event.preventDefault();
         let formData = this.getFormData () ;
@@ -32,19 +23,21 @@ class UserInfoEditForm extends BaseModule {
         console.info('formData : ' ,infoStr) ;
     }
     toRender(){
+        let formError = this.getFormError() ;
         return (
             <div>
                 <form className="form-horizontal">
 
-                    <FormGroup name ="username" label="用户名" form = {this.form}>
+                    <FormGroup label="用户名" errorTip = {formError.username}>
                         <input type="text" className="form-control"  {...this.getFieldProp('username')} />
                     </FormGroup>
 
-                    <FormGroup name ="addr" label="地址" form = {this.form}>
+                    <FormGroup label="地址" errorTip = {formError.addr}>
                         <input type="text" className="form-control" {...this.getFieldProp('addr')} />
                     </FormGroup>
 
-                    <FormGroup name ="age" label="年龄范围" form = {this.form}>
+                    <FormGroup label="年龄范围" errorTip = {formError.age1 || formError.age2 }>
+                        
                         <div className="row">
                             <div className="col-sm-6">
                                  <input type="text" className="form-control" {...this.getFieldProp('age1')} />
@@ -53,6 +46,7 @@ class UserInfoEditForm extends BaseModule {
                                  <input type="text" className="form-control" {...this.getFieldProp('age2')} />
                             </div>
                         </div>
+
                     </FormGroup>
 
                     <div className="form-group">
