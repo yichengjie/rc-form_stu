@@ -9,6 +9,8 @@ import {getUserEditFormSchemaApi} from '../api/Api.js' ;
 class UserInfoEditForm extends BaseModule {
     constructor( props ){
         super( props ) ;
+
+       
     }
     //初始化数据
     getInitialFormData(){

@@ -1,12 +1,7 @@
 import React, { Component, PropTypes } from 'react';
+import FormItem from './FormItem.jsx' ;
 //
-//  this.form = {
-//                 setFormData : this.setFormData.bind(this),
-//                 setFormError : this.setFormError.bind(this),
-//                 getFormData : this.getFormData.bind(this) ,
-//                 getFormError : this.getFormError.bind(this),
-//                 getFieldProp : this.getFieldProp.bind(this)
-//             } ;
+
  function creatBaseForm(WrapperComponent,getFormSchemaApi){
      return  class BaseForm extends WrapperComponent{
         constructor(props){
@@ -25,6 +20,13 @@ import React, { Component, PropTypes } from 'react';
             Object.assign(this.state,baseState) ;
             //表格控件的schema
             this._inner_weird_formSchema = [] ;
+            this.form = {
+                setFormData : this.setFormData.bind(this),
+                setFormError : this.setFormError.bind(this),
+                getFormData : this.getFormData.bind(this) ,
+                getFormError : this.getFormError.bind(this),
+                getFieldProp : this.getFieldProp.bind(this)
+            } ;
              //加载页面schema
             this.loadFormSchema() ;
         }
@@ -86,7 +88,21 @@ import React, { Component, PropTypes } from 'react';
                 } 
             } ;
         }
-       
+
+        /**公共方法api end */
+        renderBaseForm () {
+            let formSchema = this.getFormSchema() ;
+            let form = this.form ;
+            return (
+                <form  className="form-horizontal" role="form">
+                    {
+                        formSchema.map(function(schema,index){
+                            return <FormItem form={form} schema={schema}/>
+                        }) 
+                    }
+                </form>
+            )
+        }
     }
  }
 

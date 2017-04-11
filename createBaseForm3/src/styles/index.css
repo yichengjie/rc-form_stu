@@ -1,0 +1,9 @@
+body{
+    font-family: 'Fira Mono', Monaco, 'Andale Mono', 'Lucida Console', 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace;
+    margin: 50px auto ;
+}
+.error-tip{
+    margin-top: 7px;
+    font-size: 10px;
+    color: red;
+}
