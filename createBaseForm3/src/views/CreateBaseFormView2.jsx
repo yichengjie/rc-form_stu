@@ -35,6 +35,7 @@ class UserInfoEditForm extends BaseModule {
         let formData = this.form.getFormData () ;
         let infoStr = JSON.stringify(formData,null,2) ;
         console.info('formData : ' ,infoStr) ;
+        this.form.validateAllForm() ;
     }
     toRender(){
         return (

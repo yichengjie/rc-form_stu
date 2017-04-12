@@ -91,8 +91,9 @@ class FormItem extends Component{
         let {form,schema} = this.props ;
         let needAssembleFormSchema = this.props.needAssembleFormSchema ;
         if(needAssembleFormSchema !== false){
-            console.info(form) ;
-            form.addFieldSchema(schema)
+            //form.addFieldSchema(schema)
+            form.addOrginFieldSchema(schema) ;
+            form.addSingleValidateRule(schema)
         }
     }   
     render () {
