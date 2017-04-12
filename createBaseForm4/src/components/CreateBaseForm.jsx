@@ -100,9 +100,10 @@ let BaseFormUtil = {
                 addOrginFieldSchema : this.addOrginFieldSchema.bind(this),
                 addSingleValidateRule : this.addSingleValidateRule.bind(this),
                 validateAllForm : this.validateAllForm.bind(this),
-                setSingleHideState : this.setSingleHideState.bind(this),
+                //setSingleHideState : this.setSingleHideState.bind(this),
                 getSingleHideState : this.getSingleHideState.bind(this),
-                hideSingleField : this.hideSingleField.bind(this)
+                hideSingleField : this.hideSingleField.bind(this),
+                showSingleField : this.showSingleField.bind(this)
             } ;
              //加载页面schema
             this.loadFormSchema() ;
@@ -134,6 +135,9 @@ let BaseFormUtil = {
             let oldValue = this.getSingleFieldValue(fieldName) ;
             let defaultValue = getDefaultValue(oldValue) ;
             this.setSingleFieldValue(fieldName,defaultValue) ;
+        }
+        showSingleField(fieldName){
+            this.setSingleHideState(fieldName,false) ;
         }
         getAllHideState(){
             return this.state._inner_weird_hideState ;

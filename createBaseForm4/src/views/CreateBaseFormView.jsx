@@ -22,13 +22,16 @@ class UserInfoEditForm extends BaseModule {
             return this.customValidateServiceType ;
         }
     }
-
     
     customValidateServiceType(fieldValue,fieldName){
         if(fieldValue === 'M'){
             this.form.hideSingleField('email') ;
+            this.form.hideSingleField('age1') ;
+            this.form.hideSingleField('age2') ;
         }else{
-            this.form.setSingleHideState('email',false) ;
+            this.form.showSingleField('email') ;
+            this.form.showSingleField('age1') ;
+            this.form.showSingleField('age2') ;
         }
     }
     validateUserName(fieldValue,fieldName){
