@@ -18,7 +18,7 @@ class UserInfoEditForm extends BaseModule {
                 type:'text',
                 label:'地址',
                 name:'addr',
-                rule:{required:true,validator:'validateUsername'},
+                rule:{required:true},
             }
         } ;
     }
