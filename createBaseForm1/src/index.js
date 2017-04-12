@@ -6,10 +6,10 @@ import ReactDOM from 'react-dom';
 import Helloworld from './views/Helloworld.jsx' ;
 //import HelloComp from './components/HelloComp2.jsx' ;
 //import AsyncInit from './components/async-init.js' ;
-import DepartmentList from './views/DepartmentList.jsx' ;
-import DepartmentList2 from './views/DepartmentList2.jsx' ;
+import BaseFormView from './views/BaseFormView.jsx' ;
+import CreateBaseForm from './views/CreateBaseForm.jsx' ;
 
 ReactDOM.render(
-  <DepartmentList2 />,
+  <Helloworld />,
   document.getElementById('app')
 );

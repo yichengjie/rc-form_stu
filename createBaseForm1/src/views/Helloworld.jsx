@@ -9,8 +9,21 @@ class Helloworld extends Component{
         } ;
     }
 
-    handleClick(){
+    handleClick(event){
+        event.preventDefault() ;
         this.setState({name:'yicj'}) ;
+        let name = this.state.name ;
+        console.info(`name : ${name}`) ;
+    }
+
+    handleClick2 = (event) => {
+        event.preventDefault() ;
+        this.setState(function(prevState){
+            return Object.assign(prevState,{name:'yicj'}) ;
+        }) ;
+        this.forceUpdate() ;
+        let name = this.state.name ;
+        console.info(`name : ${name}`) ;
     }
 
     render() {
@@ -18,7 +31,8 @@ class Helloworld extends Component{
         return (
             <div>
                 <p>{this.state.name}</p>
-                <button onClick={this.handleClick}>test</button>               
+                <button onClick={this.handleClick}>test</button> <br/>
+                <button onClick={this.handleClick2}>test2</button>                  
             </div>
         );
     }
