@@ -3,7 +3,6 @@ import FormItem from './FormItem.jsx' ;
 import {getFieldObjByFieldSchema,isComplexFieldSchema,isString} from '../common/common.js' ;
 import {validationFn,validationMessages} from  '../common/validator.js'; 
 
-
 let BaseFormUtil = {
    //组装表单的所有字段校验规则
     getFieldValidRuleByOrginFieldSchema(originFieldSchema){/**通过原始的formSchema获取validateRule对象 */
@@ -91,16 +90,18 @@ let BaseFormUtil = {
             this._inner_weird_validateRules = {} ;//页面字段的校验规则
 
             this.form = {
-                setFieldValue : this.setFieldValue.bind(this),
-                getFieldValue:this.getFieldValue.bind(this),
-                setFieldError : this.setFieldError.bind(this),
-                getFieldError : this.getFieldError.bind(this),
-                getFormData : this.getFormData.bind(this),
-                getFieldProp : this.getFieldProp.bind(this),
+                setSingleFieldValue : this.setSingleFieldValue.bind(this),
+                getSingleFieldValue:this.getSingleFieldValue.bind(this),
+                setSingleFieldError : this.setSingleFieldError.bind(this),
+                getSingleFieldError : this.getSingleFieldError.bind(this),
+                getAllFormData : this.getAllFormData.bind(this),
+                getSingleFieldProp : this.getSingleFieldProp.bind(this),
                 //addFieldSchema : this.addFieldSchema.bind(this),
                 addOrginFieldSchema : this.addOrginFieldSchema.bind(this),
                 addSingleValidateRule : this.addSingleValidateRule.bind(this),
-                validateAllForm : this.validateAllForm.bind(this)
+                validateAllForm : this.validateAllForm.bind(this),
+                setSingleHideState : this.setSingleHideState.bind(this),
+                getSingleHideState : this.getSingleHideState.bind(this)
             } ;
              //加载页面schema
             this.loadFormSchema() ;
@@ -157,7 +158,7 @@ let BaseFormUtil = {
             let allValid = true ;
             let allErrorInfoObj = {} ;
             ruleKyes.forEach(fieldName=>{
-                let fieldValue = this.getFieldValue(fieldName) ;
+                let fieldValue = this.getSingleFieldValue(fieldName) ;
                 let {flag,msg} = this.getSingleFieldValidInfo(fieldName,fieldValue) ;
                 allErrorInfoObj[fieldName] = msg ;
                 if(!flag){
@@ -191,39 +192,38 @@ let BaseFormUtil = {
                 return Object.assign({},prevState,newObj) ;
             }) ;
         }
-        // addFieldSchema(schema){
-        //     //组织后续使用的formSchema
-        //     let {label,fields} = schema ;
-        //     let formSchema  = this.getFormSchema() ;
-        //     if(isComplexFieldSchema(schema)){
-        //         let tmpArr = fields.map(function(item){
-        //             return {label,...item} ;
-        //         }) ;
-        //         formSchema.push(...tmpArr) ;
-        //     }else{
-        //         formSchema.push({...schema}) ;
-        //     }
-        // }
         //原始schema
         addOrginFieldSchema(schema){
             let originFormSchema = this.getOriginFormSchema() ;
             originFormSchema.push(schema) ;
         }
-        //获取表单的schema
-        // getFormSchema () {
-        //     return this._inner_weird_formSchema
-        // }
         getOriginFormSchema (){
             return this._inner_weird_originformSchema ;
         }
-        setFieldValue (fieldName,fieldValue,needValidFlag){
+        setSingleFieldValue (fieldName,fieldValue,needValidFlag){
             let obj = {[fieldName]:fieldValue} ;
             this.setFieldValueObj(obj,needValidFlag) ;
         }
-        getFieldValue(fieldName){
-            let formData = this.getFormData() ;
+        getSingleFieldValue(fieldName){
+            let formData = this.getAllFormData() ;
             return formData[fieldName] ;
         }
+
+        //--------------------------------------------------//
+        //设置字段的隐藏或显示
+        setSingleHideState(fieldName,hideFlag){
+            let obj = {[fieldName]:hideFlag} ;
+            this.setHideStateObj(obj) ;
+        }
+        getSingleHideState(fieldName){
+            let hideState = this.getAllHideState() ;
+            return hideState[fieldName] || false;
+        }
+        setHideStateObj(obj){
+             this._inner_setComplexState('_inner_weird_hideState',obj) ;
+        }
+         //--------------------------------------------------//
+
         setFieldValueObj (obj,needValidFlag) {
             //1.存储数据
             this._inner_setComplexState('_inner_weird_formData',obj) ;
@@ -240,24 +240,25 @@ let BaseFormUtil = {
             }
             this.setFieldErrorObj(errorObj) ;
         }
-
-        setFieldError(fieldName,errMsg){
+        getAllFormData (){
+            return this.state._inner_weird_formData ;
+        } 
+        //---------------------------------------------------//
+        getAllFormError (){ 
+            return this.state._inner_weird_formError ;
+        }
+        getSingleFieldError(fieldName){
+            let formError = this.getAllFormError() ;
+            return formError[fieldName] ;
+        }
+        setSingleFieldError(fieldName,errMsg){
             let obj = {[fieldName]:errMsg} ;
             this.setFieldErrorObj(obj) ;
         }
         setFieldErrorObj (obj) {
             this._inner_setComplexState('_inner_weird_formError',obj) ;
         }
-        getFormData (){
-            return this.state._inner_weird_formData ;
-        } 
-        getFieldError(fieldName){
-            let formError = this.getFormError() ;
-            return formError[fieldName] ;
-        }
-        getFormError (){ 
-            return this.state._inner_weird_formError ;
-        }
+        //-----------------------------------------------------//
         _inner_setComplexState (fieldName,obj)  {
             this.setState(function(preState){
                 let newObjValue = Object.assign({},preState[fieldName],obj) ;
@@ -265,8 +266,9 @@ let BaseFormUtil = {
                 return newState ;
             }) ;
         }
-        getFieldProp (fieldName){
-            let formData = this.getFormData() ;
+        //这个方法暂时没有使用，完全自定义页面时可以使用
+        getSingleFieldProp (fieldName){
+            let formData = this.getAllFormData() ;
             return {
                 value:formData[fieldName] || '' ,
                 onChange:(event)=>{
@@ -275,8 +277,6 @@ let BaseFormUtil = {
                 } 
             } ;
         }
-
-       
 
         /**公共方法api end */
         renderBaseForm () {

@@ -16,24 +16,34 @@ class UserInfoEditForm extends BaseModule {
     // }
      //实现自定义校验的方法
     getCustomValidatorFn(validatorName){
-        if(validatorName=='validate1'){
+        if(validatorName === 'validate1'){
             return this.validateUserName ;
+        }else if(validatorName === 'customValidateServiceType'){
+            return this.customValidateServiceType ;
         }
     }
+    customValidateServiceType(fieldValue,fieldName){
+        if(fieldValue === 'M'){
+            this.form.setSingleHideState('email',true) ;
 
-    validateUserName(){
-        return "用户名输入错误" ;
+        }
+    }
+    validateUserName(fieldValue,fieldName){
+       //console.info(`fieldValue : ${fieldValue} ,fieldName : ${fieldName} `) ; 
+        if(fieldValue === 'admin'){
+            return "用户名不能为admin" ;
+        }
+        return null ;
     }
     handleSubmit = (event) => {
         event.preventDefault();
-        //let formData = this.form.getFormData () ;
+        //let formData = this.form.getAllFormData () ;
         //let infoStr = JSON.stringify(formData,null,2) ;
         //console.info('formData : ' ,infoStr) ;
         let flag = this.form.validateAllForm() ;
         console.info('form valid flag : ' + flag) ;
     }
     toRender(){
-        let formError = this.getFormError() ;
         return (
             <div>
                 {this.renderBaseForm()}

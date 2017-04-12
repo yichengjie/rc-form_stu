@@ -23,7 +23,7 @@ function InputCompFactory({form,schema}){
 function handleChange4InputFactory(form,fieldName){
     return function(fieldValue){
         //console.info(`fieldName:${fieldName},fieldValue : ${fieldValue}`) ;
-        form.setFieldValue(fieldName,fieldValue) ;
+        form.setSingleFieldValue(fieldName,fieldValue) ;
     }
 }
 
@@ -35,6 +35,10 @@ function handleChange4InputFactory(form,fieldName){
 function getSimpleInputComp(form,schema,keyIndex){
     let {type,name,defaultValue} = schema ;
     let inputComp = null ;
+    //如果隐藏的话直接返回null
+    let hideFlag = form.getSingleHideState(name) ;
+    if(hideFlag) return inputComp ;
+    //如果组件需要显示
     //name ={} value = {} onChange={}
     if(['text','email'].includes(type)){
         inputComp = <OCInput />
@@ -51,7 +55,7 @@ function getSimpleInputComp(form,schema,keyIndex){
     }
     //收集表单默认值
     return inputComp ==null ? null : React.cloneElement(inputComp,{
-        value:form.getFieldValue(name),
+        value:form.getSingleFieldValue(name),
         width:schema.width,
         handleChange:handleChange4InputFactory(form,name),
         key:keyIndex
@@ -62,9 +66,12 @@ function getComplexInputComp(form,schema){
     let {fields,divline} = schema ;
     let arr = [] ;
     let len = fields.length ;
+    //只要有一个空间是显示得就需要显示
+    let needShowFlag = false ;
     for(let i =0 ;i < len ; i ++){
         let tmpFieldName = fields[i]['name'] ;
         //console.info(`fieldName: ${tmpFieldName},  hideFlag : ${hideFlag}`) ;
+        //如果中间有分割线则将分割线显示出来
         if(arr.length > 0){
             if(divline){
                 arr.push(<span key={'sp'+i} className="split-line"></span>) ;
@@ -73,14 +80,20 @@ function getComplexInputComp(form,schema){
             }
         }
         let tmpInput = getSimpleInputComp(form,fields[i],i) ;
-        arr.push(tmpInput) ;
-        //如果中间有分割线则将分割线显示出来
+        if(tmpInput != null){
+            arr.push(tmpInput) ;
+            needShowFlag = true ;
+        }
     }
-    return (
-        <span className="input-complex">
-            {arr}
-        </span>
-    )
+    if(needShowFlag){
+        return (
+            <span className="input-complex">
+                {arr}
+            </span>
+        ) ;
+    }else{
+        return null ;
+    }
 }
 
 
@@ -124,12 +137,11 @@ function getFieldErrorStr(form,schema){
     let names = getNameFromFieldSchema(schema) ;
     let err = null ;
     for(let name of names){
-        err = form.getFieldError(name) ;
+        err = form.getSingleFieldError(name) ;
         if(err) break ;
     }
     return err || '' ;
 }
-
 
 
 function getNameFromFieldSchema(schema){
@@ -141,7 +153,6 @@ function getNameFromFieldSchema(schema){
     }
     return [name] ;
 }
-
 
 export default FormItem ;
 

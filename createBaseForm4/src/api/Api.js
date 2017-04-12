@@ -18,7 +18,7 @@ export function getUserEditFormSchemaApi(){
             label:'用户名',
             name:'username',
             defaultValue:'yicj',
-            rule:{required:true,validator:'validateUsername'},
+            rule:{required:true,validator:'validate1'},
         },
         {
             type:'email',

@@ -29,8 +29,12 @@ class UserInfoEditForm extends BaseModule {
         }
     }
 
-    validateUserName(){
-        return "用户名输入错误" ;
+    validateUserName(fieldValue,fieldName){
+        console.info(`fieldValue : ${fieldValue} ,fieldName : ${fieldName} `) ; 
+        if(fieldValue === 'admin'){
+            return "用户名输入错误" ;
+        }
+        return null ;
     }
 
     //初始化数据
