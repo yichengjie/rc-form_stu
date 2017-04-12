@@ -47,7 +47,7 @@ class UserInfoEditForm extends BaseModule {
     }
     handleSubmit = (event) => {
         event.preventDefault();
-        let formData = this.form.getFormData () ;
+        let formData = this.form.getAllFormData () ;
         let infoStr = JSON.stringify(formData,null,2) ;
         console.info('formData : ' ,infoStr) ;
         this.form.validateAllForm() ;
