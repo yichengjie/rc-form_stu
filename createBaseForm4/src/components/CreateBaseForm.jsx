@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import FormItem from './FormItem.jsx' ;
-import {getFieldObjByFieldSchema,isComplexFieldSchema} from '../common/common.js' ;
+import {getFieldObjByFieldSchema,isComplexFieldSchema,isString} from '../common/common.js' ;
 import {validationFn,validationMessages} from  '../common/validator.js'; 
 
 
@@ -47,6 +47,23 @@ let BaseFormUtil = {
             } 
         }
         return {flag:validFlag,msg:errTip} ;
+    },
+    validSingleFieldDynamic(fieldName,fieldValue,validatorFnName){
+       let msg = '' ;
+       let flag = true ;
+       if(validatorFnName && isString(validatorFnName) &&validatorFnName.length>0 ){
+            let validatorFn = this.getCustomValidatorFn(validatorFnName) ;
+            /**
+             * 这里需要注意，
+             * 第一个参数是fieldValue
+             * 第二个参数是fieldName
+             * */
+            msg = validatorFn && validatorFn.call(this,fieldValue,fieldName) || '' ;
+            if(msg && msg.length>0){
+                flag = false ;
+            }
+        }
+        return {flag,msg} ;
     }
 } ;
 
@@ -89,6 +106,7 @@ let BaseFormUtil = {
             this.loadFormSchema() ;
             //初始化页面数据
         }
+       
 
         loadFormSchema(){
             if(getFormSchemaApi && typeof getFormSchemaApi === 'function'){
@@ -125,6 +143,7 @@ let BaseFormUtil = {
             let validateRules = this.getAllValidateRules() ;
             return validateRules[fieldName];
         }
+        
         //添加单条校验规则
         addSingleValidateRule(schema){
             let validateRules = this.getAllValidateRules() ;
@@ -157,7 +176,11 @@ let BaseFormUtil = {
             let rule = this.getSingleValidateRule(fieldName) ;
             if(rule==null) return false;
             let {validator,...other} = rule ;
-            let retObj = BaseFormUtil.validSingleFieldStatic(fieldName,fieldValue,other) ;
+            let retObj  = BaseFormUtil.validSingleFieldStatic(fieldName,fieldValue,other) ;
+            let {flag} = retObj ;
+            if(flag){
+                 retObj = BaseFormUtil.validSingleFieldDynamic.call(this,fieldName,fieldValue,validator) ;
+            }
             return retObj ;
         }
         //--------------------------------------------------//

@@ -22,6 +22,17 @@ class UserInfoEditForm extends BaseModule {
             }
         } ;
     }
+    //实现自定义校验的方法
+    getCustomValidatorFn(validatorName){
+        if(validatorName=='validate1'){
+            return this.validateUserName ;
+        }
+    }
+
+    validateUserName(){
+        return "用户名输入错误" ;
+    }
+
     //初始化数据
     //如果不使用异步加载的formSchema，而是自己定制页面的form的话，需要实现这个方法
     getInitialFormData(){

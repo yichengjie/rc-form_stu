@@ -14,6 +14,16 @@ class UserInfoEditForm extends BaseModule {
     //         username:'yicj'
     //     } ;
     // }
+     //实现自定义校验的方法
+    getCustomValidatorFn(validatorName){
+        if(validatorName=='validate1'){
+            return this.validateUserName ;
+        }
+    }
+
+    validateUserName(){
+        return "用户名输入错误" ;
+    }
     handleSubmit = (event) => {
         event.preventDefault();
         //let formData = this.form.getFormData () ;
