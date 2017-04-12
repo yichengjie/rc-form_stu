@@ -24,15 +24,22 @@ class UserInfoEditForm extends BaseModule {
     }
     
     customValidateServiceType(fieldValue,fieldName){
+        let username = 'yicj-no-m' ;
+        let age = '11' ;
+        let descr = 'test-no-m' ;
+        if(fieldValue==='M'){
+            username = 'yicj-m' ;
+            age = '22x' ;
+            descr = 'test-m' ;
+        }
         if(fieldValue === 'M'){
             this.form.hideSingleField('email') ;
-            this.form.hideSingleField('age1') ;
-            this.form.hideSingleField('age2') ;
         }else{
             this.form.showSingleField('email') ;
-            this.form.showSingleField('age1') ;
-            this.form.showSingleField('age2') ;
         }
+        this.form.setSingleFieldValue('username',username) ;
+        this.form.setSingleFieldValue('age',age) ;
+        this.form.setSingleFieldValue('descr',descr) ;
     }
     validateUserName(fieldValue,fieldName){
        //console.info(`fieldValue : ${fieldValue} ,fieldName : ${fieldName} `) ; 
