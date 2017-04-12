@@ -55,11 +55,12 @@ let BaseFormUtil = {
      return  class BaseForm extends WrapperComponent{
         constructor(props){
             super(props) ;
-            console.info('BaseForm constructor ...') ;
+            //console.info('BaseForm constructor ...') ;
             let baseState = {
                 _inner_weird_formData:{},
                 _inner_weird_formError:{},
-                _inner_weird_refreshFormViewFlag:false/**强制刷新视图使用的 */
+                _inner_weird_hideState:{},
+                _inner_weird_refreshFormViewFlag:false,/**强制刷新视图使用的 */
             } ;
             if(this.getInitialFormData && typeof this.getInitialFormData === 'function'){
                 let initialFormState = this.getInitialFormData()  ;
@@ -105,6 +106,15 @@ let BaseFormUtil = {
                 }) ;
             }
         }
+
+        //--------------------------------------------------//
+        getAllHideState(){
+            return this.state._inner_weird_hideState ;
+        }
+        getSingleHideState(fieldName){
+            let hideState = this.getAllHideState() ;
+            return hideState[fieldName] || false ;
+        }
         //--------------------------------------------------//
         //获取所有的校验规则
         getAllValidateRules(){
@@ -120,6 +130,35 @@ let BaseFormUtil = {
             let validateRules = this.getAllValidateRules() ;
             let ruleObj = BaseFormUtil.getFieldValidRuleByOrginFieldSchema(schema) ;
             Object.assign(validateRules,ruleObj) ;
+        }
+         //校验整个表单数据的合法性
+        validateAllForm(){
+            let allRules = this.getAllValidateRules() ;
+            let ruleKyes = Object.keys(allRules) ;
+            let allValid = true ;
+            let allErrorInfoObj = {} ;
+            ruleKyes.forEach(fieldName=>{
+                let fieldValue = this.getFieldValue(fieldName) ;
+                let {flag,msg} = this.getSingleFieldValidInfo(fieldName,fieldValue) ;
+                allErrorInfoObj[fieldName] = msg ;
+                if(!flag){
+                    allValid = false;
+                }
+            }) ;
+            this.setFieldErrorObj(allErrorInfoObj) ;
+            return allValid ;
+        }
+        //获取单个字段上的校验提示信息
+        getSingleFieldValidInfo(fieldName,fieldValue){
+            let hideFlag = this.getSingleHideState(fieldName) ;
+            if(hideFlag){
+                return {flag:true,msg:''};
+            }
+            let rule = this.getSingleValidateRule(fieldName) ;
+            if(rule==null) return false;
+            let {validator,...other} = rule ;
+            let retObj = BaseFormUtil.validSingleFieldStatic(fieldName,fieldValue,other) ;
+            return retObj ;
         }
         //--------------------------------------------------//
 
@@ -147,17 +186,13 @@ let BaseFormUtil = {
             let originFormSchema = this.getOriginFormSchema() ;
             originFormSchema.push(schema) ;
         }
-        
         //获取表单的schema
         // getFormSchema () {
         //     return this._inner_weird_formSchema
         // }
-
         getOriginFormSchema (){
             return this._inner_weird_originformSchema ;
         }
-
-
         setFieldValue (fieldName,fieldValue,needValidFlag){
             let obj = {[fieldName]:fieldValue} ;
             this.setFieldValueObj(obj,needValidFlag) ;
@@ -166,7 +201,6 @@ let BaseFormUtil = {
             let formData = this.getFormData() ;
             return formData[fieldName] ;
         }
-
         setFieldValueObj (obj,needValidFlag) {
             //1.存储数据
             this._inner_setComplexState('_inner_weird_formData',obj) ;
@@ -219,32 +253,7 @@ let BaseFormUtil = {
             } ;
         }
 
-        //校验整个表单数据的合法性
-        validateAllForm(){
-            let allRules = this.getAllValidateRules() ;
-            let ruleKyes = Object.keys(allRules) ;
-            let allValid = true ;
-            let allErrorInfoObj = {} ;
-            ruleKyes.forEach(fieldName=>{
-                let fieldValue = this.getFieldValue(fieldName) ;
-                let {flag,msg} = this.getSingleFieldValidInfo(fieldName,fieldValue) ;
-                allErrorInfoObj[fieldName] = msg ;
-                if(!flag){
-                    allValid = false;
-                }
-            }) ;
-            this.setFieldErrorObj(allErrorInfoObj) ;
-            return allValid ;
-        }
-
-         //获取单个字段上的校验提示信息
-        getSingleFieldValidInfo(fieldName,fieldValue){
-            let rule = this.getSingleValidateRule(fieldName) ;
-            if(rule==null) return false;
-            let {validator,...other} = rule ;
-            let retObj = BaseFormUtil.validSingleFieldStatic(fieldName,fieldValue,other) ;
-            return retObj ;
-        }
+       
 
         /**公共方法api end */
         renderBaseForm () {

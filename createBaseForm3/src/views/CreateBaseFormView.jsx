@@ -3,7 +3,6 @@ import BaseModule from '../components/BaseModule.jsx';
 import CreateBaseForm from '../components/CreateBaseForm.jsx'; 
 import {getUserEditFormSchemaApi} from '../api/Api.js' ;
 
-
 class UserInfoEditForm extends BaseModule {
     constructor( props ){
         super( props ) ;
@@ -17,10 +16,11 @@ class UserInfoEditForm extends BaseModule {
     // }
     handleSubmit = (event) => {
         event.preventDefault();
-        let formData = this.form.getFormData () ;
-        let infoStr = JSON.stringify(formData,null,2) ;
-        console.info('formData : ' ,infoStr) ;
-        this.form.validateAllForm() ;
+        //let formData = this.form.getFormData () ;
+        //let infoStr = JSON.stringify(formData,null,2) ;
+        //console.info('formData : ' ,infoStr) ;
+        let flag = this.form.validateAllForm() ;
+        console.info('form valid flag : ' + flag) ;
     }
     toRender(){
         let formError = this.getFormError() ;

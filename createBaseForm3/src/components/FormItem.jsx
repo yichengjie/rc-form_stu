@@ -22,7 +22,7 @@ function InputCompFactory({form,schema}){
 
 function handleChange4InputFactory(form,fieldName){
     return function(fieldValue){
-        console.info(`fieldName:${fieldName},fieldValue : ${fieldValue}`) ;
+        //console.info(`fieldName:${fieldName},fieldValue : ${fieldValue}`) ;
         form.setFieldValue(fieldName,fieldValue) ;
     }
 }
