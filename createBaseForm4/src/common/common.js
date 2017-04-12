@@ -87,7 +87,7 @@ export function getEmptySimpleObj(obj){
     }
     return newObj ;
 }
-function getDefaultValue(value){
+export function getDefaultValue(value){
     if(value == null){
         return null ;
     }else{

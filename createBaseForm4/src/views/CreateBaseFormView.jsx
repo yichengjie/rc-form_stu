@@ -22,10 +22,13 @@ class UserInfoEditForm extends BaseModule {
             return this.customValidateServiceType ;
         }
     }
+
+    
     customValidateServiceType(fieldValue,fieldName){
         if(fieldValue === 'M'){
-            this.form.setSingleHideState('email',true) ;
-
+            this.form.hideSingleField('email') ;
+        }else{
+            this.form.setSingleHideState('email',false) ;
         }
     }
     validateUserName(fieldValue,fieldName){
@@ -37,9 +40,9 @@ class UserInfoEditForm extends BaseModule {
     }
     handleSubmit = (event) => {
         event.preventDefault();
-        //let formData = this.form.getAllFormData () ;
-        //let infoStr = JSON.stringify(formData,null,2) ;
-        //console.info('formData : ' ,infoStr) ;
+        let formData = this.form.getAllFormData () ;
+        let infoStr = JSON.stringify(formData,null,2) ;
+        console.info('formData : ' ,infoStr) ;
         let flag = this.form.validateAllForm() ;
         console.info('form valid flag : ' + flag) ;
     }

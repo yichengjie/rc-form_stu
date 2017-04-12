@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import FormItem from './FormItem.jsx' ;
-import {getFieldObjByFieldSchema,isComplexFieldSchema,isString} from '../common/common.js' ;
+import {getFieldObjByFieldSchema,isComplexFieldSchema,isString,getDefaultValue} from '../common/common.js' ;
 import {validationFn,validationMessages} from  '../common/validator.js'; 
 
 let BaseFormUtil = {
@@ -101,7 +101,8 @@ let BaseFormUtil = {
                 addSingleValidateRule : this.addSingleValidateRule.bind(this),
                 validateAllForm : this.validateAllForm.bind(this),
                 setSingleHideState : this.setSingleHideState.bind(this),
-                getSingleHideState : this.getSingleHideState.bind(this)
+                getSingleHideState : this.getSingleHideState.bind(this),
+                hideSingleField : this.hideSingleField.bind(this)
             } ;
              //加载页面schema
             this.loadFormSchema() ;
@@ -127,6 +128,13 @@ let BaseFormUtil = {
         }
 
         //--------------------------------------------------//
+        //设置字段的隐藏或显示
+        hideSingleField(fieldName){
+            this.setSingleHideState(fieldName,true) ;
+            let oldValue = this.getSingleFieldValue(fieldName) ;
+            let defaultValue = getDefaultValue(oldValue) ;
+            this.setSingleFieldValue(fieldName,defaultValue) ;
+        }
         getAllHideState(){
             return this.state._inner_weird_hideState ;
         }
@@ -134,6 +142,14 @@ let BaseFormUtil = {
             let hideState = this.getAllHideState() ;
             return hideState[fieldName] || false ;
         }
+        setSingleHideState(fieldName,hideFlag){
+            let obj = {[fieldName]:hideFlag} ;
+            this.setHideStateObj(obj) ;
+        }
+        setHideStateObj(obj){
+            this._inner_setComplexState('_inner_weird_hideState',obj) ;
+        }
+         //--------------------------------------------------//
         //--------------------------------------------------//
         //获取所有的校验规则
         getAllValidateRules(){
@@ -209,20 +225,7 @@ let BaseFormUtil = {
             return formData[fieldName] ;
         }
 
-        //--------------------------------------------------//
-        //设置字段的隐藏或显示
-        setSingleHideState(fieldName,hideFlag){
-            let obj = {[fieldName]:hideFlag} ;
-            this.setHideStateObj(obj) ;
-        }
-        getSingleHideState(fieldName){
-            let hideState = this.getAllHideState() ;
-            return hideState[fieldName] || false;
-        }
-        setHideStateObj(obj){
-             this._inner_setComplexState('_inner_weird_hideState',obj) ;
-        }
-         //--------------------------------------------------//
+        
 
         setFieldValueObj (obj,needValidFlag) {
             //1.存储数据
