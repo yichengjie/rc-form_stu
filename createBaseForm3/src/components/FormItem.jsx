@@ -50,8 +50,6 @@ function getSimpleInputComp(form,schema,keyIndex){
         inputComp = <OCCheckbox options ={schema.options}/>
     }
     //收集表单默认值
-    form.collectFieldInitialState(name,defaultValue) ;
-
     return inputComp ==null ? null : React.cloneElement(inputComp,{
         value:form.getFieldValue(name),
         width:schema.width,
@@ -86,24 +84,38 @@ function getComplexInputComp(form,schema){
 }
 
 
-function FormItem ({form,schema}){
-    //如果需要显示form group
-    let {label,name} = schema ;
-    let inputComp = InputCompFactory({form,schema}) ;
-    if(inputComp == null){
-        return null ;
-    }
-    return (
-        <div className="form-group">
-            <label  className="col-sm-2 control-label">{label}</label>
-            <div className="col-sm-7">
-                {inputComp}
+class FormItem extends Component{
+    constructor(props){
+        super(props) ;
+        //收集表单的schema
+        let {form,schema} = this.props ;
+        let needAssembleFormSchema = this.props.needAssembleFormSchema ;
+        if(needAssembleFormSchema !== false){
+            console.info(form) ;
+            form.addFieldSchema(schema)
+        }
+    }   
+    render () {
+         //如果需要显示form group
+        let {form,schema} = this.props ;
+        let {label,name} = schema ;
+        let inputComp = InputCompFactory({form,schema}) ;
+        if(inputComp == null){
+            return null ;
+        }
+        return (
+            <div className="form-group">
+                <label  className="col-sm-2 control-label">{label}</label>
+                <div className="col-sm-7">
+                    {inputComp}
+                </div>
+                <span className="error-tip col-sm-3">
+                    {getFieldErrorStr(form,schema)}
+                </span>
             </div>
-            <span className="error-tip col-sm-3">
-                {getFieldErrorStr(form,schema)}
-            </span>
-        </div>
-    ) ;
+        )
+    }
+
 }
 
 

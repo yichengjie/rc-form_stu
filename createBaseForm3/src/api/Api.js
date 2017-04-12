@@ -4,7 +4,7 @@ export function getUserEditFormSchemaApi(){
             type:'select',
             label:'服务类型',
             name:'serviceType',
-            defaultValue:'',
+            defaultValue:'F',
             rule:{required:true,validator:'customValidateServiceType'},
             options:[
                 {name:'选择',value:''},
@@ -17,7 +17,7 @@ export function getUserEditFormSchemaApi(){
             type:'text',
             label:'用户名',
             name:'username',
-            defaultValue:'',
+            defaultValue:'yicj',
             rule:{required:true,validator:'validateUsername'},
         },
         {

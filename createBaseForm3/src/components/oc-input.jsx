@@ -5,6 +5,7 @@ class OCInput extends Component {
 
     constructor(props){
         super(props) ;
+        console.info('oc-input constructor is call...') ;
         this.handleChange = this.handleChange.bind(this) ;
     }
     handleChange(event){

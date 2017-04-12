@@ -1,13 +1,27 @@
 /**从后台formSchema定义中获取到formData的结构 */
-export function getFormDataFromSchema(schemaFields){
-    let obj = {} ;
-    schemaFields.forEach(field=>{
-        //console.info('field : ' + JSON.stringify(field)) ;
-        let name = field['name'] ;
-        obj[name] = '' ;
-    }) ;
-    return obj ;
+export function isComplexFieldSchema(fieldSchema){
+    if(fieldSchema.type === 'complex'){
+        return true ;
+    }
+    return false ; 
 }
+
+
+export function getFieldObjByFieldSchema(fieldSchema){
+    let isComplexSchemaFlag = isComplexFieldSchema(fieldSchema) ;
+    let {name,defaultValue,fields} = fieldSchema ;
+    if(isComplexSchemaFlag){
+        let obj = {} ;
+        for(let field of fields){
+            obj[field['name']] = field['defaultValue'] ; 
+        }
+        return obj ;
+    }else{
+        return {[name]:defaultValue} ;
+    }
+}
+
+
 
 
 function _replacer(key,value){
