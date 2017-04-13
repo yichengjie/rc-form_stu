@@ -123,7 +123,7 @@ export function getUserEditFormSchemaApi(){
       return new Promise(function(resolve,reject){
           setTimeout(function(){
               resolve(formSchema) ;
-          },200) ;
+          },300) ;
       }) ;
 }
 

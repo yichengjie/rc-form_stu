@@ -14,12 +14,13 @@ class UserInfoEditForm extends BaseModule {
     //         username:'yicj'
     //     } ;
     // }
-
     initPageOtherParam(){
         console.info('初始化页面其他数据') ;
+        this.showLoadingIcon() ;
         setTimeout(()=>{
+            this.hideLoadingIcon() ;
             this.form.setSingleFieldValue('email','666') ;
-        },300) ;
+        },1000) ;
     }
 
      //实现自定义校验的方法

@@ -31,3 +31,10 @@ body{
 .input-complex .form-control{
     display: inline-block ;
 }
+.no-data{
+    position:fixed;
+	top:50%;
+	/*margin-top:-10px;*/
+    left:50%;
+	/*margin-left:-10px;*/
+}

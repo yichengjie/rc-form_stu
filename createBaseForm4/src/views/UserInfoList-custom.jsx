@@ -33,9 +33,12 @@ class UserInfoEditForm extends BaseModule {
     //初始化页面其他数据
     initPageOtherParam(){
         console.info('初始化页面其他数据') ;
+        this.setState({loading:true}) ;
+        this.showLoadingIcon() ;
         setTimeout(()=>{
+            this.hideLoadingIcon() ;
             this.form.setSingleFieldValue('email','666') ;
-        },300) ;
+        },1000) ;
     }
 
     //实现自定义校验的方法

@@ -118,16 +118,27 @@ let BaseFormUtil = {
                 //设置某个字段的错误提示
                 //setSingleFieldError : this.setSingleFieldError.bind(this),
             } ;
-             //加载页面schema
-            this._inner_inner_weird_loadFormSchema() ;
-            //初始化页面数据
         }
-       
+
+        componentDidMount(){
+            //加载页面schema
+            this._inner_inner_weird_loadFormSchema() ;
+        }
+
+        showLoadingIcon(){
+            this.setState({loading:true}) ;
+        }
+
+        hideLoadingIcon(){
+            this.setState({loading:false}) ;
+        }
 
         _inner_inner_weird_loadFormSchema(){
             if(getFormSchemaApi && typeof getFormSchemaApi === 'function'){
                 let promise = getFormSchemaApi() ;
+                this.showLoadingIcon() ;
                 promise.then(retData=>{
+                    this.hideLoadingIcon() ;
                     //保存schema
                     for(let tmp of retData){
                         //this.addFieldSchema(tmp) ;
