@@ -63,6 +63,8 @@ class UserInfoEditForm extends BaseModule {
                 <div className="form-group">
                     <div className="col-sm-offset-2">
                         <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>保存</button>
+                        &nbsp; &nbsp; &nbsp;
+                        <button type="button" className="btn btn-danger" onClick={this.form.resetForm}>重置</button>
                     </div>
                 </div>
             </div>

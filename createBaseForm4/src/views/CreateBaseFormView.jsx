@@ -52,7 +52,7 @@ class UserInfoEditForm extends BaseModule {
         event.preventDefault();
         let formData = this.form.getAllFormData () ;
         let infoStr = JSON.stringify(formData,null,2) ;
-        console.info('formData : ' ,infoStr) ;
+        //console.info('formData : ' ,infoStr) ;
         let flag = this.form.validateAllForm() ;
         console.info('form valid flag : ' + flag) ;
     }
@@ -63,6 +63,8 @@ class UserInfoEditForm extends BaseModule {
                 <div className="row">
                     <div className="col-sm-offset-2">
                         <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>保存</button>
+                        &nbsp; &nbsp; &nbsp;
+                        <button type="button" className="btn btn-danger" onClick={this.form.resetForm}>重置</button>
                     </div>
                 </div>
             </div>
