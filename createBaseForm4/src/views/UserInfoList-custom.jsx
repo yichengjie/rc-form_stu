@@ -1,7 +1,9 @@
 import React,{Component} from 'react';
 import BaseModule from '../components/BaseModule.jsx';
 import CreateBaseForm from '../components/CreateBaseForm.jsx'; 
-import {getUserEditFormSchemaApi} from '../api/Api.js' ;
+import Api, {getUserEditFormSchemaApi} from '../api/Api.js' ;
+import {dealPromise4Callback} from '../common/common.js' ;
+///////////////////////////////////////////////////////////
 import FormItem from '../components/FormItem.jsx' ;
 
 class UserInfoEditForm extends BaseModule {
@@ -39,13 +41,14 @@ class UserInfoEditForm extends BaseModule {
 
     //初始化页面其他数据
     initPageOtherParam(){
-        console.info('初始化页面其他数据') ;
-        this.setState({loading:true}) ;
+       console.info('初始化页面其他数据') ;
+        let id = '1';
         this.showLoadingIcon() ;
-        setTimeout(()=>{
+        dealPromise4Callback(Api.queryUserById(id),(retData)=>{
             this.hideLoadingIcon() ;
-            this.form.setSingleFieldValue('email','666') ;
-        },1000) ;
+            let formDataDB = retData.formData ;
+            this.form.setFieldValueObj(formDataDB,false) ;
+        });
     }
 
     //实现自定义校验的方法
@@ -56,7 +59,7 @@ class UserInfoEditForm extends BaseModule {
     }
 
     validateUserName(fieldValue,fieldName){
-        console.info(`fieldValue : ${fieldValue} ,fieldName : ${fieldName} `) ; 
+        //console.info(`fieldValue : ${fieldValue} ,fieldName : ${fieldName} `) ; 
         if(fieldValue === 'admin'){
              return "用户名不能为admin" ;
         }
@@ -72,7 +75,10 @@ class UserInfoEditForm extends BaseModule {
         } ;
     }
     handleSubmit = (event) => {
-        event.preventDefault();
+         event.preventDefault();
+        let flag = this.form.validateAllForm() ;
+        console.info('form valid flag : ' + flag) ;
+        //////////////////////////////////////////////
         let formData = this.form.getAllFormDataSync () ;
         let infoStr = this.stringify(formData) ;
         console.info('formData : ' ,infoStr) ;
