@@ -67,7 +67,7 @@ let BaseFormUtil = {
 } ;
 
 
- function creatBaseForm(WrapperComponent,getFormSchemaApi){
+ function creatBaseForm(WrapperComponent,config){
      return  class BaseForm extends WrapperComponent{
         constructor(props){
             super(props) ;
@@ -128,11 +128,7 @@ let BaseFormUtil = {
             } ;
         }
 
-        componentDidMount(){
-            //加载页面schema
-            this._inner_inner_weird_loadFormSchema() ;
-        }
-
+       
         showLoadingIcon(){
             this.setState({loading:true}) ;
         }
@@ -141,35 +137,25 @@ let BaseFormUtil = {
             this.setState({loading:false}) ;
         }
 
-        _inner_inner_weird_loadFormSchema(){
-            if(getFormSchemaApi && typeof getFormSchemaApi === 'function'){
-                let promise = getFormSchemaApi() ;
-                this.showLoadingIcon() ;
-                promise.then(retData=>{
-                    this.hideLoadingIcon() ;
-                    //保存schema
-                    for(let tmp of retData){
-                        //this.addFieldSchema(tmp) ;
-                        this._inner_werid_addOrginFieldSchema(tmp) ;
-                        this._inner_weird_addSingleValidateRule(tmp) ;
-                    }
-                    let initFormDataObj = BaseFormUtil.getInitFormDataByFormSchema(this._inner_inner_weird_getAllOriginFormSchema()) ;
-                    //初始化页面
-                    this._inner_inner_weird_setFieldValueObj(initFormDataObj,false) ;
-                    //初始化页面其他数据
-                    this._inner_inner_weird_execInitPageOtherParam() ;
-                }) ;
-            }else{
-                 this._inner_inner_weird_execInitPageOtherParam() ; 
-            }
-        }
-       
+        // _inner_inner_weird_loadFormSchema(){
+        //     let promise = getFormSchemaApi() ;
+        //     promise.then(retData=>{
+                
+        //     }) ;
+        // }
 
-        //初始化页面其他数据
-        _inner_inner_weird_execInitPageOtherParam(){
-            if(this.initPageOtherParam && typeof this.initPageOtherParam  === 'function'){
-                this.initPageOtherParam() ;
+        //初始化页面的表单显示Schema
+        initPageFormSchema(formSchema){
+            //保存schema
+            for(let tmp of formSchema){
+                //this.addFieldSchema(tmp) ;
+                this._inner_werid_addOrginFieldSchema(tmp) ;
+                this._inner_weird_addSingleValidateRule(tmp) ;
             }
+            //表单默认值数据
+            let initFormDataObj = BaseFormUtil.getInitFormDataByFormSchema(this._inner_inner_weird_getAllOriginFormSchema()) ;
+            //初始化页面
+            this._inner_inner_weird_setFieldValueObj(initFormDataObj,false) ;
         }
 
         //--------------------------------------------------//

@@ -15,6 +15,17 @@ class UserInfoEditForm extends BaseModule {
     //         username:'yicj'
     //     } ;
     // }
+
+    componentDidMount() {
+        let promise = getFormSchemaApi() ;
+        promise.then(retData=>{
+            this.initPageFormSchema(retData) ;
+            //UserInfoList.jsx
+            this.initPageOtherParam() ;
+        }) ;
+    }
+
+
     initPageOtherParam(){
         console.info('初始化页面其他数据') ;
         let id = '1';

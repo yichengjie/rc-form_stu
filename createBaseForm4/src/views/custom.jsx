@@ -90,6 +90,7 @@ class UserInfoEditForm extends BaseModule {
                 <form  className="form-horizontal" role="form">
                     <FormItem form = {this.form} schema ={this.formSchema.username}></FormItem>
                     <FormItem form = {this.form} schema ={this.formSchema.addr}></FormItem>
+                    <hr/>
                     <FormItem form = {this.form} schema ={this.formSchema.email}></FormItem>
                     <FormItem form = {this.form} schema ={this.formSchema.effDate}></FormItem>
                 </form>
