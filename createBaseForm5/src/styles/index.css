@@ -1,0 +1,40 @@
+body{
+    font-family: 'Fira Mono', Monaco, 'Andale Mono', 'Lucida Console', 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace;
+    margin: 50px auto ;
+}
+.error-tip{
+    color: #AE4343; 
+    padding-top: 7px;
+    font-size: 10px;
+}
+.input-two .form-control{
+    display: inline-block ;
+    width: 48% ;
+}
+.split-line{
+    display: inline-block ;
+    width: 4%;
+    height: 100%;
+    box-sizing: border-box ;
+    padding-left: 5px;
+}
+.split-line::after{
+    content: '-'
+}
+.split-line-none{
+    display: inline-block ;
+    width: 2%;
+    height: 100%;
+    box-sizing: border-box ;
+    padding-left: 3px;
+}
+.input-complex .form-control{
+    display: inline-block ;
+}
+.no-data{
+    position:fixed;
+	top:50%;
+	/*margin-top:-10px;*/
+    left:50%;
+	/*margin-left:-10px;*/
+}
