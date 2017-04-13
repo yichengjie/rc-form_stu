@@ -12,16 +12,32 @@ class UserInfoEditForm extends BaseModule {
                 type:'text',
                 label:'用户名',
                 name:'username',
-                rule:{required:true,validator:'validateUsername'}, 
+                rule:{required:true,validator:'validate1'}, 
             },
             addr:{
                 type:'text',
                 label:'地址',
                 name:'addr',
                 rule:{required:true},
+            },
+            email:{
+                type:'email',
+                label:'邮箱',
+                name:'email',
+                defaultValue:'',
+                rule:{required:true,email:true} 
             }
         } ;
     }
+
+    //初始化页面其他数据
+    initPageOtherParam(){
+        console.info('初始化页面其他数据') ;
+        setTimeout(()=>{
+            this.form.setSingleFieldValue('email','666') ;
+        },300) ;
+    }
+
     //实现自定义校验的方法
     getCustomValidatorFn(validatorName){
         if(validatorName=='validate1'){
@@ -32,7 +48,7 @@ class UserInfoEditForm extends BaseModule {
     validateUserName(fieldValue,fieldName){
         console.info(`fieldValue : ${fieldValue} ,fieldName : ${fieldName} `) ; 
         if(fieldValue === 'admin'){
-            return "用户名输入错误" ;
+             return "用户名不能为admin" ;
         }
         return null ;
     }
@@ -58,6 +74,7 @@ class UserInfoEditForm extends BaseModule {
                 <form  className="form-horizontal" role="form">
                     <FormItem form = {this.form} schema ={this.formSchema.username}></FormItem>
                     <FormItem form = {this.form} schema ={this.formSchema.addr}></FormItem>
+                    <FormItem form = {this.form} schema ={this.formSchema.email}></FormItem>
                 </form>
 
                 <div className="form-group">
