@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import FormItem from './FormItem.jsx' ;
-import {getFieldObjByFieldSchema,isComplexFieldSchema,isString,getDefaultValue} from '../common/common.js' ;
+import {getFieldObjByFieldSchema,isComplexFieldSchema,isString,getDefaultValue,stringify} from '../common/common.js' ;
 import {validationFn,validationMessages} from  '../common/validator.js'; 
 
 let BaseFormUtil = {
@@ -87,13 +87,21 @@ let BaseFormUtil = {
             //this._inner_weird_formSchema = [] ;//组织好的form schema ，去除了组件应该显示的位置
             this._inner_weird_originformSchema= [] ; //这个是从后台获取到的原始的formschema
             this._inner_weird_validateRules = {} ;//页面字段的校验规则
+            //------------------同步数据保存----------------------//
+            //同步表单数据
+            this._inner_weird_formData_sync = {} ;
+            //---------------------------------------------------//
 
             this.form = {
                 //---------------------高频api---------------------------//
                 //获取整个表单数据
-                getAllFormData : this._inner_weird_getAllFormData.bind(this),
+                //getAllFormData : this._inner_weird_getAllFormData.bind(this),
+                //获取同步的formData
+                getAllFormDataSync : this._inner_weird_getAllFormDataSync.bind(this) ,
                 //设置某个字段的value
                 setSingleFieldValue : this._inner_weird_setSingleFieldValue.bind(this),
+                //设置formData的值
+                setFieldValueObj :this._inner_inner_weird_setFieldValueObj.bind(this) ,
                 //获取某个字段的值
                 getSingleFieldValue:this._inner_weird_getSingleFieldValue.bind(this),
                 //校验整个表单
@@ -155,6 +163,7 @@ let BaseFormUtil = {
                  this._inner_inner_weird_execInitPageOtherParam() ; 
             }
         }
+       
 
         //初始化页面其他数据
         _inner_inner_weird_execInitPageOtherParam(){
@@ -213,7 +222,8 @@ let BaseFormUtil = {
             let allValid = true ;
             let allErrorInfoObj = {} ;
             ruleKyes.forEach(fieldName=>{
-                let fieldValue = this._inner_weird_getSingleFieldValue(fieldName) ;
+                //let fieldValue = this._inner_weird_getSingleFieldValue(fieldName) ;
+                let fieldValue = this._inner_inner_weird_getSingleFieldValueSync(fieldName) ;
                 let {flag,msg} = this._inner_inner_weird_getSingleFieldValidInfo(fieldName,fieldValue) ;
                 allErrorInfoObj[fieldName] = msg ;
                 if(!flag){
@@ -248,6 +258,19 @@ let BaseFormUtil = {
         _inner_inner_weird_getAllOriginFormSchema (){
             return this._inner_weird_originformSchema ;
         }
+
+         //-------------------------同步数据start--------------------------//
+        _inner_weird_getAllFormDataSync(){
+            return this._inner_weird_formData_sync ;
+        }
+        //同步获取单个字段的value
+        _inner_inner_weird_getSingleFieldValueSync(fieldName){
+            let formDataSync = this._inner_weird_getAllFormDataSync() ;
+            return formDataSync[fieldName] ;
+        }
+        //------------------------end------------------------------------//
+
+        //--------------------------异步formData---------------------------//
         _inner_weird_setSingleFieldValue (fieldName,fieldValue,needValidFlag){
             let obj = {[fieldName]:fieldValue} ;
             this._inner_inner_weird_setFieldValueObj(obj,needValidFlag) ;
@@ -258,6 +281,11 @@ let BaseFormUtil = {
         }
 
         _inner_inner_weird_setFieldValueObj (obj,needValidFlag) {
+            //同步数据到 `formDataSync`中
+            //let formDataSync = this._inner_weird_getAllFormDataSync() ;
+            Object.assign(this._inner_weird_getAllFormDataSync(),obj) ;
+
+
             //1.存储数据
             this._inner_setComplexState('_inner_weird_formData',obj) ;
             if(needValidFlag === false){
@@ -316,7 +344,7 @@ let BaseFormUtil = {
         }
 
         stringify(obj){
-            return JSON.stringify(obj,null,2) ;
+            return stringify(obj) ;
         }
 
         //重置formData

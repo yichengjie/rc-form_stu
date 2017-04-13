@@ -26,6 +26,13 @@ class UserInfoEditForm extends BaseModule {
                 name:'email',
                 defaultValue:'',
                 rule:{required:true,email:true} 
+            },
+            effDate:{
+                type:'date',
+                label:'生效日期',
+                name:'effDate',
+                defaultValue:'',
+                rule:{required:true,date:true} 
             }
         } ;
     }
@@ -66,8 +73,8 @@ class UserInfoEditForm extends BaseModule {
     }
     handleSubmit = (event) => {
         event.preventDefault();
-        let formData = this.form.getAllFormData () ;
-        let infoStr = JSON.stringify(formData,null,2) ;
+        let formData = this.form.getAllFormDataSync () ;
+        let infoStr = this.stringify(formData) ;
         console.info('formData : ' ,infoStr) ;
         this.form.validateAllForm() ;
     }
@@ -78,6 +85,7 @@ class UserInfoEditForm extends BaseModule {
                     <FormItem form = {this.form} schema ={this.formSchema.username}></FormItem>
                     <FormItem form = {this.form} schema ={this.formSchema.addr}></FormItem>
                     <FormItem form = {this.form} schema ={this.formSchema.email}></FormItem>
+                    <FormItem form = {this.form} schema ={this.formSchema.effDate}></FormItem>
                 </form>
 
                 <div className="form-group">

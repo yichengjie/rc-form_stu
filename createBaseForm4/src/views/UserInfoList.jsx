@@ -1,7 +1,8 @@
 import React,{Component} from 'react';
 import BaseModule from '../components/BaseModule.jsx';
 import CreateBaseForm from '../components/CreateBaseForm.jsx'; 
-import {getUserEditFormSchemaApi} from '../api/Api.js' ;
+import Api, {getUserEditFormSchemaApi} from '../api/Api.js' ;
+import {dealPromise4Callback} from '../common/common.js' ;
 
 class UserInfoEditForm extends BaseModule {
     constructor( props ){
@@ -16,14 +17,16 @@ class UserInfoEditForm extends BaseModule {
     // }
     initPageOtherParam(){
         console.info('初始化页面其他数据') ;
+        let id = '1';
         this.showLoadingIcon() ;
-        setTimeout(()=>{
+        dealPromise4Callback(Api.queryUserById(id),(retData)=>{
             this.hideLoadingIcon() ;
-            this.form.setSingleFieldValue('email','666') ;
-        },1000) ;
+            let formDataDB = retData.formData ;
+            this.form.setFieldValueObj(formDataDB,false) ;
+        });
     }
 
-     //实现自定义校验的方法
+    //实现自定义校验的方法
     getCustomValidatorFn(validatorName){
         if(validatorName === 'validate1'){
             return this.validateUserName ;
@@ -46,9 +49,9 @@ class UserInfoEditForm extends BaseModule {
         }else{
             this.form.showSingleField('email') ;
         }
-        this.form.setSingleFieldValue('username',username) ;
-        this.form.setSingleFieldValue('age',age) ;
-        this.form.setSingleFieldValue('descr',descr) ;
+        //this.form.setSingleFieldValue('username',username,false) ;
+        this.form.setSingleFieldValue('age','12',false) ;
+        //this.form.setSingleFieldValue('descr',descr,false) ;
     }
     validateUserName(fieldValue,fieldName){
        //console.info(`fieldValue : ${fieldValue} ,fieldName : ${fieldName} `) ; 
@@ -59,11 +62,12 @@ class UserInfoEditForm extends BaseModule {
     }
     handleSubmit = (event) => {
         event.preventDefault();
-        let formData = this.form.getAllFormData () ;
-        let infoStr = JSON.stringify(formData,null,2) ;
-        //console.info('formData : ' ,infoStr) ;
         let flag = this.form.validateAllForm() ;
         console.info('form valid flag : ' + flag) ;
+        /////////////
+        let formData = this.form.getAllFormDataSync () ;
+        let infoStr = this.stringify(formData) ;
+        console.info('formData : ' ,infoStr) ;
     }
     toRender(){
         return (

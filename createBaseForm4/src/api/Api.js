@@ -35,6 +35,13 @@ export function getUserEditFormSchemaApi(){
             rule:{integer:true} 
         },
         {
+            type:'date',
+            label:'生效日期',
+            name:'effDate',
+            defaultValue:'',
+            rule:{required:true,date:true} 
+        },
+        {
             type:'complex',/**复杂类型 */
             label:'年龄范围',
             divline:true, /**分割线 */
@@ -150,14 +157,14 @@ export default {
             resolve(list) ;
         }) ;
     },
-    queryUserById(id,callback){
+    queryUserById(id){
         let retData = {
             flag:true,
             formData:{
                 username:'ttt',
                 serviceType:'M',
                 birthday:'2017-02-19',
-                age:'xx',
+                age:'11x',
                 email:'xxxx'
                 //email:'test'
             }

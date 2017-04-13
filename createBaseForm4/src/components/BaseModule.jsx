@@ -23,7 +23,7 @@ class BaseModule extends Component{
         return <div className="no-data">数据格式不正确</div>
     }
     render() {
-        //console.info('loading : ' ,this.state.loading) ;
+        //console.info('_inner_weird_formData_sync : ' ,this.stringify(this._inner_weird_formData_sync)) ;
 
         if (this.state.loading) {
             return this.renderLoading() ;
