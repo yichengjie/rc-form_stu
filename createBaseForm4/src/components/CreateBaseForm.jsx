@@ -137,7 +137,18 @@ let BaseFormUtil = {
                     let initFormDataObj = BaseFormUtil.getInitFormDataByFormSchema(this._inner_inner_weird_getAllOriginFormSchema()) ;
                     //初始化页面
                     this._inner_inner_weird_setFieldValueObj(initFormDataObj,false) ;
+                    //初始化页面其他数据
+                    this._inner_inner_weird_execInitPageOtherParam() ;
                 }) ;
+            }else{
+                 this._inner_inner_weird_execInitPageOtherParam() ; 
+            }
+        }
+
+        //初始化页面其他数据
+        _inner_inner_weird_execInitPageOtherParam(){
+            if(this.initPageOtherParam && typeof this.initPageOtherParam  === 'function'){
+                this.initPageOtherParam() ;
             }
         }
 
