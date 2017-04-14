@@ -190,7 +190,9 @@ let BaseFormUtil = {
             this._inner_inner_weird_setSingleHideState(fieldName,true) ;
             let oldValue = this._inner_weird_getSingleFieldValue(fieldName) ;
             let defaultValue = getDefaultValue(oldValue) ;
-            this._inner_weird_setSingleFieldValue(fieldName,defaultValue) ;
+            //不用校验对错
+            this._inner_weird_setSingleFieldValue(fieldName,defaultValue,false) ;
+            this._inner_inner_werid_setSingleFieldError(fieldName,'') ;
         }
         _inner_werid_showSingleField(fieldName){
             this._inner_inner_weird_setSingleHideState(fieldName,false) ;
@@ -336,11 +338,11 @@ let BaseFormUtil = {
             return formError[fieldName] ;
         }
         
-        //暂时没有对外开放api
-        // _inner_inner_werid_setSingleFieldError(fieldName,errMsg){
-        //     let obj = {[fieldName]:errMsg} ;
-        //     this._inner_inner_weird_setFieldErrorObj(obj) ;
-        // }
+        //设置错误提示信息
+        _inner_inner_werid_setSingleFieldError(fieldName,errMsg){
+            let obj = {[fieldName]:errMsg} ;
+            this._inner_inner_weird_setFieldErrorObj(obj) ;
+        }
 
 
         _inner_inner_weird_setFieldErrorObj (obj) {
@@ -368,13 +370,20 @@ let BaseFormUtil = {
                 this._inner_inner_weird_addSingleValidateRule(name,rule) ;
             }
             let formData = this._inner_weird_getAllFormData() ;
-            return {
+            //如果是select或则radio时可能会传入option
+            let options  = config && (config.options || []) ;
+            let retObj = {
                 name:fieldName,
                 value:formData[fieldName] || '' ,
                 handleChange:(value)=>{
                     this._inner_weird_setSingleFieldValue(fieldName,value) ;
                 }
-            } ;
+            } 
+            if(options.length > 0){
+                retObj['options'] = options ;
+            }
+            //console.info('options : ' ,options) ;
+            return retObj;
         }
 
         //-------------------------------------------------------------------------------//

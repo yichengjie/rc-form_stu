@@ -5,6 +5,10 @@ class FormGroup extends Component{
         //如果需要显示form group
         let label = this.props.label ;
         let msg = this.props.msg ;
+        let hideFlag = this.props.hideFlag ;
+        if(hideFlag){
+            return null ;
+        }
         return (
             <div className="form-group">
                 <label  className="col-sm-2 control-label">{label}</label>
