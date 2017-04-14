@@ -34,8 +34,20 @@ class UserInfoEditForm extends BaseModule {
             this.hideLoadingIcon() ;
             let formDataDB = retData.formData ;
             this.form.setFieldValueObj(formDataDB,false) ;
+
+            //
+             this.dealResult4Edit(formDataDB) ;
         });
     }
+
+     //特殊处理一些数据
+    dealResult4Edit(formDataDB){
+        if(formDataDB.serviceType == 'M'){
+            this.form.hideSingleField('email') ;
+        }
+    }
+
+
     //实现自定义校验的方法
     getCustomValidatorFn(validatorName){
         if(validatorName === 'validate1'){

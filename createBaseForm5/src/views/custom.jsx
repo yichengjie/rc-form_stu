@@ -10,6 +10,19 @@ class UserInfoEditForm extends BaseModule {
     constructor( props ){
         super( props ) ;
         this.formSchema = {
+                serviceType:{
+                type:'select',
+                label:'服务类型',
+                name:'serviceType',
+                defaultValue:'F',
+                rule:{required:true,validator:'customValidateServiceType'},
+                options:[
+                    {name:'选择',value:''},
+                    {name:'F类型-显示邮箱',value:'F'},
+                    {name:'M类型-隐藏邮箱',value:'M'},
+                    {name:'T类型-显示邮箱',value:'T'}
+                ],
+            },
             username:{
                 type:'text',
                 label:'用户名',
@@ -52,14 +65,42 @@ class UserInfoEditForm extends BaseModule {
             this.hideLoadingIcon() ;
             let formDataDB = retData.formData ;
             this.form.setFieldValueObj(formDataDB,false) ;
+
+            this.dealResult4Edit(formDataDB) ;
         });
     }
 
+    //特殊处理一些数据
+    dealResult4Edit(formDataDB){
+        if(formDataDB.serviceType == 'M'){
+            this.form.hideSingleField('email') ;
+        }
+    }
     //实现自定义校验的方法
     getCustomValidatorFn(validatorName){
-        if(validatorName=='validate1'){
-            return this.validateUserName ;
+        // if(validatorName=='validate1'){
+        //     return this.validateUserName ;
+        // }
+        return this[validatorName] ;
+    }
+
+    customValidateServiceType(fieldValue,fieldName){
+        let username = 'yicj-no-m' ;
+        let age = '11' ;
+        let descr = 'test-no-m' ;
+        if(fieldValue==='M'){
+            username = 'yicj-m' ;
+            age = '22x' ;
+            descr = 'test-m' ;
         }
+        if(fieldValue === 'M'){
+            this.form.hideSingleField('email') ;
+        }else{
+            this.form.showSingleField('email') ;
+        }
+        //this.form.setSingleFieldValue('username',username,false) ;
+        this.form.setSingleFieldValue('age','12',false) ;
+        //this.form.setSingleFieldValue('descr',descr,false) ;
     }
 
     validateUserName(fieldValue,fieldName){
@@ -92,6 +133,7 @@ class UserInfoEditForm extends BaseModule {
         return (
             <div>
                 <form  className="form-horizontal" role="form">
+                    <FormItem form = {this.form} schema ={this.formSchema.serviceType}></FormItem>
                     <FormItem form = {this.form} schema ={this.formSchema.username}></FormItem>
                     <FormItem form = {this.form} schema ={this.formSchema.addr}></FormItem>
                     <hr/>
