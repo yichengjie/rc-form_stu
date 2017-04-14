@@ -210,7 +210,7 @@ let BaseFormUtil = {
             this._inner_inner_weird_setHideStateObj(obj) ;
         }
         _inner_inner_weird_setHideStateObj(obj){
-            this._inner_setComplexState('_inner_weird_hideState',obj) ;
+            this._inner__inner_weird_setComplexState('_inner_weird_hideState',obj) ;
         }
          //--------------------------------------------------//
         //--------------------------------------------------//
@@ -313,7 +313,7 @@ let BaseFormUtil = {
             //let formDataSync = this._inner_weird_getAllFormDataSync() ;
             Object.assign(this._inner_weird_getAllFormDataSync(),obj) ;
             //1.存储数据
-            this._inner_setComplexState('_inner_weird_formData',obj) ;
+            this._inner__inner_weird_setComplexState('_inner_weird_formData',obj) ;
             if(needValidFlag === false){
                 return ; 
             }
@@ -347,10 +347,10 @@ let BaseFormUtil = {
 
 
         _inner_inner_weird_setFieldErrorObj (obj) {
-            this._inner_setComplexState('_inner_weird_formError',obj) ;
+            this._inner__inner_weird_setComplexState('_inner_weird_formError',obj) ;
         }
         //-----------------------------------------------------//
-        _inner_setComplexState (fieldName,obj)  {
+        _inner__inner_weird_setComplexState (fieldName,obj)  {
             this.setState(function(preState){
                 let newObjValue = Object.assign({},preState[fieldName],obj) ;
                 let newState = Object.assign({},preState,{[fieldName]:newObjValue}) ;
