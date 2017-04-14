@@ -24,7 +24,7 @@ class BaseModule extends Component{
     }
     render() {
         //console.info('_inner_weird_formData : ' ,this.state._inner_weird_formData) ;
-        console.info('_inner_weird_formData : ' ,this.stringify(this.state._inner_weird_formData)) ;
+        //console.info('_inner_weird_formData : ' ,this.stringify(this.state._inner_weird_formData)) ;
         if (this.state.loading) {
             return this.renderLoading() ;
         }

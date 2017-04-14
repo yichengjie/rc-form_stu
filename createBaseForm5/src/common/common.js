@@ -21,6 +21,24 @@ export function getFieldObjByFieldSchema(fieldSchema){
     }
 }
 
+export function shallowCopyObj(shallowObj){//浅复制对象
+    let retObj = {} ;
+    if(shallowObj != null && isObject(shallowObj)){
+        let keys = Object.keys(shallowObj) ;
+        for(let key of keys){
+            if(key!=null && key.length > 0){
+                let value = shallowObj[key] ;
+                if(isArray(value)){
+                    value = [...value] ;
+                }
+                retObj[key] = value ;
+            }
+        }
+    }
+    return retObj ;
+}
+
+
 
 function _replacer(key,value){
     //console.info( 'key : ' , key) ;

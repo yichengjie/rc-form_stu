@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import FormItem from './FormItem.jsx' ;
-import {getFieldObjByFieldSchema,isComplexFieldSchema,isString,getDefaultValue,stringify,isObject} from '../common/common.js' ;
+import {getFieldObjByFieldSchema,isComplexFieldSchema,isString,getDefaultValue,stringify,isObject,shallowCopyObj} from '../common/common.js' ;
 import {validationFn,validationMessages} from  '../common/validator.js'; 
 
 let BaseFormUtil = {
@@ -78,7 +78,7 @@ let BaseFormUtil = {
         }
         return true ;
     }
-
+    
 } ;
 
 
@@ -107,6 +107,7 @@ let BaseFormUtil = {
                 let initialFormState = this.getInitialFormData()  ;
                 baseState._inner_weird_formData = initialFormState ;
                 //this._inner_inner_weird_setFieldValueObj(initialFormState,false) ;
+                this._inner_inner_weird_setInitFormDataObj(initialFormState) ;
             }
             Object.assign(this.state,baseState) ;
            
@@ -166,20 +167,19 @@ let BaseFormUtil = {
             //表单默认值数据
             let initFormDataObj = BaseFormUtil.getInitFormDataByFormSchema(this._inner_inner_weird_getAllOriginFormSchema()) ;
              //将初始化数据保存起来
-            this._inner_inner_weird_setAllInitFormDataObj(initFormDataObj) ;
+            this._inner_inner_weird_setInitFormDataObj(initFormDataObj) ;
             //初始化页面
             this._inner_inner_weird_setFieldValueObj(initFormDataObj,false) ;
         }
-
 
         //-------------初始化数据-----------------------//
         _inner_inner_weird_getAllInitFormData(){
             return this._inner_weird_initFormData ;
         }
 
-        _inner_inner_weird_setAllInitFormDataObj(obj){
+        _inner_inner_weird_setInitFormDataObj(obj){
             let initFormData = this._inner_inner_weird_getAllInitFormData() ;
-            Object.assign(initFormData,obj) ;
+            Object.assign(initFormData,shallowCopyObj(obj)) ;
         }
 
         //---------------------------------------------//
