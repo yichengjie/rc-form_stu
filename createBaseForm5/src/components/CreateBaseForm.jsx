@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import FormItem from './FormItem.jsx' ;
-import {getFieldObjByFieldSchema,isComplexFieldSchema,isString,getDefaultValue,stringify,isObject,shallowCopyObj} from '../common/common.js' ;
+import {getFieldObjByFieldSchema,isComplexFieldSchema,isString,getDefaultValue,
+    stringify,isObject,shallowCopyObj} from '../common/common.js' ;
 import {validationFn,validationMessages} from  '../common/validator.js'; 
 
 let BaseFormUtil = {
