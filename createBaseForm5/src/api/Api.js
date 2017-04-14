@@ -162,7 +162,7 @@ export default {
             flag:true,
             formData:{
                 username:'ttt',
-                serviceType:'M',
+                serviceType:'F',
                 birthday:'2017-02-19',
                 age:'11x',
                 email:'xxxx'

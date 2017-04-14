@@ -39,6 +39,10 @@ class UserInfoEditForm extends BaseModule {
             effDate:{
                 name:'effDate',
                 rule:{required:true,date:true} 
+            },
+            upFloatRatio:{
+                name:'upFloatRatio',
+                rule:{integer:true} 
             }
         } ;
     }
@@ -134,6 +138,7 @@ class UserInfoEditForm extends BaseModule {
         let addrErrorTip = this.form.getSingleFieldError('addr') ;
         let emailErrorTip = this.form.getSingleFieldError('email') ;
         let effDateErrorTip = this.form.getSingleFieldError('effDate') ;
+        let upFloatRatioErrorTip = this.form.getSingleFieldError('upFloatRatio') ;
         return (
             <div>
                 <form  className="form-horizontal" role="form">
@@ -145,6 +150,11 @@ class UserInfoEditForm extends BaseModule {
                     </FormGroup>
                     <FormGroup label ="地址" msg={addrErrorTip} hideFlag = {this.form.getSingleHideState('addr')}>
                         <OCInput {...this.form.getSingleFieldProp('addr',this.validateRules.addr)}/>
+                    </FormGroup>
+                    <FormGroup label ="上浮比例" msg={upFloatRatioErrorTip} hideFlag = {this.form.getSingleHideState('upFloatRatio')}>
+                        <div style={{width:'95%',display: 'inline-block'}}>
+                            <OCInput {...this.form.getSingleFieldProp('upFloatRatio',this.validateRules.upFloatRatio)}/>
+                        </div> %
                     </FormGroup>
                     <FormGroup label ="邮箱" msg={emailErrorTip} hideFlag = {this.form.getSingleHideState('email')}>
                         <OCInput {...this.form.getSingleFieldProp('email',this.validateRules.email)}/>
