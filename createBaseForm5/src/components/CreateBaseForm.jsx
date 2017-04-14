@@ -137,13 +137,6 @@ let BaseFormUtil = {
             this.setState({loading:false}) ;
         }
 
-        // _inner_inner_weird_loadFormSchema(){
-        //     let promise = getFormSchemaApi() ;
-        //     promise.then(retData=>{
-                
-        //     }) ;
-        // }
-
         //初始化页面的表单显示Schema
         initPageFormSchema(formSchema){
             //保存schema
@@ -317,17 +310,21 @@ let BaseFormUtil = {
                 return newState ;
             }) ;
         }
-        //这个方法暂时没有使用，完全自定义页面时可以使用
+
+        //-------------------------完全自定义布局的时候可以使用------------------------------//
+        //完全自定义页面时可以使用
         _inner_weird_getSingleFieldProp (fieldName){
             let formData = this._inner_weird_getAllFormData() ;
             return {
+                name:fieldName,
                 value:formData[fieldName] || '' ,
-                onChange:(event)=>{
-                    var value = event.target.value ;
+                handleChange:(value)=>{
                     this.setFormData({[fieldName]:value}) ;
-                } 
+                }
             } ;
         }
+
+        //-------------------------------------------------------------------------------//
 
         stringify(obj){
             return stringify(obj) ;

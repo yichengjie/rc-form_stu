@@ -7,6 +7,7 @@ import {dealPromise4Callback} from '../common/common.js' ;
 class UserInfoEditForm extends BaseModule {
     constructor( props ){
         super( props ) ;
+        
     }
     //初始化数据
     //如果不使用异步加载的formSchema，而是自己定制页面的form的话，需要实现这个方法
@@ -17,26 +18,24 @@ class UserInfoEditForm extends BaseModule {
     // }
 
     componentDidMount() {
-        let promise = getFormSchemaApi() ;
+        this.showLoadingIcon() ;
+        let promise = getUserEditFormSchemaApi() ;
         promise.then(retData=>{
             this.initPageFormSchema(retData) ;
             //UserInfoList.jsx
             this.initPageOtherParam() ;
         }) ;
     }
-
-
+    //初始化其他参数
     initPageOtherParam(){
         console.info('初始化页面其他数据') ;
         let id = '1';
-        this.showLoadingIcon() ;
         dealPromise4Callback(Api.queryUserById(id),(retData)=>{
             this.hideLoadingIcon() ;
             let formDataDB = retData.formData ;
             this.form.setFieldValueObj(formDataDB,false) ;
         });
     }
-
     //实现自定义校验的方法
     getCustomValidatorFn(validatorName){
         if(validatorName === 'validate1'){

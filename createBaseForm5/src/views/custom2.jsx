@@ -4,43 +4,22 @@ import CreateBaseForm from '../components/CreateBaseForm.jsx';
 import Api, {getUserEditFormSchemaApi} from '../api/Api.js' ;
 import {dealPromise4Callback} from '../common/common.js' ;
 ///////////////////////////////////////////////////////////
-import FormItem from '../components/FormItem.jsx' ;
+import FormGroup from '../components/FormGroup.jsx' ;
+import OCInput from '../components/oc-input.jsx' ;
 
 class UserInfoEditForm extends BaseModule {
-    constructor( props ){
-        super( props ) ;
-        this.formSchema = {
-            username:{
-                type:'text',
-                label:'用户名',
-                name:'username',
-                rule:{required:true,validator:'validate1'}, 
-            },
-            addr:{
-                type:'text',
-                label:'地址',
-                name:'addr',
-                rule:{required:true},
-            },
-            email:{
-                type:'email',
-                label:'邮箱',
-                name:'email',
-                defaultValue:'',
-                rule:{required:true,email:true} 
-            },
-            effDate:{
-                type:'date',
-                label:'生效日期',
-                name:'effDate',
-                defaultValue:'',
-                rule:{required:true,date:true} 
-            }
-        } ;
-    }
 
     componentDidMount() {
         this.initPageOtherParam() ;
+    }
+
+      //初始化数据
+    //如果不使用异步加载的formSchema，而是自己定制页面的form的话，需要实现这个方法
+    getInitialFormData(){
+        return {
+            username:'yicj',
+            addr:''
+        } ;
     }
 
     //初始化页面其他数据
@@ -69,15 +48,7 @@ class UserInfoEditForm extends BaseModule {
         }
         return null ;
     }
-
-    //初始化数据
-    //如果不使用异步加载的formSchema，而是自己定制页面的form的话，需要实现这个方法
-    getInitialFormData(){
-        return {
-            username:'yicj',
-            addr:''
-        } ;
-    }
+  
     handleSubmit = (event) => {
          event.preventDefault();
         let flag = this.form.validateAllForm() ;
@@ -92,11 +63,9 @@ class UserInfoEditForm extends BaseModule {
         return (
             <div>
                 <form  className="form-horizontal" role="form">
-                    <FormItem form = {this.form} schema ={this.formSchema.username}></FormItem>
-                    <FormItem form = {this.form} schema ={this.formSchema.addr}></FormItem>
-                    <hr/>
-                    <FormItem form = {this.form} schema ={this.formSchema.email}></FormItem>
-                    <FormItem form = {this.form} schema ={this.formSchema.effDate}></FormItem>
+                    <FormGroup label ="用户名" msg="错误提示">
+                        <OCInput {...this.form.getgetSingleFieldProp('username')}/>
+                    </FormGroup>
                 </form>
 
                 <div className="form-group">

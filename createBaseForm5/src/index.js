@@ -14,8 +14,10 @@ import './lib/jq-datepicker/index.js' ;
 //引入组件
 import CreateBaseFormView from './views/UserInfoList.jsx' ;
 import CreateBaseFormCustomView from './views/custom.jsx' ;
-let ShowView = CreateBaseFormView ;
+import CreateBaseFormCustomView2 from './views/custom2.jsx' ;
+//let ShowView = CreateBaseFormView ;
 //let ShowView = CreateBaseFormCustomView ;
+let ShowView = CreateBaseFormCustomView2 ;
 
 ReactDOM.render(
   <ShowView />,
