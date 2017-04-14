@@ -106,7 +106,7 @@ class FormItem extends Component{
         if(needAssembleFormSchema !== false){
             //form.addFieldSchema(schema)
             form.addOrginFieldSchema(schema) ;
-            form.addSingleValidateRule(schema)
+            form.addSingleValidateRuleByOrginFieldSchema(schema)
         }
     }   
     render () {

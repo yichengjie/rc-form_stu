@@ -9,11 +9,33 @@ import OCInput from '../components/oc-input.jsx' ;
 
 class UserInfoEditForm extends BaseModule {
 
-    componentDidMount() {
-        this.initPageOtherParam() ;
+    constructor(props){
+         super(props) ;
+         this.validateRules = {
+            username:{
+                name:'username',
+                rule:{required:true,validator:'validate1'}, 
+            },
+            addr:{
+                name:'addr',
+                rule:{required:true},
+            },
+            email:{
+                name:'email',
+                rule:{required:true,email:true} 
+            },
+            effDate:{
+                name:'effDate',
+                rule:{required:true,date:true} 
+            }
+        } ;
     }
 
-      //初始化数据
+    componentDidMount() {
+       // this.initPageOtherParam() ;
+    }
+
+    //初始化数据
     //如果不使用异步加载的formSchema，而是自己定制页面的form的话，需要实现这个方法
     getInitialFormData(){
         return {
@@ -24,7 +46,7 @@ class UserInfoEditForm extends BaseModule {
 
     //初始化页面其他数据
     initPageOtherParam(){
-       console.info('初始化页面其他数据') ;
+        console.info('初始化页面其他数据') ;
         let id = '1';
         this.showLoadingIcon() ;
         dealPromise4Callback(Api.queryUserById(id),(retData)=>{
@@ -60,11 +82,12 @@ class UserInfoEditForm extends BaseModule {
         this.form.validateAllForm() ;
     }
     toRender(){
+        let usernameErrorTip = this.form.getSingleFieldError('username') ;
         return (
             <div>
                 <form  className="form-horizontal" role="form">
-                    <FormGroup label ="用户名" msg="错误提示">
-                        <OCInput {...this.form.getgetSingleFieldProp('username')}/>
+                    <FormGroup label ="用户名" msg={usernameErrorTip}>
+                        <OCInput {...this.form.getSingleFieldProp('username',this.validateRules.username)}/>
                     </FormGroup>
                 </form>
 

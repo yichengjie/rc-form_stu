@@ -22,11 +22,13 @@ export function getFieldObjByFieldSchema(fieldSchema){
 }
 
 
-
-
 function _replacer(key,value){
+    //console.info( 'key : ' , key) ;
     if(typeof value === 'function' ){
         return `function ${value.name} () {...}` ;
+    }
+    if(value == null){
+        return value + '' ;
     }
     return value ;
 }
@@ -49,6 +51,9 @@ export function isArray(obj){
 }
 export function isString(obj){
     return Object.prototype.toString.call(obj) === '[object String]' ;
+}
+export function isObject(obj){
+    return Object.prototype.toString.call(obj) === '[object Object]' ;
 }
 
 export function isArrayNotEmpty(arr){

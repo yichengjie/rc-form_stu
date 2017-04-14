@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import FormItem from './FormItem.jsx' ;
-import {getFieldObjByFieldSchema,isComplexFieldSchema,isString,getDefaultValue,stringify} from '../common/common.js' ;
+import {getFieldObjByFieldSchema,isComplexFieldSchema,isString,getDefaultValue,stringify,isObject} from '../common/common.js' ;
 import {validationFn,validationMessages} from  '../common/validator.js'; 
 
 let BaseFormUtil = {
@@ -63,7 +63,22 @@ let BaseFormUtil = {
             }
         }
         return {flag,msg} ;
+    },
+    checkConfigExixt(config){
+        config = config || {} ;
+        let {name,rule} = config ;
+        if(name == null || name.length == 0){
+            return false ;
+        }
+        if(rule == null){
+            return false ;
+        }
+        if(!isObject(rule)){
+            return false ;
+        }
+        return true ;
     }
+
 } ;
 
 
@@ -72,26 +87,29 @@ let BaseFormUtil = {
         constructor(props){
             super(props) ;
             //console.info('BaseForm constructor ...') ;
+            //同步表单数据
+             //------------------同步数据保存----------------------//
+            this._inner_weird_formData_sync = {} ;
+             //表格控件的schema
+            //this._inner_weird_formSchema = [] ;//组织好的form schema ，去除了组件应该显示的位置
+            this._inner_weird_originformSchema= [] ; //这个是从后台获取到的原始的formschema
+            this._inner_weird_validateRules = {} ;//页面字段的校验规则
+            //表单初始化初始化数据
+            this._inner_weird_initFormData = {} ;
+            //---------------------------------------------------//
             let baseState = {
                 _inner_weird_formData:{},
                 _inner_weird_formError:{},
                 _inner_weird_hideState:{},
             } ;
+            //将BaseForm的基本数据合并到state上
             if(this.getInitialFormData && typeof this.getInitialFormData === 'function'){
                 let initialFormState = this.getInitialFormData()  ;
                 baseState._inner_weird_formData = initialFormState ;
+                //this._inner_inner_weird_setFieldValueObj(initialFormState,false) ;
             }
-            //将BaseForm的基本数据合并到state上
             Object.assign(this.state,baseState) ;
-            //表格控件的schema
-            //this._inner_weird_formSchema = [] ;//组织好的form schema ，去除了组件应该显示的位置
-            this._inner_weird_originformSchema= [] ; //这个是从后台获取到的原始的formschema
-            this._inner_weird_validateRules = {} ;//页面字段的校验规则
-            //------------------同步数据保存----------------------//
-            //同步表单数据
-            this._inner_weird_formData_sync = {} ;
-            //---------------------------------------------------//
-
+           
             this.form = {
                 //---------------------高频api---------------------------//
                 //获取整个表单数据
@@ -116,7 +134,7 @@ let BaseFormUtil = {
                 //获取某个字段的隐藏flag
                 getSingleHideState : this._inner_werid_getSingleHideState.bind(this),//
                 //给表单添加校验规则(这个是给FormItem自动调用的)
-                addSingleValidateRule : this._inner_weird_addSingleValidateRule.bind(this),
+                addSingleValidateRuleByOrginFieldSchema : this._inner_weird_addSingleValidateRuleByOrginFieldSchema.bind(this),
                 //添加一个formSchema(这个是给FormItem自动调用的)
                 addOrginFieldSchema : this._inner_werid_addOrginFieldSchema.bind(this),
                 //给Input注入公用的方法,eg:{value:'1',onChange=xxx}
@@ -143,13 +161,28 @@ let BaseFormUtil = {
             for(let tmp of formSchema){
                 //this.addFieldSchema(tmp) ;
                 this._inner_werid_addOrginFieldSchema(tmp) ;
-                this._inner_weird_addSingleValidateRule(tmp) ;
+                this._inner_weird_addSingleValidateRuleByOrginFieldSchema(tmp) ;
             }
             //表单默认值数据
             let initFormDataObj = BaseFormUtil.getInitFormDataByFormSchema(this._inner_inner_weird_getAllOriginFormSchema()) ;
+             //将初始化数据保存起来
+            this._inner_inner_weird_setAllInitFormDataObj(initFormDataObj) ;
             //初始化页面
             this._inner_inner_weird_setFieldValueObj(initFormDataObj,false) ;
         }
+
+
+        //-------------初始化数据-----------------------//
+        _inner_inner_weird_getAllInitFormData(){
+            return this._inner_weird_initFormData ;
+        }
+
+        _inner_inner_weird_setAllInitFormDataObj(obj){
+            let initFormData = this._inner_inner_weird_getAllInitFormData() ;
+            Object.assign(initFormData,obj) ;
+        }
+
+        //---------------------------------------------//
 
         //--------------------------------------------------//
         //设置字段的隐藏或显示
@@ -188,12 +221,25 @@ let BaseFormUtil = {
             return validateRules[fieldName];
         }
         
-        //添加单条校验规则
-        _inner_weird_addSingleValidateRule(schema){
-            let validateRules = this._inner_inner_weird_getAllValidateRules() ;
+        //--------------------------validate 相关 ----------------------//
+        //通过原始的FieldSchema添加校验规则
+        _inner_weird_addSingleValidateRuleByOrginFieldSchema(schema){
             let ruleObj = BaseFormUtil.getFieldValidRuleByOrginFieldSchema(schema) ;
+            this._inner_inner_weird_addSingleValidateRuleObj(ruleObj) ;
+        }
+
+        //内部使用的方法
+        _inner_inner_weird_addSingleValidateRule(fieldName,rule){
+            let ruleObj = {[fieldName]:rule} ;
+            this._inner_inner_weird_addSingleValidateRuleObj(ruleObj) ;
+        }
+        //内部使用的方法
+        _inner_inner_weird_addSingleValidateRuleObj(ruleObj){
+            let validateRules = this._inner_inner_weird_getAllValidateRules() ;
             Object.assign(validateRules,ruleObj) ;
         }
+        //--------------------------validate 相关 ----------------------//
+
          //校验整个表单数据的合法性
         _inner_werid_validateAllForm(){
             let allRules = this._inner_inner_weird_getAllValidateRules() ;
@@ -263,8 +309,6 @@ let BaseFormUtil = {
             //同步数据到 `formDataSync`中
             //let formDataSync = this._inner_weird_getAllFormDataSync() ;
             Object.assign(this._inner_weird_getAllFormDataSync(),obj) ;
-
-
             //1.存储数据
             this._inner_setComplexState('_inner_weird_formData',obj) ;
             if(needValidFlag === false){
@@ -307,19 +351,28 @@ let BaseFormUtil = {
             this.setState(function(preState){
                 let newObjValue = Object.assign({},preState[fieldName],obj) ;
                 let newState = Object.assign({},preState,{[fieldName]:newObjValue}) ;
+                //debugger
                 return newState ;
             }) ;
         }
 
         //-------------------------完全自定义布局的时候可以使用------------------------------//
         //完全自定义页面时可以使用
-        _inner_weird_getSingleFieldProp (fieldName){
+        _inner_weird_getSingleFieldProp (fieldName,config){
+            //收集校验规则
+            let configFlag = BaseFormUtil.checkConfigExixt(config) ;
+            if(configFlag){
+                //因为这里config可能还有别的参数，所以不能直接将config保存为校验规则
+                let {name,rule} = config ;
+                //this._inner_weird_addSingleValidateRule(tmp) ;
+                this._inner_inner_weird_addSingleValidateRule(name,rule) ;
+            }
             let formData = this._inner_weird_getAllFormData() ;
             return {
                 name:fieldName,
                 value:formData[fieldName] || '' ,
                 handleChange:(value)=>{
-                    this.setFormData({[fieldName]:value}) ;
+                    this._inner_weird_setSingleFieldValue(fieldName,value) ;
                 }
             } ;
         }
@@ -332,9 +385,17 @@ let BaseFormUtil = {
 
         //重置formData
         _inner_weird_resetFormData(){
-            let initFormDataObj = BaseFormUtil.getInitFormDataByFormSchema(this._inner_inner_weird_getAllOriginFormSchema()) ;
+            //获取表单初始化数据
+            let initFormDataObj = this._inner_inner_weird_getAllInitFormData() ;
             //初始化页面
-            this._inner_inner_weird_setFieldValueObj(initFormDataObj,false) ;
+            let formData = this._inner_weird_getAllFormData() ;
+            let keys = Object.keys(formData) ;
+            //debugger
+            let newObj = {} ;
+            for(let key of keys){
+                newObj[key] = initFormDataObj[key] ;
+            }
+            this._inner_inner_weird_setFieldValueObj(newObj,false) ;
         }
         //重置formError
         _inner_weird_resetFormError(){
