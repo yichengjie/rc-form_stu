@@ -452,7 +452,11 @@ let BaseFormUtil = {
                 <form  className="form-horizontal" role="form">
                     {
                         originFormSchema.map(function(schema,index){
-                            return <FormItem form={form} schema={schema} key ={index} needAssembleFormSchema={false}  />
+                            return (<FormItem form={form} 
+                                        schema={schema} 
+                                        key ={index} 
+                                        needAssembleFormSchema={false}  />
+                            ) ;
                         }) 
                     }
                 </form>
