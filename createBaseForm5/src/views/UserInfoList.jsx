@@ -107,5 +107,5 @@ class UserInfoEditForm extends BaseModule {
     }
 }
 
-export default CreateBaseForm(UserInfoEditForm,getUserEditFormSchemaApi) ;
+export default CreateBaseForm(UserInfoEditForm) ;
 

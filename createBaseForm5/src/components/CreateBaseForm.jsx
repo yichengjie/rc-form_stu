@@ -83,7 +83,7 @@ let BaseFormUtil = {
 } ;
 
 
- function creatBaseForm(WrapperComponent,config){
+ function creatBaseForm(WrapperComponent){
      return  class BaseForm extends WrapperComponent{
         constructor(props){
             super(props) ;
