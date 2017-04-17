@@ -1,5 +1,6 @@
 import React,{Component} from 'react' ;
 import classNames from 'classnames';
+import createBaseInput from './CreateBaseInput.jsx' ;
 
 function isString(obj){
     return Object.prototype.toString.call(obj) === '[object String]' ;
@@ -43,4 +44,4 @@ class OCInput extends Component {
     }
 }
 
-export default OCInput ;
+export default createBaseInput(OCInput) ;

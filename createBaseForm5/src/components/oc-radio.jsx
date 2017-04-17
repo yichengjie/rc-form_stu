@@ -1,6 +1,7 @@
 import React,{Component} from 'react' ;
+import createBaseInput from './CreateBaseInput.jsx' ;
 
-export default class OCRadio extends Component{
+class OCRadio extends Component{
 
   constructor(props){
      super(props) ;
@@ -31,3 +32,5 @@ export default class OCRadio extends Component{
       return <span className="radio">{radios}</span> ;
   }
 }
+
+export default createBaseInput(OCRadio) ; 

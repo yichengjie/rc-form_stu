@@ -1,5 +1,6 @@
 import React,{Component} from 'react' ;
 import classNames from 'classnames';
+import createBaseInput from './CreateBaseInput.jsx' ;
 
 class OCTextArea extends Component {
   constructor(props){
@@ -21,4 +22,4 @@ class OCTextArea extends Component {
   } 
 }
 
-export default OCTextArea ;
+export default createBaseInput(OCTextArea) ;

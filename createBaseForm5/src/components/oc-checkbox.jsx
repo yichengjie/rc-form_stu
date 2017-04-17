@@ -1,10 +1,12 @@
 import React,{Component} from 'react' ;
+import createBaseInput from './CreateBaseInput.jsx' ;
 
 class OCCheckbox extends Component {
     constructor(props){
         super(props) ;
         this.handleChange = this.handleChange.bind(this) ;
     }
+    
     handleChange(event){
         var checkedFlag = event.target.checked ;
         var value = event.target.value || [] ;
@@ -42,4 +44,4 @@ class OCCheckbox extends Component {
     }
 }
 
-export default OCCheckbox ;
+export default createBaseInput(OCCheckbox) ;

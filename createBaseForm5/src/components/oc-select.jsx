@@ -1,5 +1,6 @@
 import React,{Component} from 'react' ;
 import classNames from 'classnames';
+import createBaseInput from './CreateBaseInput.jsx' ;
 
 class OCSelect extends Component{
     
@@ -29,4 +30,4 @@ class OCSelect extends Component{
 
 }
 
-export default OCSelect ;
+export default createBaseInput(OCSelect)  ;

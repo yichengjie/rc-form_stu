@@ -33,6 +33,7 @@ function handleChange4InputFactory(form,fieldName){
  * @param schema
  */
 function getSimpleInputComp(form,schema,keyIndex){
+   // console.info('method getSimpleInputComp () is called .. ') ;
     let {type,name,defaultValue,unit} = schema ;
     let inputComp = null ;
     //如果隐藏的话直接返回null
@@ -125,6 +126,8 @@ class FormItem extends Component{
             form.addSingleValidateRuleByOrginFieldSchema(schema)
         }
     }   
+   
+    
     render () {
          //如果需要显示form group
         let {form,schema} = this.props ;

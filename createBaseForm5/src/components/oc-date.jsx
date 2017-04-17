@@ -1,6 +1,7 @@
 import React,{Component} from 'react' ;
 import classNames from 'classnames';
 //import {genSimulationEventByValue} from '../common/common.js' ;
+import createBaseInput from './CreateBaseInput.jsx' ;
 
 class InputDate extends Component{
     constructor(props){
@@ -21,6 +22,7 @@ class InputDate extends Component{
         optionObj.showButtonPanel = true ;
         $(elem).datepicker(optionObj);
     }
+   
     handleInputChange(event){
        var value = event.target.value ;
        this.props.handleChange(value) ;
@@ -38,4 +40,4 @@ class InputDate extends Component{
     }
 };
 
-export default InputDate;
+export default createBaseInput(InputDate);
