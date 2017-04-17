@@ -33,7 +33,7 @@ function handleChange4InputFactory(form,fieldName){
  * @param schema
  */
 function getSimpleInputComp(form,schema,keyIndex){
-    let {type,name,defaultValue} = schema ;
+    let {type,name,defaultValue,unit} = schema ;
     let inputComp = null ;
     //如果隐藏的话直接返回null
     let hideFlag = form.getSingleHideState(name) ;
@@ -58,11 +58,27 @@ function getSimpleInputComp(form,schema,keyIndex){
         value:form.getSingleFieldValue(name),
         width:schema.width,
         handleChange:handleChange4InputFactory(form,name),
-        key:keyIndex
+        key:keyIndex,
+        unit:unit
     }) ;
 }
 
+//处理复杂类型的schema
+function dealComplexInputSchema(schema){
+    let {fields} = schema ;
+    let newFields = fields.map(function(item){
+        let {unit,...other} = item ;
+        return other ;
+    }) ;
+    return Object.assign({},schema,{fields:newFields}) ;
+}
+
+
+
+
 function getComplexInputComp(form,schema){
+    //处理下复杂schema的数据
+    schema = dealComplexInputSchema(schema)  ;
     let {fields,divline} = schema ;
     let arr = [] ;
     let len = fields.length ;

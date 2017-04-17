@@ -38,3 +38,20 @@ body{
     left:50%;
 	/*margin-left:-10px;*/
 }
+.input-with-unit-wrapper{
+    display: block ;
+    width: 100% ;
+    margin: 0 ;
+    padding: 0 ;
+}
+.input-with-unit-wrapper .input-with-unit{
+    display: inline-block ;
+    width: 96% ;
+    margin-right: 0 ;
+}
+
+.input-with-unit-wrapper .input-unit{
+    display: inline-block ;
+    width: 4%;
+    padding-left: 5px;
+}

@@ -1,3 +1,4 @@
+//注意复杂类型不能加unit属性
 export function getUserEditFormSchemaApi(){
     let formSchema = [
         {
@@ -19,6 +20,14 @@ export function getUserEditFormSchemaApi(){
             name:'username',
             defaultValue:'yicj',
             rule:{required:true,validator:'validate1'},
+        },
+        {
+            type:'text',
+            label:'行李件数',
+            name:'upFloat',
+            defaultValue:'1',
+            unit:'件',
+            rule:{required:true,integer:true},
         },
         {
             type:'email',
