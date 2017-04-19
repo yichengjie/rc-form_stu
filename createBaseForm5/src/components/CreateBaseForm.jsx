@@ -51,8 +51,8 @@ let BaseFormUtil = {
     validSingleFieldDynamic(fieldName,fieldValue,validatorFnName){
        let msg = '' ;
        let flag = true ;
-       if(validatorFnName && isString(validatorFnName) &&validatorFnName.length>0 ){
-            let validatorFn = this.getCustomValidatorFn(validatorFnName) ;
+       if(validatorFnName && isString(validatorFnName) &&validatorFnName.length>0 && this.getCustomValidatorFn){
+            let validatorFn =  this.getCustomValidatorFn(validatorFnName) ;
             /**
              * 这里需要注意，
              * 第一个参数是fieldValue
