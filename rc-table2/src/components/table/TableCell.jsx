@@ -1,6 +1,13 @@
-import React,{Component,PropTypes} from 'react' ;
+let React = require('react') ;
+let PropTypes = require('prop-types') ;
+let Component = React.Component ;
 //【表格行】中的【单元格】
 class TableCell extends Component{
+    static propTypes = {
+         record:PropTypes.object,
+         column:PropTypes.object,
+         rowIndex: PropTypes.number,
+    }
     renderTdItem(record,column,rowIndex){
         let fieldName = column.dataIndex ;
         let showText = record[fieldName] ;
@@ -10,11 +17,10 @@ class TableCell extends Component{
             return <td>{column.render(record,rowIndex)}</td> ;
         }
     }
-
     render() {
         let {record,column,rowIndex} = this.props ;
         return this.renderTdItem(record,column,rowIndex) ;
     }
 }
 
-export default TableCell ;
+module.exports =  TableCell ;

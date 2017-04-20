@@ -1,8 +1,15 @@
-import React,{Component,PropTypes} from 'react' ;
-import TableHeader from './TableHeader.jsx' ;
-import TableRow from './TableRow.jsx' ;
+let React = require('react') ;
+let PropTypes = require('prop-types') ;
+let Component = React.Component ;
+let TableHeader = require('./TableHeader.jsx') ;
+let TableRow  = require('./TableRow.jsx') ;
 
 class Table extends Component {
+    static propTypes = {
+         columns: PropTypes.array,
+         data: PropTypes.array,
+         rowKeyFn: PropTypes.func
+    }
     renderAllTrs(data,columns,rowKeyFn){
         return data.map((record,rowIndex)=>{
             return this.renderTrItem(record,columns,rowIndex,rowKeyFn) ;
@@ -36,4 +43,4 @@ class Table extends Component {
     }
 } ;
 
-export default Table ;
+module.exports = Table ;

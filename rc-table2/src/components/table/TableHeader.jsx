@@ -1,7 +1,11 @@
-import React,{Component,PropTypes} from 'react' ;
+let React = require('react') ;
+let PropTypes = require('prop-types') ;
+let Component = React.Component ;
 
 class TableHeader extends Component{
-
+    static propTypes = {
+         columns: PropTypes.array,
+    }
     renderAllThs(columns){
         return columns.map((item,columnIndex) => {
             return  this.renderThItem(item,columnIndex);
@@ -26,4 +30,5 @@ class TableHeader extends Component{
     }
 }
 
-export default TableHeader ;
+
+module.exports = TableHeader ;

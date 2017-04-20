@@ -1,7 +1,14 @@
-import React,{Component,PropTypes} from 'react' ;
-import TableCell from './TableCell.jsx' ;
+let React = require('react') ;
+let PropTypes = require('prop-types') ;
+let Component = React.Component ;
+let TableCell = require('./TableCell.jsx') ;
 
 class TableRow extends Component{
+    static propTypes = {
+         record: PropTypes.object,
+         columns: PropTypes.array,
+         rowIndex: PropTypes.number
+    }
     renderAllTds(record,columns,rowIndex){
         return columns.map( (column,columnIndex) => {
             let obj = {record,column,rowIndex} ;
@@ -19,4 +26,4 @@ class TableRow extends Component{
     }
 }
 
-export default TableRow ;
+module.exports = TableRow ;
