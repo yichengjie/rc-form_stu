@@ -11,17 +11,17 @@ let initList = [
 let liStyleObj = {
     cursor:'pointer',
     height:'25px',
-    borderBottom:'1px solid black'
+    borderBottom:'1px solid black',
+    listStyle:'none'
 } ;
 
 class LiComp extends Component {
     componentWillUnmount() {
-        console.info('lifecycle func componentWillUnmount() start .....') ;  
+        console.info('--------- start ------------') ;  
         const { record, index } = this.props;
         console.info('index : ' ,index) ;
         console.info('record : ' , JSON.stringify(record,null,2)) ;
-        console.info('lifecycle func componentWillUnmount() end .....') ;  
-
+        console.info('--------- end ------------') ;  
     }
     handleClick = e => {
         let {record,index,removeItemFn} = this.props ;        
