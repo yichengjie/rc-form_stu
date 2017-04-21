@@ -44,7 +44,7 @@ class MyTable extends Component{
         console.info('method onRowDoubleClick ...') ;
     }
 
-    handleBatchDelete = (e) => {
+    handleBatchDelete = e => {
        let myTable =  this.refs.myTable ;
        let selectedList = myTable.getSelectedList() ;
        let data = this.state.data ;
@@ -55,8 +55,14 @@ class MyTable extends Component{
             this.setState({
                 data:newList
             }) ;
-            myTable.clearSelectedList() ;
+           // myTable.clearSelectedList() ;
        }
+    }
+
+    handleTest = e => {
+       let myTable =  this.refs.myTable ;
+       let selectedList = myTable.getSelectedList() ;
+       console.info('selectedList :  ' , selectedList) ;
     }
 
     render(){
@@ -73,9 +79,10 @@ class MyTable extends Component{
                     columns ={columns} 
                     rowKeyFn ={record => record.a}
                     onRowClick={this.onRowClick}
-                    /**  supportSelectAllFlag = {true}是否支持全选**/
+                    supportSelectAllFlag = {true} /**  是否支持全选**/
                 />
                 <button className="btn btn-danger" onClick ={this.handleBatchDelete}>批量删除</button>
+                <button className="btn btn-danger" onClick ={this.handleTest}>test</button>
             </div>
             
         ) ;

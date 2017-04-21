@@ -22,6 +22,17 @@ class Table extends Component {
     static defaultProps = {
         data: []
     };
+    
+
+    // removeSelectedItem = (selectedItem) => {
+    //     this.setState(preState =>{
+    //         let selectedList = preState.selectedList ;
+    //         let newList = selectedList.filter(item=>{
+    //             return item !== selectedItem ;
+    //         }) ;
+    //         return Object.assign({},preState,{selectedList:newList}) ;
+    //     })
+    // }
 
 
     getSelectedList(){
@@ -76,6 +87,7 @@ class Table extends Component {
                     columns ={columns}  
                     rowIndex = {rowIndex}
                     onRowClick = {onRowClick}
+                    onDestroy = {this.removeSelectedItem}
                     supportSelectAllFlag = {supportSelectAllFlag}
                     handleSelectSingleCheckboxItem = {this.handleSelectSingleCheckboxItem}
                     key ={this.getKeyByRowKeyFn(record,rowIndex,rowKeyFn)}/>

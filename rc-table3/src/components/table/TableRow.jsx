@@ -10,12 +10,19 @@ class TableRow extends Component{
          rowIndex: PropTypes.number,
          onRowClick: PropTypes.func,
          supportSelectAllFlag: PropTypes.bool,
-         selectedList: PropTypes.array
+         selectedList: PropTypes.array,
+         onDestroy: PropTypes.func
     }
 
     static defaultProps = {
         onRowClick(){},
+        onDestroy(record){},
         selectedList:[]
+    }
+
+    componentWillUnmount(){
+        let record = this.props.record ;
+        this.props.onDestroy(record) ;
     }
 
     renderAllTds(record,columns,rowIndex,supportSelectAllFlag){
