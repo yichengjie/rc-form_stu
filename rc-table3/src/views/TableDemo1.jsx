@@ -67,7 +67,7 @@ class MyTable extends Component{
 
     render(){
         const columns = [
-            { title: 'title1', dataIndex: 'username', key: 'a', width: 100, render: this.renderTitle1 },
+            { title: 'username', dataIndex: 'username', key: 'a', width: 100, render: this.renderTitle1 },
             { title: 'title2', dataIndex: 'b', key: 'b', width: 100 },
             { title: 'title3', dataIndex: 'c', key: 'c', width: 200 },
             { title: 'Operations', dataIndex: '', key: 'x', render: this.renderAction },
@@ -89,6 +89,6 @@ class MyTable extends Component{
     }
 }
 
-const data = [{ username: '123' }, { username: 'cdd', b: 'edd' }, { username: '1333', c: 'eee', d: 2 }];
+const data = [{ username: '123' }, { username: 'cdd', b: 'edd' }, { username: '1333', b: 'eee', c: 2 }];
 
 export default () => <MyTable data ={data} /> ;

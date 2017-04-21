@@ -15,14 +15,15 @@ class TableRow extends Component{
     }
 
     static defaultProps = {
-        onRowClick(){},
+        onRowClick(record,index){},
         onDestroy(record){},
         selectedList:[]
     }
 
     componentWillUnmount(){
         let record = this.props.record ;
-        this.props.onDestroy(record) ;
+        console.info('record : ' , record) ;
+        //this.props.onDestroy(record) ;
     }
 
     renderAllTds(record,columns,rowIndex,supportSelectAllFlag){
@@ -38,6 +39,7 @@ class TableRow extends Component{
 
     handleSelectSingleCheckboxItemFactory(record) {
         return e => {
+            //console.info('record .... ' ,record ) ;
             e.stopPropagation() ;
             this.props.handleSelectSingleCheckboxItem(record) ;
         }
