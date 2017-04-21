@@ -31,7 +31,7 @@ class LiComp extends Component {
     render (){
         let {index,record} = this.props ;
         return (
-            <li style={liStyleObj} onClick ={this.handleClick}>name:{record.name} , addr : {record.addr}</li>
+            <li style={liStyleObj} onClick ={this.handleClick}>name:{record.name} , addr : {record.addr}  --- 点击删除</li>
         ) ;
     }
 }
