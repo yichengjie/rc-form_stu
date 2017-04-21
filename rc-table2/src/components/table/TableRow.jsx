@@ -12,8 +12,7 @@ class TableRow extends Component{
     }
 
     static defaultProps = {
-        onRowClick(){},
-        onRowDoubleClick(){}
+        onRowClick(){}
     }
 
     renderAllTds(record,columns,rowIndex){

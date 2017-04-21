@@ -29,18 +29,20 @@ class MyTable extends Component{
         this.setState({data:rows}) ;
     }
 
-    renderTitle1 (record, index) {
+    selectSigleItem = (e) => {
+        e.stopPropagation() ;
+
+    }
+
+    renderTitle1 = (record, index) => {
         let username = record.username ;
         let retComp = (
             <label className="checkbox-inline">
-                <input type="checkbox"  value="option1" /> {username}
+                <input type="checkbox"  value="option1" onClick={this.selectSigleItem}  /> {username}
             </label>
         ) ;
         return retComp
     }
-
-
-    
 
     onRowClick (record,index) {
         return e => {
@@ -64,7 +66,6 @@ class MyTable extends Component{
                 columns ={columns} 
                 rowKeyFn ={record => record.a}
                 onRowClick={this.onRowClick}
-                onRowDoubleClick={this.onRowDoubleClick}
             />
         ) ;
     }
