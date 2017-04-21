@@ -7,7 +7,6 @@ class MyTable extends Component{
         super(props) ;
         this.state = {
             data:this.props.data ,
-            usernameArr:[]
         } ;
     }
 
@@ -29,19 +28,9 @@ class MyTable extends Component{
         this.setState({data:rows}) ;
     }
 
-    selectSigleItem = (e) => {
-        e.stopPropagation() ;
-
-    }
-
     renderTitle1 = (record, index) => {
         let username = record.username ;
-        let retComp = (
-            <label className="checkbox-inline" onClick={this.selectSigleItem}  >
-                <input type="checkbox"  value="option1" /> {username}
-            </label>
-        ) ;
-        return retComp
+        return <a href="#">{username}</a>
     }
 
     onRowClick (record,index) {
@@ -54,6 +43,21 @@ class MyTable extends Component{
         console.info('method onRowDoubleClick ...') ;
     }
 
+    handleBatchDelete = (e) => {
+       let myTable =  this.refs.myTable ;
+       let selectedList = myTable.getSelectedList() ;
+       let data = this.state.data ;
+       if(selectedList.length > 0 && data.length > 0){
+            let newList = data.filter(item =>{
+                    return !selectedList.includes(item) ;
+            }) ;
+            this.setState({
+                data:newList
+            }) ;
+            myTable.clearSelectedList() ;
+       }
+    }
+
     render(){
         const columns = [
             { title: 'title1', dataIndex: 'username', key: 'a', width: 100, render: this.renderTitle1 },
@@ -62,11 +66,18 @@ class MyTable extends Component{
             { title: 'Operations', dataIndex: '', key: 'x', render: this.renderAction },
         ];
         return (
-            <Table data = {this.state.data} 
-                columns ={columns} 
-                rowKeyFn ={record => record.a}
-                onRowClick={this.onRowClick}
-            />
+            <div>
+                <Table data = {this.state.data} 
+                    ref = "myTable"
+                    columns ={columns} 
+                    rowKeyFn ={record => record.a}
+                    onRowClick={this.onRowClick}
+                    supportSelectAllFlag = {true} /** 是否支持全选**/
+                    selectedList={this.state.selectedList}
+                />
+                <button className="btn btn-danger" onClick ={this.handleBatchDelete}>批量删除</button>
+            </div>
+            
         ) ;
     }
 }
