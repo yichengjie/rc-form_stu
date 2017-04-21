@@ -12,6 +12,7 @@ class MyTable extends Component{
 
     handleDeleteClick(index){
         return (event) => {
+            event.stopPropagation() ;
             event.preventDefault() ;
             this.removeItem(index) ;
         }
