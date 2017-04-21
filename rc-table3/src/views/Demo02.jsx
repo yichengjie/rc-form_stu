@@ -16,6 +16,20 @@ let liStyleObj = {
 } ;
 
 class LiComp extends Component {
+
+    constructor(props){
+        super(props) ;
+        console.info('LiComp ..constructor() ...') ;
+    }
+
+    // componentWillReceiveProps(){
+    //     console.info('--------- componentWillReceiveProps () start ------------') ;  
+    //     const { record, index } = this.props;
+    //     console.info('index : ' ,index) ;
+    //     console.info('record : ' , JSON.stringify(record,null,2)) ;
+    //     console.info('---------componentWillReceiveProps () end ------------') ;  
+    // }
+
     componentWillUnmount() {
         console.info('--------- start ------------') ;  
         const { record, index } = this.props;
@@ -25,7 +39,7 @@ class LiComp extends Component {
     }
     handleClick = e => {
         let {record,index,removeItemFn} = this.props ;        
-        //console.info(`click item  idnex : ${index} ,record : ` , record) ;
+        console.info(`click item  idnex : ${index} ,record : ` , record) ;
         removeItemFn(record) ;
     }
     render (){
@@ -62,16 +76,34 @@ class Demo02 extends Component{
     constructor(props){
         super(props) ;
         this.state = {
-            list:initList
+            list:[]
         } ;
+        
+    }
+    componentDidMount(){
+        setTimeout(()=>{
+           this.setState({
+              list:initList
+           })  ; 
+        },0) ;
     }
     removeItemFn = (record) => {
        let newList = this.state.list.filter(item=> item !== record ) ;
        this.setState({list:newList}) ;
     }
+    showData = ()=>{
+        console.info(JSON.stringify(this.state.list,null,2) ) ;
+    }
     render () {
-        return <UlComp list ={this.state.list} removeItemFn = {this.removeItemFn}/>
+        return (
+            <div>
+                <UlComp list ={this.state.list} removeItemFn = {this.removeItemFn}/>
+                <button className ="btn" onClick ={this.showData}>test</button>
+            </div>
+        ) ;
     }
 }
+
+
 
 export default Demo02 ;
