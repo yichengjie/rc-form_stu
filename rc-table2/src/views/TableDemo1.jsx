@@ -6,7 +6,8 @@ class MyTable extends Component{
     constructor(props){
         super(props) ;
         this.state = {
-            data:this.props.data 
+            data:this.props.data ,
+            usernameArr:[]
         } ;
     }
 
@@ -28,7 +29,7 @@ class MyTable extends Component{
         this.setState({data:rows}) ;
     }
 
-    renderTitle1 = (record, index) => {
+    renderTitle1 (record, index) {
         let username = record.username ;
         let retComp = (
             <label className="checkbox-inline">
@@ -36,6 +37,19 @@ class MyTable extends Component{
             </label>
         ) ;
         return retComp
+    }
+
+
+    
+
+    onRowClick (record,index) {
+        return e => {
+            e.preventDefault() ;
+            console.info('method onRowClick ...' ,record) ;
+        }
+    }
+    onRowDoubleClick(record,index){
+        console.info('method onRowDoubleClick ...') ;
     }
 
     render(){
@@ -48,7 +62,10 @@ class MyTable extends Component{
         return (
             <Table data = {this.state.data} 
                 columns ={columns} 
-                rowKeyFn ={record => record.a}/>
+                rowKeyFn ={record => record.a}
+                onRowClick={this.onRowClick}
+                onRowDoubleClick={this.onRowDoubleClick}
+            />
         ) ;
     }
 }

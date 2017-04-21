@@ -13,15 +13,16 @@ class Table extends Component {
     static defaultProps = {
         data: []
     };
-    renderAllTrs(data,columns,rowKeyFn){
+    renderAllTrs(data,columns,rowKeyFn,onRowClick){
         return data.map((record,rowIndex)=>{
-            return this.renderTrItem(record,columns,rowIndex,rowKeyFn) ;
+            return this.renderTrItem(record,columns,rowIndex,rowKeyFn,onRowClick) ;
         }) ;
     }
-    renderTrItem(record,columns ,rowIndex ,rowKeyFn){
+    renderTrItem(record,columns ,rowIndex ,rowKeyFn,onRowClick){
         return (<TableRow  record = {record}  
                     columns ={columns}  
                     rowIndex = {rowIndex}
+                    onRowClick = {onRowClick}
                     key ={this.getKeyByRowKeyFn(record,rowIndex,rowKeyFn)}/>
         ) ;
     }
@@ -34,12 +35,12 @@ class Table extends Component {
     }
 
     render() {
-        let {columns,data,rowKeyFn} = this.props ;
+        let {columns,data,rowKeyFn,onRowClick} = this.props ;
         return (
             <table className="table table-bordered">
                 <TableHeader columns ={columns} />
                 <tbody>
-                    {this.renderAllTrs(data,columns,rowKeyFn)}
+                    {this.renderAllTrs(data,columns,rowKeyFn,onRowClick)}
                 </tbody>
             </table>
         );

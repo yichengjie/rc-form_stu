@@ -7,8 +7,15 @@ class TableRow extends Component{
     static propTypes = {
          record: PropTypes.object,
          columns: PropTypes.array,
-         rowIndex: PropTypes.number
+         rowIndex: PropTypes.number,
+         onRowClick: PropTypes.func
     }
+
+    static defaultProps = {
+        onRowClick(){},
+        onRowDoubleClick(){}
+    }
+
     renderAllTds(record,columns,rowIndex){
         return columns.map( (column,columnIndex) => {
             let obj = {record,column,rowIndex} ;
@@ -17,9 +24,9 @@ class TableRow extends Component{
     }
     
     render(){
-        let {record,columns,rowIndex} = this.props ;
+        let {record,columns,rowIndex,onRowClick} = this.props ;
         return (
-            <tr>
+            <tr onClick= {onRowClick(record,rowIndex)}>
                 {this.renderAllTds(record,columns,rowIndex)}
             </tr>
         ) ;
