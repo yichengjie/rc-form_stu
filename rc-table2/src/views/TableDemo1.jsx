@@ -28,9 +28,19 @@ class MyTable extends Component{
         this.setState({data:rows}) ;
     }
 
+    renderTitle1 = (record, index) => {
+        let username = record.username ;
+        let retComp = (
+            <label className="checkbox-inline">
+                <input type="checkbox"  value="option1" /> {username}
+            </label>
+        ) ;
+        return retComp
+    }
+
     render(){
         const columns = [
-            { title: 'title1', dataIndex: 'a', key: 'a', width: 100, render: this.checkbox },
+            { title: 'title1', dataIndex: 'username', key: 'a', width: 100, render: this.renderTitle1 },
             { title: 'title2', dataIndex: 'b', key: 'b', width: 100 },
             { title: 'title3', dataIndex: 'c', key: 'c', width: 200 },
             { title: 'Operations', dataIndex: '', key: 'x', render: this.renderAction },
@@ -43,6 +53,6 @@ class MyTable extends Component{
     }
 }
 
-const data = [{ a: '123' }, { a: 'cdd', b: 'edd' }, { a: '1333', c: 'eee', d: 2 }];
+const data = [{ username: '123' }, { username: 'cdd', b: 'edd' }, { username: '1333', c: 'eee', d: 2 }];
 
 export default () => <MyTable data ={data} /> ;

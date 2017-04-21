@@ -10,11 +10,13 @@ class TableCell extends Component{
     }
     renderTdItem(record,column,rowIndex){
         let fieldName = column.dataIndex ;
+        let render = column.render ;
         let showText = record[fieldName] ;
-        if(fieldName && fieldName.length > 0){
-             return <td>{showText}</td> ;
+        //console.info(`rowIndex : ${rowIndex} , record.username : ${record.username}` , render) ;
+        if(render && typeof render === 'function'){
+           return <td>{render(record,rowIndex)}</td>  ; 
         }else{
-            return <td>{column.render(record,rowIndex)}</td> ;
+             return <td>{showText}</td> ;
         }
     }
     render() {

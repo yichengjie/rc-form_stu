@@ -9,7 +9,10 @@ class Table extends Component {
          columns: PropTypes.array,
          data: PropTypes.array,
          rowKeyFn: PropTypes.func
-    }
+    } ;
+    static defaultProps = {
+        data: []
+    };
     renderAllTrs(data,columns,rowKeyFn){
         return data.map((record,rowIndex)=>{
             return this.renderTrItem(record,columns,rowIndex,rowKeyFn) ;
@@ -27,7 +30,7 @@ class Table extends Component {
         if(rowKeyFn && typeof rowKeyFn === 'function'){
             tmpStr = rowKeyFn(record,rowIndex) + '' ;
         }
-        return tmpStr + record.key ;
+        return rowIndex + '' +  tmpStr + record.key ;
     }
 
     render() {
