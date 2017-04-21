@@ -37,8 +37,8 @@ class MyTable extends Component{
     renderTitle1 = (record, index) => {
         let username = record.username ;
         let retComp = (
-            <label className="checkbox-inline">
-                <input type="checkbox"  value="option1" onClick={this.selectSigleItem}  /> {username}
+            <label className="checkbox-inline" onClick={this.selectSigleItem}  >
+                <input type="checkbox"  value="option1" /> {username}
             </label>
         ) ;
         return retComp
