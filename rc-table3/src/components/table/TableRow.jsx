@@ -21,8 +21,8 @@ class TableRow extends Component{
     }
 
     componentWillUnmount(){
-        let record = this.props.record ;
-        console.info('record : ' , record) ;
+        const { record, onDestroy, rowIndex } = this.props;
+        console.info('rowIndex : ' , rowIndex) ;
         //this.props.onDestroy(record) ;
     }
 
