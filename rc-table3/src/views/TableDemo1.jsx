@@ -72,8 +72,7 @@ class MyTable extends Component{
                     columns ={columns} 
                     rowKeyFn ={record => record.a}
                     onRowClick={this.onRowClick}
-                    supportSelectAllFlag = {true} /** 是否支持全选**/
-                    selectedList={this.state.selectedList}
+                    /**  supportSelectAllFlag = {true}是否支持全选**/
                 />
                 <button className="btn btn-danger" onClick ={this.handleBatchDelete}>批量删除</button>
             </div>
