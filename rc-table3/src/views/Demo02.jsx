@@ -7,6 +7,13 @@ let initList = [
     {name:'zhaoliu',addr:'tianjin'},
 ] ;
 
+
+let liStyleObj = {
+    cursor:'pointer',
+    height:'25px',
+    borderBottom:'1px solid black'
+} ;
+
 class LiComp extends Component {
     componentWillUnmount() {
         console.info('lifecycle func componentWillUnmount() start .....') ;  
@@ -24,7 +31,7 @@ class LiComp extends Component {
     render (){
         let {index,record} = this.props ;
         return (
-            <li onClick ={this.handleClick}>name:{record.name} , addr : {record.addr}</li>
+            <li style={liStyleObj} onClick ={this.handleClick}>name:{record.name} , addr : {record.addr}</li>
         ) ;
     }
 }
