@@ -1,10 +1,10 @@
 import React,{Component} from 'react' ;
 
 let initList = [
-    {name:'yicj',addr:'henan'},
-    {name:'zhangsan',addr:'beijing'},
-    {name:'lisi',addr:'beijing'},
-    {name:'zhaoliu',addr:'tianjin'},
+    {name:'zhang-3',addr:'henan'},
+    {name:'li-4',addr:'beijing'},
+    {name:'wang-4',addr:'beijing'},
+    {name:'zhao-6',addr:'tianjin'},
 ] ;
 
 
@@ -16,20 +16,6 @@ let liStyleObj = {
 } ;
 
 class LiComp extends Component {
-
-    constructor(props){
-        super(props) ;
-        console.info('LiComp ..constructor() ...') ;
-    }
-
-    // componentWillReceiveProps(){
-    //     console.info('--------- componentWillReceiveProps () start ------------') ;  
-    //     const { record, index } = this.props;
-    //     console.info('index : ' ,index) ;
-    //     console.info('record : ' , JSON.stringify(record,null,2)) ;
-    //     console.info('---------componentWillReceiveProps () end ------------') ;  
-    // }
-
     componentWillUnmount() {
         console.info('--------- start ------------') ;  
         const { record, index } = this.props;
@@ -76,16 +62,8 @@ class Demo02 extends Component{
     constructor(props){
         super(props) ;
         this.state = {
-            list:[]
+          list:initList
         } ;
-        
-    }
-    componentDidMount(){
-        setTimeout(()=>{
-           this.setState({
-              list:initList
-           })  ; 
-        },0) ;
     }
     removeItemFn = (record) => {
        let newList = this.state.list.filter(item=> item !== record ) ;
