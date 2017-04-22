@@ -16,7 +16,11 @@ let liStyleObj = {
 } ;
 
 class LiComp extends Component {
-    componentWillUnmount() {
+    constructor(props){
+        super(props) ;
+        console.info('LiComp ..constructor() ...') ;
+    }
+     componentWillUnmount() {
         console.info('--------- start ------------') ;  
         const { record, index } = this.props;
         console.info('index : ' ,index) ;
