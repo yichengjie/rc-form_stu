@@ -1,8 +1,6 @@
 import React,{Component} from 'react' ;
 import Table from '../components/rctable/Table.jsx' ;
 
-
-
 class CheckBox extends Component{
   render() {
     const props = this.props;
@@ -16,15 +14,12 @@ class CheckBox extends Component{
 }
 
 class MyTable extends Component{
-
-
   constructor(props){
     super(props) ;
     this.state = {
          data: props.data,
     } ;
   }
-
   remove(index) {
     const rows = this.state.data;
     rows.splice(index, 1);
@@ -57,14 +52,11 @@ class MyTable extends Component{
       { title: 'Operations', dataIndex: '', key: 'x', render: this.renderAction },
     ];
     return (
-      <Table columns={columns} data={state.data} className="table" rowKey={record => record.a} />
+      <Table columns={columns} data={state.data} className="table" rowKey={(record,index) => index} />
     );
   }
 }
-
 const data = [{ a: '123' }, { a: 'cdd', b: 'edd' }, { a: '1333', c: 'eee', d: 2 }];
-
-
 class RcTable001 extends Component{
     render() {
         return (
@@ -76,5 +68,4 @@ class RcTable001 extends Component{
     }
 
 }
-
 export default  RcTable001 ;
