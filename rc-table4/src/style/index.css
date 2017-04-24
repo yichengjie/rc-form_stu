@@ -1,3 +1,7 @@
 body{
     margin: 50px ;
 }
+.pagination{
+    margin: 0; 
+    float: right;
+}

@@ -141,14 +141,17 @@ class Table extends Component {
             </tbody>
         ) ;
         return (
-            <table className="table table-bordered" style={this.getTableStyle()}>
-                <TableHeader columns ={columns} 
-                    supportSelectAllFlag={supportSelectAllFlag} 
-                    supportSelectAllWidth = {supportSelectAllWidth}
-                    selectedAllFlag={selectedAllFlag}
-                    handleSelectAllCheckbox = {this.handleSelectAllCheckbox}/>
-                {tableBody}
-            </table>
+            <div style={this.getTableStyle()}>
+                <table className="table table-bordered" >
+                    <TableHeader columns ={columns} 
+                        supportSelectAllFlag={supportSelectAllFlag} 
+                        supportSelectAllWidth = {supportSelectAllWidth}
+                        selectedAllFlag={selectedAllFlag}
+                        handleSelectAllCheckbox = {this.handleSelectAllCheckbox}/>
+                    {tableBody}
+                </table>
+                {this.props.children}
+            </div>
         );
     }
 } ;
