@@ -17,10 +17,12 @@ class Table extends Component {
          columns: PropTypes.array,
          data: PropTypes.array,
          rowKeyFn: PropTypes.func,
-         supportSelectAllFlag:PropTypes.bool
+         supportSelectAllFlag:PropTypes.bool,
+         getBodyWrapper:PropTypes.func
     } ;
     static defaultProps = {
-        data: []
+        data: [],
+        getBodyWrapper:body => body
     };
     
 
@@ -72,15 +74,14 @@ class Table extends Component {
         }
     }
 
-    renderAllTrs(param){
-        let {data,columns,rowKeyFn,onRowClick,supportSelectAllFlag} = param ;
+    renderAllTrs(){
+        let {data} = this.props ;
         return data.map((record,rowIndex)=>{
-            let trParam = {record,columns,rowIndex,rowKeyFn,onRowClick ,supportSelectAllFlag} ;
-            return this.renderTrItem(trParam) ;
+            return this.renderTrItem(record,rowIndex) ;
         }) ;
     }
-    renderTrItem(param){
-        let {record,columns ,rowIndex ,rowKeyFn,onRowClick,supportSelectAllFlag} = param ;
+    renderTrItem(record,rowIndex){
+        let {columns,rowKeyFn,onRowClick,supportSelectAllFlag} = this.props ;
         let selectedList = this.state.selectedList ;
         return (<TableRow  record = {record}  
                     selectedList = {selectedList}
@@ -100,21 +101,24 @@ class Table extends Component {
         }
         return record.key ;
     }
+    
 
     render() {
-        let {columns,data,rowKeyFn,onRowClick,supportSelectAllFlag} = this.props ;
-        let param = {columns,data,rowKeyFn,onRowClick,supportSelectAllFlag} ;
+        let {columns,data,getBodyWrapper,supportSelectAllFlag} = this.props ;
         let selectedList = this.state.selectedList ;
         let selectedAllFlag = data.length > 0 && (data.length === selectedList.length) ;
+        const tableBody = getBodyWrapper(
+            <tbody>
+                {this.renderAllTrs()}
+            </tbody>
+        ) ;
         return (
             <table className="table table-bordered">
                 <TableHeader columns ={columns} 
                     supportSelectAllFlag={supportSelectAllFlag} 
                     selectedAllFlag={selectedAllFlag}
                     handleSelectAllCheckbox = {this.handleSelectAllCheckbox}/>
-                <tbody>
-                    {this.renderAllTrs(param) }
-                </tbody>
+                {tableBody}
             </table>
         );
     }
