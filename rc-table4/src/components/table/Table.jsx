@@ -70,8 +70,9 @@ class Table extends Component {
         let {supportSelectDisableFn,data} = this.props ;
         let selectedList = this.state.selectedList ;
         //点击的前一刻checkbox的选中状态
-        let selectedAllFlag = data.length > 0 && (data.length === selectedList.length) ;
-        if(selectedAllFlag){//如果之前为选中，则selectedList将清空
+        let oldSelectedAllFlag = this.getAllSelectedFlag() ;
+        //console.info(`oldSelectedAllFlag : ${oldSelectedAllFlag}`)
+        if(oldSelectedAllFlag){//如果之前为选中，则selectedList将清空
             this.setState({selectedList:[]}) ;
         }else{
             let selectedArr = data.filter(record => !supportSelectDisableFn(record));

@@ -73,7 +73,7 @@ class MyTable extends Component{
             { title: 'username', dataIndex: 'username', key: 'a', width: 100, render: this.renderTitle1 },
             { title: 'title2', dataIndex: 'b', key: 'b', width: 100 },
             { title: 'title3', dataIndex: 'c', key: 'c', width: 200 },
-            { title: 'Operations', dataIndex: '', key: 'x', width:300, render: this.renderAction },
+            { title: '操作', dataIndex: '', key: 'x', width:300, render: this.renderAction },
         ];
         return (
             <div>
@@ -82,18 +82,14 @@ class MyTable extends Component{
                     columns ={columns} 
                     rowKeyFn ={record => record.username}
                     onRowClick={this.onRowClick}
-                    supportSelectDisableFn={record=>{
-                        if(record.username === 'cdd1'){
-                            return true;
-                        }
-                        return false; 
-                    }}
+                    supportSelectDisableFn={record=> record.username === '1333'}
                     supportSelectAllFlag = {true} /**  是否支持全选**/
                     supportSelectAllWidth="150" /**选中列占宽 */
                     width = {800}
                 />
                 <button className="btn btn-danger" onClick ={this.handleBatchDelete}>批量删除</button>
-                <button className="btn btn-danger" onClick ={this.handleTest}>test</button>
+                {'  '}
+                <button className="btn btn-default" onClick ={this.handleTest}>查看选中数据</button>
             </div>
             
         ) ;
