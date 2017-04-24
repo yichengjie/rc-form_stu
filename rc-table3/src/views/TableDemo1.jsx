@@ -62,7 +62,7 @@ class MyTable extends Component{
     handleTest = e => {
        let myTable =  this.refs.myTable ;
        let selectedList = myTable.getSelectedList() ;
-       console.info('selectedList :  ' , selectedList) ;
+       console.info('selectedList :  ' , JSON.stringify(selectedList,null,2) ) ;
     }
 
     render(){

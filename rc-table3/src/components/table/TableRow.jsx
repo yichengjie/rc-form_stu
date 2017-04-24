@@ -22,8 +22,8 @@ class TableRow extends Component{
 
     componentWillUnmount(){
         const { record, onDestroy, rowIndex } = this.props;
-        console.info('rowIndex : ' , rowIndex) ;
-        //this.props.onDestroy(record) ;
+        //console.info('rowIndex : ' , rowIndex) ;
+        this.props.onDestroy(record) ;
     }
 
     renderAllTds(record,columns,rowIndex,supportSelectAllFlag){
