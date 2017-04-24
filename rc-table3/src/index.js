@@ -9,6 +9,6 @@ import Demo03 from './views/Demo03.jsx' ;
 import RcTable001 from './views/rctable001.jsx' ;
 
 ReactDOM.render(
-  <Demo03 />,
+  <TableDemo1 />,
   document.getElementById('app')
 );

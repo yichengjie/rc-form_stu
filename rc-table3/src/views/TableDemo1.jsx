@@ -77,7 +77,7 @@ class MyTable extends Component{
                 <Table data = {this.state.data} 
                     ref = "myTable"
                     columns ={columns} 
-                    rowKeyFn ={record => record.a}
+                    rowKeyFn ={record => record.username}
                     onRowClick={this.onRowClick}
                     supportSelectAllFlag = {true} /**  是否支持全选**/
                 />

@@ -90,15 +90,15 @@ class Table extends Component {
                     onDestroy = {this.removeSelectedItem}
                     supportSelectAllFlag = {supportSelectAllFlag}
                     handleSelectSingleCheckboxItem = {this.handleSelectSingleCheckboxItem}
-                    key ={this.getKeyByRowKeyFn(record,rowIndex,rowKeyFn)}/>
+                    key ={this.getKeyByRowKeyFn(record,rowKeyFn,rowIndex)}/>
         ) ;
     }
-    getKeyByRowKeyFn(record,rowIndex,rowKeyFn){
-        let tmpStr = '' ;
+    //key一定要唯一能确定一条记录，并且必须由外部指定，不能直接使用rowIndex
+    getKeyByRowKeyFn(record,rowKeyFn,rowIndex){
         if(rowKeyFn && typeof rowKeyFn === 'function'){
-            tmpStr = rowKeyFn(record,rowIndex) + '' ;
+            return rowKeyFn.call(this,record,rowIndex) + '' ;
         }
-        return rowIndex + '' +  tmpStr + record.key ;
+        return record.key ;
     }
 
     render() {
