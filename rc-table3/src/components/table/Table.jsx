@@ -96,7 +96,7 @@ class Table extends Component {
     //key一定要唯一能确定一条记录，并且必须由外部指定，不能直接使用rowIndex
     getKeyByRowKeyFn(record,rowKeyFn,rowIndex){
         if(rowKeyFn && typeof rowKeyFn === 'function'){
-            return rowKeyFn.call(this,record,rowIndex) + '' ;
+            return rowKeyFn(record,rowIndex) ;
         }
         return record.key ;
     }
