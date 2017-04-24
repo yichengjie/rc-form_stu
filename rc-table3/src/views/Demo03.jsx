@@ -56,7 +56,7 @@ class Demo03 extends Component{
     }
     renderAllLi(){
        return this.state.list.map((record,index)=>{
-           return (<LiComp key ={index} index ={index} record ={record} 
+           return (<LiComp key ={record.name} index ={index} record ={record} 
                     removeItemFn = {this.removeItemFn}  />) ;
        }) ;
     }
