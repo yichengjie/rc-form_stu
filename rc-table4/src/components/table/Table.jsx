@@ -142,7 +142,7 @@ class Table extends Component {
         ) ;
         return (
             <div style={this.getTableStyle()}>
-                <table className="table table-bordered" >
+                <table className="table table-bordered table-hover" >
                     <TableHeader columns ={columns} 
                         supportSelectAllFlag={supportSelectAllFlag} 
                         supportSelectAllWidth = {supportSelectAllWidth}

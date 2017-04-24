@@ -45,19 +45,31 @@ class TableRow extends Component{
             this.props.handleSelectSingleCheckboxItem(record) ;
         }
     } 
-    
 
-    getSingleSelectComp(columnCount,record){
+
+    //判断当前checkbox是否应该被选中
+    getCheckboxSelectedFlag (record){
         let checkedFlag = false; 
         let {supportSelectDisableFn,selectedList} = this.props ;
         let selectDisableFlag = supportSelectDisableFn(record) ;
-        let checkboxComp = null ;
         if(!selectDisableFlag){//false:可以选择，true：不能选择
             if(selectedList.length > 0){
                checkedFlag = this.props.selectedList.includes(record) ;
             }
+        }
+        return checkedFlag  ;
+    }
+    
+
+    getSingleSelectComp(columnCount,record){
+        let checkboxSelectedFlag = false; 
+        let checkboxComp = null ;
+        let {supportSelectDisableFn,selectedList} = this.props ;
+        let selectDisableFlag = supportSelectDisableFn(record) ;
+        if(!selectDisableFlag){//false:可以选择，true：不能选择
+            checkboxSelectedFlag = this.getCheckboxSelectedFlag(record) ;
             checkboxComp = (<label className="checkbox-inline" >
-                                <input type="checkbox"  checked = {checkedFlag}  
+                                <input type="checkbox"  checked = {checkboxSelectedFlag}  
                                     onClick={this.handleSelectSingleCheckboxItemFactory(record)}/>选择
                             </label> ) ;
         }
@@ -70,8 +82,9 @@ class TableRow extends Component{
     
     render(){
         let {record,columns,rowIndex,onRowClick,supportSelectAllFlag} = this.props ;
+        let checkboxSelectedFlag = this.getCheckboxSelectedFlag(record) ;
         return (
-            <tr onClick= {onRowClick(record,rowIndex)}>
+            <tr onClick= {onRowClick(record,rowIndex)} className={checkboxSelectedFlag ? 'info':''}>
                 {this.renderAllTds(record,columns,rowIndex,supportSelectAllFlag)}
             </tr>
         ) ;

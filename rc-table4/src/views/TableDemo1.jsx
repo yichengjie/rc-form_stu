@@ -41,6 +41,7 @@ class MyTable extends Component{
         return e => {
             e.preventDefault() ;
             console.info('method onRowClick ...' ,record) ;
+           // alert(`record.username : ${record.username}`) ;
         }
     }
     onRowDoubleClick(record,index){
