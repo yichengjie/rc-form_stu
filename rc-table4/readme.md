@@ -1,1 +1,1 @@
-> 在rc-table3的基础上准备增加colspan合并单元格
+> 在rc-table3的基础上继续完善table组件

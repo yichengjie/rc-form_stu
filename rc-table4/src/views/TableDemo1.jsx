@@ -81,6 +81,7 @@ class MyTable extends Component{
                     onRowClick={this.onRowClick}
                     supportSelectAllFlag = {true} /**  是否支持全选**/
                     supportSelectAllWidth="150" /**选中列占宽 */
+                    width = {800}
                 />
                 <button className="btn btn-danger" onClick ={this.handleBatchDelete}>批量删除</button>
                 <button className="btn btn-danger" onClick ={this.handleTest}>test</button>

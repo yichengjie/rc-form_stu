@@ -14,6 +14,7 @@ class Table extends Component {
     }
 
     static propTypes = {
+         width: PropTypes.number,
          columns: PropTypes.array,
          data: PropTypes.array,
          rowKeyFn: PropTypes.func,
@@ -102,7 +103,16 @@ class Table extends Component {
         }
         return record.key ;
     }
-    
+
+
+    getTableStyle(){
+        let {width} = this.props ;
+        let tableObj = {} ;
+        if(width && width > 0){
+           tableObj.width = width +"px" ; 
+        }
+        return tableObj ;
+    }
 
     render() {
         let {columns,data,getBodyWrapper,supportSelectAllFlag,supportSelectAllWidth} = this.props ;
@@ -114,7 +124,7 @@ class Table extends Component {
             </tbody>
         ) ;
         return (
-            <table className="table table-bordered">
+            <table className="table table-bordered" style={this.getTableStyle()}>
                 <TableHeader columns ={columns} 
                     supportSelectAllFlag={supportSelectAllFlag} 
                     supportSelectAllWidth = {supportSelectAllWidth}
