@@ -22,9 +22,12 @@ import 'bootstrap/dist/css/bootstrap.css' ;
 // import FixedColumns from './components/FixedColumns.jsx' ;
 // import FixedColumnsAndHeader from './components/FixedColumnsAndHeader.jsx' ;
 // import ExpandedRowRender from './components/ExpandedRowRender.jsx' ;
+import ChildrenIndent from './components/ChildrenIndent.jsx' ;
+import ClassName from './components/ClassName.jsx' ;
+
 import TableDemo1 from './views/TableDemo1.jsx' ;
 
 ReactDOM.render(
-  <TableDemo1 />,
+  <ClassName />,
   document.getElementById('app')
 );

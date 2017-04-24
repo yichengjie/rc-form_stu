@@ -2,6 +2,7 @@ import React,{Component} from 'react' ;
 import Table from '../components/table/Table.jsx' ;
 import Animate from 'rc-animate';
 require('rc-table/assets/animation.css');
+const uuidV4 = require('uuid/v4');
 
 class MyTable extends Component{
 
@@ -61,6 +62,16 @@ class MyTable extends Component{
        }
     }
 
+    handleAddItem = () => {
+        const data = [...this.state.data];
+        data.push({
+            username: uuidV4(),
+            b: 'new data',
+            c: 'new data'
+        });
+        this.setState({ data });
+   }
+
     handleTest = e => {
        let myTable =  this.refs.myTable ;
        let selectedList = myTable.getSelectedList() ;
@@ -93,13 +104,12 @@ class MyTable extends Component{
                     getBodyWrapper={this.getBodyWrapper}
                 />
                 <button className="btn btn-danger" onClick ={this.handleBatchDelete}>批量删除</button>
-                <button className="btn btn-danger" onClick ={this.handleTest}>test</button>
+                <button className="btn btn-default" onClick ={this.handleTest}>获取选中的数据</button>
+                <button className="btn btn-success" onClick ={this.handleAddItem}>增加一条记录</button>
             </div>
-            
         ) ;
     }
 }
 
 const data = [{ username: '123' }, { username: 'cdd', b: 'edd' }, { username: '1333', b: 'eee', c: 2 }];
-
 export default () => <MyTable data ={data} /> ;
