@@ -24,10 +24,11 @@ import 'bootstrap/dist/css/bootstrap.css' ;
 // import ExpandedRowRender from './components/ExpandedRowRender.jsx' ;
 import ChildrenIndent from './components/ChildrenIndent.jsx' ;
 import ClassName from './components/ClassName.jsx' ;
-
+import ColspanRowspan from './components/ColspanRowspan.jsx' ;
+import Dropdown from './components/Dropdown.jsx' ;
 import TableDemo1 from './views/TableDemo1.jsx' ;
 
 ReactDOM.render(
-  <ClassName />,
+  <Dropdown />,
   document.getElementById('app')
 );

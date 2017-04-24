@@ -20,7 +20,7 @@ class LiComp extends Component {
         super(props) ;
         console.info('LiComp ..constructor() ...') ;
     }
-     componentWillUnmount() {
+    componentWillUnmount() {
         console.info('--------- start ------------') ;  
         const { record, index } = this.props;
         console.info('index : ' ,index) ;
