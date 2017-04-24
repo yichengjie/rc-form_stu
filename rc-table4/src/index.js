@@ -7,6 +7,6 @@ import TableDemo1 from './views/TableDemo1.jsx' ;
 
 
 ReactDOM.render(
-  <TableAnimation />,
+  <TableDemo1 />,
   document.getElementById('app')
 );

@@ -18,7 +18,8 @@ class Table extends Component {
          data: PropTypes.array,
          rowKeyFn: PropTypes.func,
          supportSelectAllFlag:PropTypes.bool,
-         getBodyWrapper:PropTypes.func
+         supportSelectAllWidth:PropTypes.oneOfType([PropTypes.number,PropTypes.string]),
+         getBodyWrapper:PropTypes.func,
     } ;
     static defaultProps = {
         data: [],
@@ -89,7 +90,7 @@ class Table extends Component {
                     rowIndex = {rowIndex}
                     onRowClick = {onRowClick}
                     onDestroy = {this.removeSelectedItem}
-                    supportSelectAllFlag = {supportSelectAllFlag}
+                    supportSelectAllFlag = {supportSelectAllFlag}    
                     handleSelectSingleCheckboxItem = {this.handleSelectSingleCheckboxItem}
                     key ={this.getKeyByRowKeyFn(record,rowKeyFn,rowIndex)}/>
         ) ;
@@ -104,7 +105,7 @@ class Table extends Component {
     
 
     render() {
-        let {columns,data,getBodyWrapper,supportSelectAllFlag} = this.props ;
+        let {columns,data,getBodyWrapper,supportSelectAllFlag,supportSelectAllWidth} = this.props ;
         let selectedList = this.state.selectedList ;
         let selectedAllFlag = data.length > 0 && (data.length === selectedList.length) ;
         const tableBody = getBodyWrapper(
@@ -116,6 +117,7 @@ class Table extends Component {
             <table className="table table-bordered">
                 <TableHeader columns ={columns} 
                     supportSelectAllFlag={supportSelectAllFlag} 
+                    supportSelectAllWidth = {supportSelectAllWidth}
                     selectedAllFlag={selectedAllFlag}
                     handleSelectAllCheckbox = {this.handleSelectAllCheckbox}/>
                 {tableBody}

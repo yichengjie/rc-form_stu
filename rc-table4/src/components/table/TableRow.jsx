@@ -11,7 +11,8 @@ class TableRow extends Component{
          onRowClick: PropTypes.func,
          supportSelectAllFlag: PropTypes.bool,
          selectedList: PropTypes.array,
-         onDestroy: PropTypes.func
+         onDestroy: PropTypes.func,
+         
     }
 
     static defaultProps = {

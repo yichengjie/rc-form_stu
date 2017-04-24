@@ -6,7 +6,8 @@ class TableHeader extends Component{
     static propTypes = {
          columns: PropTypes.array,
          supportSelectAllFlag:PropTypes.bool,
-         handleSelectAllCheckbox:PropTypes.func
+         supportSelectAllWidth:PropTypes.oneOfType([PropTypes.number,PropTypes.string]),
+         handleSelectAllCheckbox:PropTypes.func,
     }
     renderAllThs(columns,supportSelectAllFlag,selectedAllFlag){
         let arr = columns.map((item,columnIndex) => {
@@ -20,7 +21,9 @@ class TableHeader extends Component{
 
 
     getSelectAllComp(columnCount,selectedAllFlag){
-        return (<th key = {columnCount} >
+        let {supportSelectAllWidth} = this.props ;
+        //console.info(`supportSelectAllWidth : ${supportSelectAllWidth}`) ;
+        return (<th width= {supportSelectAllWidth} key = {columnCount} >
                     <label className="checkbox-inline" >
                         <input type="checkbox"  
                             onClick={this.props.handleSelectAllCheckbox}
@@ -31,10 +34,9 @@ class TableHeader extends Component{
     }
 
     renderThItem(item,columnIndex){
-        let {title,key} = item ;
-        key = columnIndex + '' + key ;
+        let {title,key,width} = item ;
         return (
-             <th key={key}>{title}</th>
+             <th width={width} key={key || columnIndex}>{title}</th>
         ) ;
     }
     render(){

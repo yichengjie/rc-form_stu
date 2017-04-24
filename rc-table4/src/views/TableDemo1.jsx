@@ -50,7 +50,7 @@ class MyTable extends Component{
        let data = this.state.data ;
        if(selectedList.length > 0 && data.length > 0){
             let newList = data.filter(item =>{
-                    return !selectedList.includes(item) ;
+                return !selectedList.includes(item) ;
             }) ;
             this.setState({
                 data:newList
@@ -70,7 +70,7 @@ class MyTable extends Component{
             { title: 'username', dataIndex: 'username', key: 'a', width: 100, render: this.renderTitle1 },
             { title: 'title2', dataIndex: 'b', key: 'b', width: 100 },
             { title: 'title3', dataIndex: 'c', key: 'c', width: 200 },
-            { title: 'Operations', dataIndex: '', key: 'x', render: this.renderAction },
+            { title: 'Operations', dataIndex: '', key: 'x', width:300, render: this.renderAction },
         ];
         return (
             <div>
@@ -80,6 +80,7 @@ class MyTable extends Component{
                     rowKeyFn ={record => record.username}
                     onRowClick={this.onRowClick}
                     supportSelectAllFlag = {true} /**  是否支持全选**/
+                    supportSelectAllWidth="150" /**选中列占宽 */
                 />
                 <button className="btn btn-danger" onClick ={this.handleBatchDelete}>批量删除</button>
                 <button className="btn btn-danger" onClick ={this.handleTest}>test</button>
