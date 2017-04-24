@@ -79,6 +79,12 @@ class MyTable extends Component{
                     columns ={columns} 
                     rowKeyFn ={record => record.username}
                     onRowClick={this.onRowClick}
+                    supportSelectDisableFn={record=>{
+                        if(record.username === 'cdd1'){
+                            return true;
+                        }
+                        return false; 
+                    }}
                     supportSelectAllFlag = {true} /**  是否支持全选**/
                     supportSelectAllWidth="150" /**选中列占宽 */
                     width = {800}

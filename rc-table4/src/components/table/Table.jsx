@@ -20,11 +20,13 @@ class Table extends Component {
          rowKeyFn: PropTypes.func,
          supportSelectAllFlag:PropTypes.bool,
          supportSelectAllWidth:PropTypes.oneOfType([PropTypes.number,PropTypes.string]),
+         supportSelectDisableFn:PropTypes.func,
          getBodyWrapper:PropTypes.func,
     } ;
     static defaultProps = {
         data: [],
-        getBodyWrapper:body => body
+        getBodyWrapper:body => body,
+        supportSelectDisableFn:(record) => false
     };
     
 
@@ -65,14 +67,15 @@ class Table extends Component {
 
     handleSelectAllCheckbox = e => {
         e.stopPropagation() ;
-        let data = this.props.data ;
+        let {supportSelectDisableFn,data} = this.props ;
         let selectedList = this.state.selectedList ;
         //点击的前一刻checkbox的选中状态
         let selectedAllFlag = data.length > 0 && (data.length === selectedList.length) ;
         if(selectedAllFlag){//如果之前为选中，则selectedList将清空
             this.setState({selectedList:[]}) ;
         }else{
-            this.setState({selectedList:[...data]}) ;
+            let selectedArr = data.filter(record => !supportSelectDisableFn(record));
+            this.setState({selectedList:selectedArr}) ;
         }
     }
 
@@ -83,7 +86,7 @@ class Table extends Component {
         }) ;
     }
     renderTrItem(record,rowIndex){
-        let {columns,rowKeyFn,onRowClick,supportSelectAllFlag} = this.props ;
+        let {columns,rowKeyFn,onRowClick,supportSelectAllFlag,supportSelectDisableFn} = this.props ;
         let selectedList = this.state.selectedList ;
         return (<TableRow  record = {record}  
                     selectedList = {selectedList}
@@ -91,7 +94,8 @@ class Table extends Component {
                     rowIndex = {rowIndex}
                     onRowClick = {onRowClick}
                     onDestroy = {this.removeSelectedItem}
-                    supportSelectAllFlag = {supportSelectAllFlag}    
+                    supportSelectAllFlag = {supportSelectAllFlag}   
+                    supportSelectDisableFn = {supportSelectDisableFn} 
                     handleSelectSingleCheckboxItem = {this.handleSelectSingleCheckboxItem}
                     key ={this.getKeyByRowKeyFn(record,rowKeyFn,rowIndex)}/>
         ) ;
@@ -114,10 +118,22 @@ class Table extends Component {
         return tableObj ;
     }
 
-    render() {
-        let {columns,data,getBodyWrapper,supportSelectAllFlag,supportSelectAllWidth} = this.props ;
+
+    getAllSelectedFlag(){
+        let {data,supportSelectDisableFn} = this.props ;
         let selectedList = this.state.selectedList ;
-        let selectedAllFlag = data.length > 0 && (data.length === selectedList.length) ;
+        //let selectedAllFlag = data.length > 0 && (data.length === selectedList.length) ;
+        if(data.length> 0 && selectedList.length > 0){
+             let selectedAllFlag = true ;
+             let canSelectArr = data.filter(record => !supportSelectDisableFn(record)) ;
+             return selectedList.length === canSelectArr.length ;
+        }
+        return false;
+    }
+
+    render() {
+        let {columns,data,getBodyWrapper,supportSelectAllFlag,supportSelectDisableFn,supportSelectAllWidth} = this.props ;
+        let selectedAllFlag = this.getAllSelectedFlag() ;
         const tableBody = getBodyWrapper(
             <tbody>
                 {this.renderAllTrs()}

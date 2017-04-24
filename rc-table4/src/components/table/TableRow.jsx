@@ -12,7 +12,7 @@ class TableRow extends Component{
          supportSelectAllFlag: PropTypes.bool,
          selectedList: PropTypes.array,
          onDestroy: PropTypes.func,
-         
+         supportSelectDisableFn:PropTypes.func
     }
 
     static defaultProps = {
@@ -45,19 +45,24 @@ class TableRow extends Component{
             this.props.handleSelectSingleCheckboxItem(record) ;
         }
     } 
-
     
 
     getSingleSelectComp(columnCount,record){
         let checkedFlag = false; 
-        if( this.props.selectedList.length > 0){
-            checkedFlag = this.props.selectedList.includes(record) ;
+        let {supportSelectDisableFn,selectedList} = this.props ;
+        let selectDisableFlag = supportSelectDisableFn(record) ;
+        let checkboxComp = null ;
+        if(!selectDisableFlag){//false:可以选择，true：不能选择
+            if(selectedList.length > 0){
+               checkedFlag = this.props.selectedList.includes(record) ;
+            }
+            checkboxComp = (<label className="checkbox-inline" >
+                                <input type="checkbox"  checked = {checkedFlag}  
+                                    onClick={this.handleSelectSingleCheckboxItemFactory(record)}/>选择
+                            </label> ) ;
         }
         return (<td key ={columnCount} onClick ={e => e.stopPropagation()}>
-                     <label className="checkbox-inline" >
-                        <input type="checkbox"  checked = {checkedFlag}  
-                            onClick={this.handleSelectSingleCheckboxItemFactory(record)}/>选择
-                    </label> 
+                   {checkboxComp} 
                 </td>
         ) ;
     }
