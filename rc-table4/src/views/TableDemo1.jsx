@@ -19,7 +19,10 @@ class MyTable extends Component{
     }
 
     renderAction = (record,index) =>{
-         return <a href="#" onClick ={this.handleDeleteClick(index)} >Delete</a>;
+        if(record.username !== 'cdd'){
+            return <a href="#" onClick ={this.handleDeleteClick(index)} >删除</a>;
+        }
+        return null ;
     }
 
     removeItem(index){
