@@ -19,7 +19,7 @@ class PagebarDemo1 extends Component{
                    width= {700} 
                    supportSelectAllWidth={100}
                    supportSelectAllFlag> 
-                   <Pagebar />
+                   <Pagebar test ="hello" />
                 </Table>
             </div>
         )

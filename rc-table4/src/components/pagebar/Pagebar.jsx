@@ -51,10 +51,10 @@ class Pagebar extends Component {
         if(starPageNum > 0 && endPageNum > 0 && endPageNum >= starPageNum){
             for(let item = starPageNum ; item <= endPageNum ; item ++ ){
                 let comp = (<li className={(item === curPage) ? 'active' : ''} 
-                            key ={item} 
-                            onClick ={this.handleToPageNumClickFactory(item)}>
-                        <a href="#">{item}</a>
-                    </li>) ;
+                                key ={item} 
+                                onClick ={this.handleToPageNumClickFactory(item)}>
+                                <a href="#">{item}</a>
+                            </li>) ;
                 retArr.push(comp) ;
             }
         }
@@ -62,6 +62,9 @@ class Pagebar extends Component {
     }
 
     render () {
+
+        console.info('test : ' , this.props.test) ;
+
         return (
             <nav aria-label="Page navigation">
                 <ul className="pagination">
