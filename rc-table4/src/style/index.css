@@ -11,3 +11,10 @@ body{
     line-height: 33px;
     margin-left: 10px ;
 }
+.no-data{
+    position:fixed;
+	top:50%;
+	/*margin-top:-10px;*/
+    left:50%;
+	/*margin-left:-10px;*/
+}

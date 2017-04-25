@@ -11,6 +11,33 @@ const data = [{ username: '123' ,key:'001'}, { username: 'cdd', b: 'edd',key:'00
 
 class PagebarDemo1 extends Component{
 
+    constructor(props){
+        super(props) ;
+        this.state = {
+            pageBean:{
+                curPage:5,//当前是第几页
+                pageSize:10,//每页显示的记录数
+                recordCount:0,//总记录数
+                startPageNum:5,//第一页
+                endPageNum:10,//最有一页
+                pageCount:50, // 总页码数
+                prePageNum:0,//上一页页码数
+                nextPageNum:0,//下一页页码数
+            },
+            loading:false
+        } ;
+    }
+    
+    handleToPageNumFn = (toPageNum) => {
+        let pageBean = this.state.pageBean ;
+        let newPageBean = {...pageBean,curPage:toPageNum} ;
+        this.setState({loading:true}) ;
+        //这里去做查询相关的业务，数据返回后更新pageBean
+        setTimeout(()=>{
+             this.setState({pageBean:newPageBean,loading:false}) ;
+        },1000) ;
+    }
+
     render () {
         return (
             <div>
@@ -19,7 +46,9 @@ class PagebarDemo1 extends Component{
                    width= {700} 
                    supportSelectAllWidth={100}
                    supportSelectAllFlag> 
-                   <Pagebar test ="hello" />
+                   <Pagebar pageBean = {this.state.pageBean}  
+                     handleToPageNumFn={this.handleToPageNumFn}
+                     loading={this.state.loading}/>
                 </Table>
             </div>
         )
