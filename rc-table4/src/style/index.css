@@ -5,3 +5,9 @@ body{
     margin: 0; 
     float: right;
 }
+.pagebar-tip-info{
+    display: inline-block ;
+    height: 33px;
+    line-height: 33px;
+    margin-left: 10px ;
+}
