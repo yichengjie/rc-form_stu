@@ -84,13 +84,13 @@ class Pagebar extends Component {
     }
 
     render () {
-        let {pageCount} = this.props.pageBean ;
+        let {pageCount,recordCount} = this.props.pageBean ;
         let {loading} = this.props ;
         if(loading){
             return this.renderLoading() ;
         }
         return (
-            <nav aria-label="Page navigation">
+            <nav aria-label="Page navigation" className ="pagebar-container">
                 <ul className="pagination">
                     <li onClick ={this.handleToPreviousPageClick}>
                         <a href="#" aria-label="Previous">
@@ -103,7 +103,7 @@ class Pagebar extends Component {
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
-                    <li><div className="pagebar-tip-info">共{pageCount}页</div></li>
+                    <li><div className="pagebar-tip-info">共{pageCount}页,{recordCount}条记录</div></li>
                 </ul>
             </nav>
         )

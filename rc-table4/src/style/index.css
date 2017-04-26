@@ -3,7 +3,6 @@ body{
 }
 .pagination{
     margin: 0; 
-    float: right;
 }
 .pagebar-tip-info{
     display: inline-block ;
@@ -14,7 +13,17 @@ body{
 .no-data{
     position:fixed;
 	top:50%;
-	/*margin-top:-10px;*/
     left:50%;
-	/*margin-left:-10px;*/
 }
+.pagebar-container{
+    display: block ;
+    text-align: right;
+}
+.table{
+    margin-bottom: 10px;
+}
+/*.pagebar-container::after{
+    display: table;
+    content: '';
+    clear: both ;
+}*/

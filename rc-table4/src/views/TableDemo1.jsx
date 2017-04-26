@@ -1,5 +1,6 @@
 import React,{Component} from 'react' ;
 import Table from '../components/table/Table.jsx' ;
+import Pagebar from '../components/pagebar/Pagebar.jsx' ;
 
 class MyTable extends Component{
 
@@ -7,6 +8,17 @@ class MyTable extends Component{
         super(props) ;
         this.state = {
             data:this.props.data ,
+            pageBean:{
+                curPage:5,//当前是第几页
+                pageSize:10,//每页显示的记录数
+                recordCount:500,//总记录数
+                startPageNum:5,//第一页
+                endPageNum:10,//最有一页
+                pageCount:50, // 总页码数
+                prePageNum:0,//上一页页码数
+                nextPageNum:0,//下一页页码数
+            },
+            loading:false
         } ;
     }
 
@@ -69,6 +81,13 @@ class MyTable extends Component{
        console.info('selectedList :  ' , JSON.stringify(selectedList,null,2) ) ;
     }
 
+    handleToPageNumFn = (toPageNum) => {
+        let pageBean = this.state.pageBean ;
+        let newPageBean = {...pageBean,curPage:toPageNum} ;
+        //这里去做查询相关的业务，数据返回后更新pageBean
+        this.setState({pageBean:newPageBean}) ;
+    }
+
     render(){
         const columns = [
             { title: 'username', dataIndex: 'username', key: 'a', width: 100, render: this.renderTitle1 },
@@ -86,8 +105,12 @@ class MyTable extends Component{
                     supportSelectDisableFn={record=> record.username === '1333'}
                     supportSelectAllFlag = {true} /**  是否支持全选**/
                     supportSelectAllWidth="150" /**选中列占宽 */
-                    width = {800}
-                />
+                    width = {800}>
+
+                   <Pagebar pageBean = {this.state.pageBean}
+                        handleToPageNumFn={this.handleToPageNumFn}/> 
+
+                </Table>
                 <button className="btn btn-danger" onClick ={this.handleBatchDelete}>批量删除</button>
                 {'  '}
                 <button className="btn btn-default" onClick ={this.handleTest}>查看选中数据</button>
