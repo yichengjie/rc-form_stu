@@ -2,7 +2,7 @@
 import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
 //引入组件
-import 'bootstrap/dist/css/bootstrap.css' ;
+//import 'bootstrap/dist/css/bootstrap.css' ;
 import './style/index.css' ;
 import TableDemo1 from './views/TableDemo1.jsx' ;
 import SimpleDemo1 from './views/SimpleDemo1.jsx' ;
