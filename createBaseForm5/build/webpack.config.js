@@ -14,10 +14,7 @@ module.exports = {
     //     'webpack-hot-middleware/client?reload=true',
     //  ]
     entry:{
-      index:  path.resolve(__dirname, '../src/index.js'),
-      vendors: [
-        'react','react-dom'
-      ]
+      index:  path.resolve(__dirname, '../src/index.js')
     },
     // 输出配置
     output: {
@@ -61,12 +58,18 @@ module.exports = {
     resolve: {
       extensions: ['', '.js', '.jsx']
     },
+    externals: {
+        "react": "React",
+        "react-dom": "ReactDOM",
+        "jquery": "window.$",
+        "jquery": "window.jQuery"
+    },
     plugins: [
-        new webpack.ProvidePlugin({
-            $: "jquery",
-            jQuery: "jquery",
-            "window.jQuery": "jquery"
-        }), 
+        // new webpack.ProvidePlugin({
+        //     $: "jquery",
+        //     jQuery: "jquery",
+        //     "window.jQuery": "jquery"
+        // }), 
         new ExtractTextPlugin('main.css'),
     ]
 }

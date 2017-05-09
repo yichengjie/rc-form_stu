@@ -2,7 +2,7 @@
 'use strict';
 import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
-require('bootstrap/dist/css/bootstrap.css') ;
+//require('bootstrap/dist/css/bootstrap.css') ;
 require('./styles/index.css') ;
 
 import './styles/jquery_ui.datepicker-modify.css';

@@ -1,9 +1,12 @@
 var express = require('express')
 var webpack = require('webpack')
 var config = require('./webpack.dev.conf')
-
+var path = require('path') ;
 // 创建一个express实例
 var app = express()
+
+var publicPath = path.join(__dirname, '../static') ;
+app.use('/static',express.static(publicPath));//和上面是一样的
 
 // 调用webpack并把配置传递过去
 var compiler = webpack(config)
