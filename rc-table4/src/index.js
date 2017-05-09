@@ -9,6 +9,6 @@ import SimpleDemo1 from './views/SimpleDemo1.jsx' ;
 import PagebarDemo1 from './views/PagebarDemo1.jsx' ;
 
 ReactDOM.render(
-  <TableDemo1 />,
+  <PagebarDemo1 />,
   document.getElementById('app')
 );
