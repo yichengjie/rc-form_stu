@@ -1,0 +1,29 @@
+body{
+    margin: 50px ;
+}
+.pagination{
+    margin: 0; 
+}
+.pagebar-tip-info{
+    display: inline-block ;
+    height: 33px;
+    line-height: 33px;
+    margin-left: 10px ;
+}
+.no-data{
+    position:fixed;
+	top:50%;
+    left:50%;
+}
+.pagebar-container{
+    display: block ;
+    text-align: right;
+}
+.table{
+    margin-bottom: 10px;
+}
+/*.pagebar-container::after{
+    display: table;
+    content: '';
+    clear: both ;
+}*/
